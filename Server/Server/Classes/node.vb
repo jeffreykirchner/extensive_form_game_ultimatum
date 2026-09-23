@@ -195,7 +195,7 @@
 
                 'draw payoffs
                 If payoff11 >= 0 And payoff12 >= 0 Then
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(payoff11, payoff12), f1).Width
+                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff11), getDisplayedPayoff(payoff12)), f1).Width
 
                     g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
                     drawPayoff(pt3, g, payoff11, payoff12)
@@ -207,7 +207,7 @@
                 End If
 
                 If payoff31 >= 0 And payoff32 >= 0 Then
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(payoff31, payoff32), f1).Width
+                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff31), getDisplayedPayoff(payoff32)), f1).Width
 
                     g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)
                     drawPayoff(pt4, g, payoff31, payoff32)
@@ -351,6 +351,11 @@
     Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String)
         Try
 
+            If decimalFormat Then
+                payOffTop = Format(CDbl(payOffTop), "0.00")
+                payOffBottom = Format(CDbl(payOffBottom), "0.00")
+            End If
+
             g.DrawString(getPayoffParenthesis(payOffTop, payOffBottom), f1, Brushes.Black, startPt.X, startPt.Y - g.MeasureString("(  )", f1).Height / 2, fmt)
 
             If payoffMode = "dollars" Then
@@ -424,5 +429,13 @@
             appEventLog_Write("error :", ex)
             Return ""
         End Try
+    End Function
+
+    Private Function getDisplayedPayoff(payoff As Double) As String
+        If decimalFormat Then
+            Return Format(payoff, "0.00")
+        End If
+
+        Return payoff.ToString()
     End Function
 End Class

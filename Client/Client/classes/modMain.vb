@@ -464,8 +464,6 @@ Module modMain
                     nodeListInstructions(1, 3).owner = myType
                     nodeListInstructions(1, 3).myColor = getMyColor(nodeListInstructions(1, 3).owner)
 
-                    nodeListInstructions(2, 3).owner = myType
-                    nodeListInstructions(2, 3).myColor = getMyColor(nodeListInstructions(2, 3).owner)
                     'nodeListInstructions(2, 3).payoff11 = nodeListInstructions(2, 3).payoff11.Replace("0", "w")
                     'nodeListInstructions(2, 3).payoff12 = nodeListInstructions(2, 3).payoff12.Replace("0", "x")
                     'nodeListInstructions(2, 3).payoff21 = nodeListInstructions(2, 3).payoff21.Replace("0", "y")
@@ -473,11 +471,14 @@ Module modMain
 
                     If myType = 1 Then
                         nodeListInstructions(3, 3).owner = 2
+                        nodeListInstructions(2, 3).owner = 2
                     Else
                         nodeListInstructions(3, 3).owner = 1
+                        nodeListInstructions(2, 3).owner = 1
                     End If
 
                     nodeListInstructions(3, 3).myColor = getMyColor(nodeListInstructions(3, 3).owner)
+                    nodeListInstructions(2, 3).myColor = getMyColor(nodeListInstructions(2, 3).owner)
                     'nodeListInstructions(3, 3).payoff11 = nodeListInstructions(3, 3).payoff11.Replace("0", "a")
                     'nodeListInstructions(3, 3).payoff12 = nodeListInstructions(3, 3).payoff12.Replace("0", "b")
                     'nodeListInstructions(3, 3).payoff21 = nodeListInstructions(3, 3).payoff21.Replace("0", "c")

@@ -177,7 +177,6 @@
                                 RichTextBox1.SelectionColor = Color.Coral
                             End If
 
-
                         Else
                             Call RepRTBfield("payoff11", returnInsructionPayoff(nodeListInstructions(3, 3).payoff11))
                             Call RepRTBfield("payoff12", returnInsructionPayoff(nodeListInstructions(3, 3).payoff12))

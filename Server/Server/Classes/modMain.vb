@@ -534,17 +534,21 @@ Module modMain
 
                 'send results
                 If checkin = numberOfPlayers / 2 Then
-                        checkin = 0
+                    checkin = 0
 
-                        For i As Integer = 1 To numberOfPlayers
-                            playerList(i).sendPeriodResults()
+                    For i As Integer = 1 To numberOfPlayers
+                        playerList(i).sendPeriodResults()
 
-                            .DataGridView1.Rows(i - 1).Cells(2).Value = "Reviewing Results"
-                        Next
-                    Else
+                        .DataGridView1.Rows(i - 1).Cells(2).Value = "Reviewing Results"
+                    Next
+                Else
+                    If InStr(tempChoice, "sub") Then
                         playerList(tempP1).sendChoice()
                         playerList(tempP2).sendChoice()
+                    Else
+                        playerList(index).sendChoice()
                     End If
+                End If
 
             End With
         Catch ex As Exception

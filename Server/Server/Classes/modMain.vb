@@ -35,6 +35,7 @@ Module modMain
     Public surveyLink As String                                 'link to post experiment survey
 
     Public payoffMode As String
+    Public decimalFormat As Boolean
     Public testMode As String
     Public periodStart As Date
 
@@ -310,7 +311,9 @@ Module modMain
             surveyLink = getINI(sfile, "gameSettings", "surveyLink")
 
             payoffMode = getINI(sfile, "gameSettings", "payoffMode")
+            decimalFormat = getINI(sfile, "gameSettings", "decimalFormat")
             testMode = getINI(sfile, "gameSettings", "testMode")
+
 
             iPage8Text = getINI(sfile, "gameSettings", "iPage8Text")
             sortWindow = getINI(sfile, "gameSettings", "sortWindow")

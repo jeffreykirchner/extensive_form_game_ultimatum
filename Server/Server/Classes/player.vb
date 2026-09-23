@@ -76,6 +76,7 @@ Public Class player
 
                 outstr &= myType & ";"
                 outstr &= payoffMode & ";"
+                outstr &= decimalFormat & ";"
                 outstr &= testMode & ";"
 
                 outstr &= iPage8Text & ";"

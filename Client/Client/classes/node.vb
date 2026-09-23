@@ -185,6 +185,9 @@
             If showInstructions Then
                 payOffTop = returnInsructionPayoff(payOffTop)
                 payOffBottom = returnInsructionPayoff(payOffBottom)
+            ElseIf decimalFormat Then
+                payOffTop = Format(CDbl(payOffTop), "0.00")
+                payOffBottom = Format(CDbl(payOffBottom), "0.00")
             End If
 
             g.DrawString(getPayoffParenthesis(payOffTop, payOffBottom), f1, tempB, startPt.X, startPt.Y - g.MeasureString("(  )", f1).Height / 2, fmt)
@@ -238,6 +241,13 @@
         End Try
     End Function
 
+    Private Function getDisplayedPayoff(payoff As Double) As String
+        If decimalFormat Then
+            Return Format(payoff, "0.00")
+        End If
+
+        Return payoff.ToString()
+    End Function
 
     Public Sub drawNodeArrows(g As Graphics)
         Try
@@ -321,7 +331,7 @@
             If tickTock = 1 Or currentNode <> id Then
                 If payoff11 >= 0 And payoff12 >= 0 Then
 
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(payoff11, payoff12), f1).Width
+                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff11), getDisplayedPayoff(payoff12)), f1).Width
 
                     If status = "pay1" Then
                         g.DrawLine(p4, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
@@ -349,7 +359,7 @@
             If tickTock = 3 Or currentNode <> id Then
                 If payoff31 >= 0 And payoff32 >= 0 Then
 
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(payoff31, payoff32), f1).Width
+                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff31), getDisplayedPayoff(payoff32)), f1).Width
 
                     If status = "pay3" Then
                         g.DrawLine(p4, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)

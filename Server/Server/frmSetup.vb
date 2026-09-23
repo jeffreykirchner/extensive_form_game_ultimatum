@@ -26,6 +26,8 @@
                 rbPounds.Checked = True
             End If
 
+            chkDecimalFormat.Checked = getINI(sfile, "gameSettings", "decimalFormat")
+
             chkTestMode.Checked = getINI(sfile, "gameSettings", "testMode")
 
         Catch ex As Exception
@@ -61,6 +63,8 @@
             Else
                 writeINI(sfile, "gameSettings", "payoffMode", "pounds")
             End If
+
+            writeINI(sfile, "gameSettings", "decimalFormat", chkDecimalFormat.Checked)
 
             writeINI(sfile, "gameSettings", "testMode", chkTestMode.Checked)
 

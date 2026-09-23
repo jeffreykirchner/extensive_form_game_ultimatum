@@ -38,6 +38,7 @@ Module modMain
     Public selection As String
 
     Public payoffMode As String
+    Public decimalFormat As Boolean
     Public decisionStart As Date
     Public testMode As String
 
@@ -282,6 +283,9 @@ Module modMain
                 nextToken += 1
 
                 payoffMode = msgtokens(nextToken)
+                nextToken += 1
+
+                decimalFormat = msgtokens(nextToken)
                 nextToken += 1
 
                 testMode = msgtokens(nextToken)

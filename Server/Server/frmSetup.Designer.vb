@@ -53,6 +53,7 @@ Partial Class frmSetup
         Me.rbPounds = New System.Windows.Forms.RadioButton()
         Me.txtSurveyLink = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
+        Me.chkDecimalFormat = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'txtPort
@@ -97,7 +98,7 @@ Partial Class frmSetup
         '
         Me.chkShowInstructions.AutoSize = True
         Me.chkShowInstructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkShowInstructions.Location = New System.Drawing.Point(298, 408)
+        Me.chkShowInstructions.Location = New System.Drawing.Point(300, 449)
         Me.chkShowInstructions.Name = "chkShowInstructions"
         Me.chkShowInstructions.Size = New System.Drawing.Size(172, 24)
         Me.chkShowInstructions.TabIndex = 46
@@ -126,7 +127,7 @@ Partial Class frmSetup
         'cmdSave
         '
         Me.cmdSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSave.Location = New System.Drawing.Point(12, 455)
+        Me.cmdSave.Location = New System.Drawing.Point(14, 496)
         Me.cmdSave.Name = "cmdSave"
         Me.cmdSave.Size = New System.Drawing.Size(457, 27)
         Me.cmdSave.TabIndex = 43
@@ -278,7 +279,7 @@ Partial Class frmSetup
         '
         Me.chkTestMode.AutoSize = True
         Me.chkTestMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTestMode.Location = New System.Drawing.Point(76, 408)
+        Me.chkTestMode.Location = New System.Drawing.Point(78, 449)
         Me.chkTestMode.Name = "chkTestMode"
         Me.chkTestMode.Size = New System.Drawing.Size(112, 24)
         Me.chkTestMode.TabIndex = 106
@@ -288,7 +289,7 @@ Partial Class frmSetup
         'Label4
         '
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(12, 326)
+        Me.Label4.Location = New System.Drawing.Point(14, 367)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(457, 23)
         Me.Label4.TabIndex = 107
@@ -298,7 +299,7 @@ Partial Class frmSetup
         'txtIpage8
         '
         Me.txtIpage8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIpage8.Location = New System.Drawing.Point(12, 352)
+        Me.txtIpage8.Location = New System.Drawing.Point(14, 393)
         Me.txtIpage8.Multiline = True
         Me.txtIpage8.Name = "txtIpage8"
         Me.txtIpage8.Size = New System.Drawing.Size(457, 47)
@@ -354,12 +355,24 @@ Partial Class frmSetup
         Me.Label28.Text = "Survey Link"
         Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'chkDecimalFormat
+        '
+        Me.chkDecimalFormat.AutoSize = True
+        Me.chkDecimalFormat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkDecimalFormat.Location = New System.Drawing.Point(300, 324)
+        Me.chkDecimalFormat.Name = "chkDecimalFormat"
+        Me.chkDecimalFormat.Size = New System.Drawing.Size(154, 24)
+        Me.chkDecimalFormat.TabIndex = 114
+        Me.chkDecimalFormat.Text = "Decimal Format"
+        Me.chkDecimalFormat.UseVisualStyleBackColor = True
+        '
         'frmSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(483, 493)
+        Me.ClientSize = New System.Drawing.Size(483, 539)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkDecimalFormat)
         Me.Controls.Add(Me.txtSurveyLink)
         Me.Controls.Add(Me.Label28)
         Me.Controls.Add(Me.rbPounds)
@@ -428,4 +441,5 @@ Partial Class frmSetup
     Friend WithEvents rbPounds As System.Windows.Forms.RadioButton
     Friend WithEvents txtSurveyLink As TextBox
     Friend WithEvents Label28 As Label
+    Friend WithEvents chkDecimalFormat As CheckBox
 End Class

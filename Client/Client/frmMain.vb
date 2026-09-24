@@ -5,6 +5,9 @@
 
     Public mainScreen As screen
 
+    Dim fmt As New StringFormat 'center alignment
+    Dim cmdSubmitActionWaiting As Boolean = False
+
     Private Sub frmMain_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         Try
 
@@ -43,6 +46,7 @@
             connect()
 
             mainScreen = New screen(pnlMain, New Rectangle(0, 0, pnlMain.Width, pnlMain.Height))
+            fmt.Alignment = StringAlignment.Center
 
         Catch ex As Exception
             appEventLog_Write("errorfrmChat_Load :", ex)
@@ -110,6 +114,22 @@
             mainScreen.erase1()
             Dim g As Graphics = mainScreen.GetGraphics
 
+            'if waiting show waiting message and don't draw the nodes centered left to right and top to bottom
+            If cmdSubmit.Visible = False Then
+                Dim waitingMessageText As String
+
+                If myType = 1 Then
+                    waitingMessageText = "Your offer has been sent to Player 2." & vbCrLf & "Please wait for Player 2’s response."
+                Else
+                    waitingMessageText = "Please wait." & vbCrLf & "Player 1’s offer will appear on this screen."
+                End If
+
+                g.DrawString(waitingMessageText, New Font("Arial", 18, FontStyle.Bold), Brushes.Black, pnlMain.Width / 2, 300, fmt)
+
+                mainScreen.flip()
+                Exit Sub
+            End If
+
             If selection <> "" Then
                 g.FillRectangle(Brushes.Yellow,
                               New Rectangle(selectionPt.X - 38,
@@ -117,21 +137,6 @@
                                             76,
                                             76))
             End If
-
-
-            'For i As Integer = 1 To nodeCount(currentPeriod)
-            '    If nodeList(i, currentPeriod).subNode1Id > 0 Then
-            '        nodeList(i, currentPeriod).pt3 = nodeList(nodeList(i, currentPeriod).subNode1Id, currentPeriod).pt1
-            '    End If
-
-            '    If nodeList(i, currentPeriod).subNode2Id > 0 Then
-            '        nodeList(i, currentPeriod).pt2 = nodeList(nodeList(i, currentPeriod).subNode2Id, currentPeriod).pt1
-            '    End If
-
-            '    If nodeList(i, currentPeriod).subNode3Id > 0 Then
-            '        nodeList(i, currentPeriod).pt4 = nodeList(nodeList(i, currentPeriod).subNode3Id, currentPeriod).pt1
-            '    End If
-            'Next
 
             For i As Integer = 1 To nodeCount(currentPeriod)
                 If nodeList(i, currentPeriod) IsNot Nothing Then
@@ -144,6 +149,9 @@
                     nodeList(i, currentPeriod).drawNode(g)
                 End If
             Next
+
+            'action message
+            Dim actionMessageText = "Please choose your offer now then press Submit."
 
             mainScreen.flip()
         Catch ex As Exception
@@ -378,30 +386,18 @@
             End If
 
             cmdSubmit.Visible = False
-
-            Dim outstr As String = ""
-
-            txtMessages.Text = "Waiting for others."
+            txtMessages.Text = "Waiting ..."
 
             If cmdSubmit.Text = "Submit" Then
-                Dim ts As TimeSpan
-                Dim temp_now = Now
-                ts = temp_now - decisionStart
-                outstr = selection & ";"
-                outstr &= ts.TotalMilliseconds & ";"
-
-                outstr &= decisionStart.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
-                outstr &= temp_now.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
-
-                selection = ""
-
-                wskClient.Send("04", outstr)
+                cmdSubmitActionWaiting = True
+                cmdSubmit.Visible = False
+                Timer4.Enabled = True
             Else
                 cmdSubmit.Text = "Submit"
-                wskClient.Send("05", outstr)
+                wskClient.Send("05", "")
             End If
 
-            Dim a As Integer = 1
+
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
@@ -423,4 +419,34 @@
         End Try
     End Sub
 
+    Private Sub Timer4_Tick(sender As Object, e As EventArgs) Handles Timer4.Tick
+        'this event is triggered when the user has made a selection to check if at least 10 seconds has passed before sending it in the background
+        Try
+            Dim outstr As String = ""
+
+            Dim ts As TimeSpan
+            Dim temp_now = Now
+            ts = temp_now - decisionStart
+
+            'if ts is less than 10 seconds then wait until it is
+            If ts.TotalSeconds < 10 Then
+                Exit Sub
+            End If
+
+            outstr = selection & ";"
+            outstr &= ts.TotalMilliseconds & ";"
+
+            outstr &= decisionStart.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+            outstr &= temp_now.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+
+            selection = ""
+
+            wskClient.Send("04", outstr)
+
+            Timer4.Enabled = False
+            cmdSubmitActionWaiting = False
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
+    End Sub
 End Class

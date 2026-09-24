@@ -331,13 +331,13 @@
             If tickTock = 1 Or currentNode <> id Then
                 If payoff11 >= 0 And payoff12 >= 0 Then
 
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff11), getDisplayedPayoff(payoff12)), f1).Width
+                    'Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff11), getDisplayedPayoff(payoff12)), f1).Width
 
                     If status = "pay1" Then
-                        g.DrawLine(p4, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
+                        g.DrawLine(p4, pt1.X, pt1.Y, pt3.X, pt3.Y - 25)
                     Else
 
-                        g.DrawLine(tempP, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
+                        g.DrawLine(tempP, pt1.X, pt1.Y, pt3.X, pt3.Y - 25)
                     End If
 
 
@@ -359,12 +359,12 @@
             If tickTock = 3 Or currentNode <> id Then
                 If payoff31 >= 0 And payoff32 >= 0 Then
 
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff31), getDisplayedPayoff(payoff32)), f1).Width
+                    'Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff31), getDisplayedPayoff(payoff32)), f1).Width
 
                     If status = "pay3" Then
-                        g.DrawLine(p4, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)
+                        g.DrawLine(p4, pt1.X, pt1.Y, pt4.X, pt4.Y - 25)
                     Else
-                        g.DrawLine(tempP, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)
+                        g.DrawLine(tempP, pt1.X, pt1.Y, pt4.X, pt4.Y - 25)
                     End If
 
                 End If

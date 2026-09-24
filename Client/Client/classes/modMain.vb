@@ -441,16 +441,10 @@ Module modMain
                     '1
                     nodeListInstructions(1, 1).owner = myType
                     nodeListInstructions(1, 1).myColor = getMyColor(nodeListInstructions(1, 1).owner)
-                    'nodeListInstructions(1, 1).payoff11 = nodeListInstructions(1, 1).payoff11.Replace("0", "x")
-                    'nodeListInstructions(1, 1).payoff12 = nodeListInstructions(1, 1).payoff12.Replace("0", "y")
-                    'nodeListInstructions(1, 1).payoff21 = nodeListInstructions(1, 1).payoff21.Replace("0", "a")
-                    'nodeListInstructions(1, 1).payoff22 = nodeListInstructions(1, 1).payoff22.Replace("0", "b")
 
                     '2
                     nodeListInstructions(1, 2).owner = myType
                     nodeListInstructions(1, 2).myColor = getMyColor(nodeListInstructions(1, 2).owner)
-                    'nodeListInstructions(1, 2).payoff11 = nodeListInstructions(1, 2).payoff11.Replace("0", "x")
-                    'nodeListInstructions(1, 2).payoff12 = nodeListInstructions(1, 2).payoff12.Replace("0", "y")
 
                     If myType = 1 Then
                         nodeListInstructions(2, 2).owner = 2
@@ -459,19 +453,10 @@ Module modMain
                     End If
 
                     nodeListInstructions(2, 2).myColor = getMyColor(nodeListInstructions(2, 2).owner)
-                    'nodeListInstructions(2, 2).payoff11 = nodeListInstructions(2, 2).payoff11.Replace("0", "a")
-                    'nodeListInstructions(2, 2).payoff12 = nodeListInstructions(2, 2).payoff12.Replace("0", "b")
-                    'nodeListInstructions(2, 2).payoff21 = nodeListInstructions(2, 2).payoff21.Replace("0", "c")
-                    'nodeListInstructions(2, 2).payoff22 = nodeListInstructions(2, 2).payoff22.Replace("0", "d")
 
                     '3
                     nodeListInstructions(1, 3).owner = myType
                     nodeListInstructions(1, 3).myColor = getMyColor(nodeListInstructions(1, 3).owner)
-
-                    'nodeListInstructions(2, 3).payoff11 = nodeListInstructions(2, 3).payoff11.Replace("0", "w")
-                    'nodeListInstructions(2, 3).payoff12 = nodeListInstructions(2, 3).payoff12.Replace("0", "x")
-                    'nodeListInstructions(2, 3).payoff21 = nodeListInstructions(2, 3).payoff21.Replace("0", "y")
-                    'nodeListInstructions(2, 3).payoff22 = nodeListInstructions(2, 3).payoff22.Replace("0", "z")
 
                     If myType = 1 Then
                         nodeListInstructions(3, 3).owner = 2
@@ -483,10 +468,6 @@ Module modMain
 
                     nodeListInstructions(3, 3).myColor = getMyColor(nodeListInstructions(3, 3).owner)
                     nodeListInstructions(2, 3).myColor = getMyColor(nodeListInstructions(2, 3).owner)
-                    'nodeListInstructions(3, 3).payoff11 = nodeListInstructions(3, 3).payoff11.Replace("0", "a")
-                    'nodeListInstructions(3, 3).payoff12 = nodeListInstructions(3, 3).payoff12.Replace("0", "b")
-                    'nodeListInstructions(3, 3).payoff21 = nodeListInstructions(3, 3).payoff21.Replace("0", "c")
-                    'nodeListInstructions(3, 3).payoff22 = nodeListInstructions(3, 3).payoff22.Replace("0", "d")
                 End If
 
                 tickTock = 0
@@ -536,17 +517,18 @@ Module modMain
     Public Sub updateTxtMessages()
         Try
             With frmMain
+
                 If nodeList(currentNode, currentPeriod).owner = myType Then
                     .txtMessages.Text = "Click on your choice then press Submit."
                     .cmdSubmit.Visible = True
                 Else
                     If myType = 1 Then
-                        .txtMessages.Text = "Waiting for Person 2."
-                        .txtMessages.Find("Person 2")
+                        .txtMessages.Text = "Waiting for Player 2."
+                        .txtMessages.Find("Player 2")
                         .txtMessages.SelectionColor = Color.Coral
                     Else
-                        .txtMessages.Text = "Waiting for Person 1."
-                        .txtMessages.Find("Person 1")
+                        .txtMessages.Text = "Waiting for Player 1."
+                        .txtMessages.Find("Player 1")
                         .txtMessages.SelectionColor = Color.CornflowerBlue
                     End If
 

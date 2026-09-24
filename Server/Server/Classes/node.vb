@@ -195,9 +195,11 @@
 
                 'draw payoffs
                 If payoff11 >= 0 And payoff12 >= 0 Then
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff11), getDisplayedPayoff(payoff12)), f1).Width
+                    'Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff11), getDisplayedPayoff(payoff12)), f1).Width
 
-                    g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
+
+                    'g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
+                    g.DrawLine(p1, pt1.X, pt1.Y, pt3.X, pt2.Y - 25)
                     drawPayoff(pt3, g, payoff11, payoff12)
                 End If
 
@@ -207,9 +209,10 @@
                 End If
 
                 If payoff31 >= 0 And payoff32 >= 0 Then
-                    Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff31), getDisplayedPayoff(payoff32)), f1).Width
+                    'Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff31), getDisplayedPayoff(payoff32)), f1).Width
 
-                    g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)
+                    'g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)
+                    g.DrawLine(p1, pt1.X, pt1.Y, pt4.X, pt4.Y - 25)
                     drawPayoff(pt4, g, payoff31, payoff32)
                 End If
 

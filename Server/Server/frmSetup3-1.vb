@@ -20,7 +20,7 @@
 
 
                 nodeList(currentNode, currentPeriod).pt3 =
-                    New Point(nodeList(currentNode, currentPeriod).pt1.X + 100, nodeList(currentNode, currentPeriod).pt1.Y)
+                    New Point(nodeList(currentNode, currentPeriod).pt1.X + 75, nodeList(currentNode, currentPeriod).pt1.Y + 100)
 
                 nodeList(currentNode, currentPeriod).subNode1Id = txtSubNode1.Text
 
@@ -31,7 +31,7 @@
                 nodeList(currentNode, currentPeriod).subNode2Id = txtSubNode2.Text
 
                 nodeList(currentNode, currentPeriod).pt4 =
-                    New Point(nodeList(currentNode, currentPeriod).pt1.X - 100, nodeList(currentNode, currentPeriod).pt1.Y)
+                    New Point(nodeList(currentNode, currentPeriod).pt1.X - 75, nodeList(currentNode, currentPeriod).pt1.Y + 100)
 
                 nodeList(currentNode, currentPeriod).subNode3Id = txtSubNode3.Text
 

@@ -40,6 +40,7 @@ Partial Class frmMain
         Me.lblPayoff1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Timer4 = New System.Windows.Forms.Timer(Me.components)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -198,6 +199,9 @@ Partial Class frmMain
         Me.GroupBox2.TabIndex = 43
         Me.GroupBox2.TabStop = False
         '
+        'Timer4
+        '
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -237,5 +241,5 @@ Partial Class frmMain
     Friend WithEvents lblPayoff2 As System.Windows.Forms.Label
     Friend WithEvents lblPayoff1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-
+    Friend WithEvents Timer4 As Timer
 End Class

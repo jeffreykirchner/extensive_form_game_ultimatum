@@ -37,7 +37,13 @@
             Dim commandLine As String = Command()
 
             If commandLine <> "" Then
-                writeINI(sfile, "Settings", "ip", commandLine)
+                'split command line into array of strings
+                Dim commandLineArgs() As String = commandLine.Split(" ")
+                writeINI(sfile, "Settings", "ip", commandLineArgs(0))
+
+                If commandLineArgs.Length > 1 Then
+                    launchID = Integer.Parse(commandLineArgs(1))
+                End If
             End If
 
             'connect
@@ -115,13 +121,17 @@
             Dim g As Graphics = mainScreen.GetGraphics
 
             'if waiting show waiting message and don't draw the nodes centered left to right and top to bottom
-            If cmdSubmit.Visible = False Then
+            If cmdSubmit.Visible = False And currentPhase IsNot "results" Then
                 Dim waitingMessageText As String
 
-                If myType = 1 Then
-                    waitingMessageText = "Your offer has been sent to Player 2." & vbCrLf & "Please wait for Player 2’s response."
+                If currentPhase = "waiting" Then
+                    waitingMessageText = "Waiting for others."
                 Else
-                    waitingMessageText = "Please wait." & vbCrLf & "Player 1’s offer will appear on this screen."
+                    If myType = 1 Then
+                        waitingMessageText = "Your offer has been sent to Player 2." & vbCrLf & "Please wait for Player 2’s response."
+                    Else
+                        waitingMessageText = "Please wait." & vbCrLf & "Player 1’s offer will appear on this screen."
+                    End If
                 End If
 
                 g.DrawString(waitingMessageText, New Font("Arial", 18, FontStyle.Bold), Brushes.Black, pnlMain.Width / 2, 300, fmt)
@@ -388,15 +398,15 @@
             cmdSubmit.Visible = False
             txtMessages.Text = "Waiting ..."
 
-            If cmdSubmit.Text = "Submit" Then
-                cmdSubmitActionWaiting = True
-                cmdSubmit.Visible = False
-                Timer4.Enabled = True
-            Else
-                cmdSubmit.Text = "Submit"
-                wskClient.Send("05", "")
+            If myType = 2 And cmdSubmit.Text = "Submit" Then
+                currentPhase = "waiting"
             End If
 
+            submitClickTime = Now
+
+            cmdSubmitActionWaiting = True
+            cmdSubmit.Visible = False
+            Timer4.Enabled = True
 
         Catch ex As Exception
             appEventLog_Write("error :", ex)
@@ -433,15 +443,25 @@
                 Exit Sub
             End If
 
-            outstr = selection & ";"
-            outstr &= ts.TotalMilliseconds & ";"
+            If cmdSubmit.Text = "Submit" Then
+                outstr = selection & ";"
+                outstr &= ts.TotalMilliseconds & ";"
 
-            outstr &= decisionStart.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
-            outstr &= temp_now.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+                outstr &= decisionStart.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+                outstr &= temp_now.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+                outstr &= submitClickTime.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
 
-            selection = ""
+                selection = ""
 
-            wskClient.Send("04", outstr)
+                wskClient.Send("04", outstr)
+            Else
+                outstr &= decisionStart.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+                outstr &= temp_now.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+                outstr &= submitClickTime.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+
+                cmdSubmit.Text = "Submit"
+                wskClient.Send("05", outstr)
+            End If
 
             Timer4.Enabled = False
             cmdSubmitActionWaiting = False

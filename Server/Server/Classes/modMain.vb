@@ -400,9 +400,16 @@ Module modMain
                 Dim tempDecisionEndTime As String = msgtokens(nextToken)
                 nextToken += 1
 
+                Dim tempDecisionClickTime As String = msgtokens(nextToken)
+                nextToken += 1
+
                 Dim tempNode As node = playerList(tempP1).nodeList(playerList(tempP1).currentNode, currentPeriod)
 
                 tempNode.status = tempChoice
+
+                playerList(index).decisionStartTime = tempDecisionStartTime
+                playerList(index).decisionEndTime = tempDecisionEndTime
+                playerList(index).decisionClickTime = tempDecisionClickTime
 
                 If InStr(tempChoice, "pay") Then
                     checkin += 1
@@ -531,6 +538,7 @@ Module modMain
 
                 outstr &= ts.TotalMilliseconds & ","
                 outstr &= tempDecisionStartTime & ","
+                outstr &= tempDecisionClickTime & ","
                 outstr &= tempDecisionEndTime & ","
 
                 summaryDf.WriteLine(outstr)
@@ -569,7 +577,26 @@ Module modMain
 
                 .DataGridView1.Rows(index - 1).Cells(2).Value = "Waiting"
 
+                Dim tempReviewStartTime As String = msgtokens(nextToken)
+                nextToken += 1
+
+                Dim tempReviewEndTime As String = msgtokens(nextToken)
+                nextToken += 1
+
+                Dim tempReviewClickTime As String = msgtokens(nextToken)
+                nextToken += 1
+
+                playerList(index).reviewStartTime = tempReviewStartTime
+                playerList(index).reviewEndTime = tempReviewEndTime
+                playerList(index).reviewClickTime = tempReviewClickTime
+
                 If checkin = numberOfPlayers Then
+
+                    'store summary data
+                    For i As Integer = 1 To numberOfPlayers
+                        playerList(i).storeSummaryData()
+                    Next
+
                     checkin = 0
 
                     If currentPeriod = numberOfPeriods Then
@@ -617,30 +644,25 @@ Module modMain
 
             For i As Integer = 1 To 3
                 For j As Integer = 1 To nodeCountInstructions(i)
-                    nodeListInstructions(j, i) = New node
-
-                    nodeListInstructions(j, i).id = j
-                    nodeListInstructions(j, i).myPeriod = i
-
-                    nodeListInstructions(j, i).status = "open"
-
-                    nodeListInstructions(j, i).owner = getINI(sfile, "nodeI" & i & "-" & j, "owner")
-
-                    nodeListInstructions(j, i).payoff11 = getINI(sfile, "nodeI" & i & "-" & j, "payoff11")
-                    nodeListInstructions(j, i).payoff12 = getINI(sfile, "nodeI" & i & "-" & j, "payoff12")
-                    nodeListInstructions(j, i).payoff21 = getINI(sfile, "nodeI" & i & "-" & j, "payoff21")
-                    nodeListInstructions(j, i).payoff22 = getINI(sfile, "nodeI" & i & "-" & j, "payoff22")
-                    nodeListInstructions(j, i).payoff31 = getINI(sfile, "nodeI" & i & "-" & j, "payoff31")
-                    nodeListInstructions(j, i).payoff32 = getINI(sfile, "nodeI" & i & "-" & j, "payoff32")
-
-                    nodeListInstructions(j, i).pt1 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt1"))
-                    nodeListInstructions(j, i).pt2 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt2"))
-                    nodeListInstructions(j, i).pt3 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt3"))
-                    nodeListInstructions(j, i).pt4 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt4"))
-
-                    nodeListInstructions(j, i).subNode1Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode1Id")
-                    nodeListInstructions(j, i).subNode2Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode2Id")
-                    nodeListInstructions(j, i).subNode3Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode3Id")
+                    nodeListInstructions(j, i) = New node With {
+                        .id = j,
+                        .myPeriod = i,
+                        .status = "open",
+                        .owner = getINI(sfile, "nodeI" & i & "-" & j, "owner"),
+                        .payoff11 = getINI(sfile, "nodeI" & i & "-" & j, "payoff11"),
+                        .payoff12 = getINI(sfile, "nodeI" & i & "-" & j, "payoff12"),
+                        .payoff21 = getINI(sfile, "nodeI" & i & "-" & j, "payoff21"),
+                        .payoff22 = getINI(sfile, "nodeI" & i & "-" & j, "payoff22"),
+                        .payoff31 = getINI(sfile, "nodeI" & i & "-" & j, "payoff31"),
+                        .payoff32 = getINI(sfile, "nodeI" & i & "-" & j, "payoff32"),
+                        .pt1 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt1")),
+                        .pt2 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt2")),
+                        .pt3 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt3")),
+                        .pt4 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt4")),
+                        .subNode1Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode1Id"),
+                        .subNode2Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode2Id"),
+                        .subNode3Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode3Id")
+                    }
                 Next
             Next
 

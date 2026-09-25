@@ -27,6 +27,14 @@ Public Class player
     Public dataSortScore As Integer
     Public dataDuration As Integer
 
+    Public decisionStartTime As String
+    Public decisionEndTime As String
+    Public decisionClickTime As String
+
+    Public reviewStartTime As String
+    Public reviewEndTime As String
+    Public reviewClickTime As String
+
     Public lastIDSent As String
     Public lastMessageSent As String
 
@@ -371,48 +379,60 @@ Public Class player
                 '.wsk_Col.Send("08", socketNumber, outstr)
 
                 sendMessageToClient("08", outstr)
-
-                'write summary data
-                '"Period,Player,Partner,FinalNode,FinalDirection,MyPayoff,PartnerPayoff,MyType,MadeFinalDecision,"
-
-                outstr = currentPeriod & ","
-                outstr &= inumber & ","
-                outstr &= partnerList(currentPeriod) & ","
-
-                If myType = 1 Then
-                    outstr &= finalNode & ","
-                    outstr &= nodeList(finalNode, currentPeriod).status & ","
-                Else
-                    outstr &= finalNode & ","
-                    outstr &= playerList(partnerList(currentPeriod)).nodeList(finalNode, currentPeriod).status & ","
-                End If
-
-                outstr &= periodEarnings & ","
-                outstr &= playerList(partnerList(currentPeriod)).periodEarnings & ","
-                outstr &= myType & ","
-
-                If myType = 1 Then
-                    If nodeList(finalNode, currentPeriod).owner = myType Then
-                        outstr &= "True,"
-                    Else
-                        outstr &= "False,"
-                    End If
-                Else
-                    If playerList(partnerList(currentPeriod)).nodeList(finalNode, currentPeriod).owner = myType Then
-                        outstr &= "True,"
-                    Else
-                        outstr &= "False,"
-                    End If
-                End If
-
-                outstr &= dataDuration & ","
-                outstr &= dataSortScore & ","
-
-                playerDf.WriteLine(outstr)
             End With
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
+    End Sub
+
+    Public Sub storeSummaryData()
+        Try
+            Dim outstr As String = ""
+
+            outstr = currentPeriod & ","
+            outstr &= inumber & ","
+            outstr &= partnerList(currentPeriod) & ","
+
+            If myType = 1 Then
+                outstr &= finalNode & ","
+                outstr &= nodeList(finalNode, currentPeriod).status & ","
+            Else
+                outstr &= finalNode & ","
+                outstr &= playerList(partnerList(currentPeriod)).nodeList(finalNode, currentPeriod).status & ","
+            End If
+
+            outstr &= periodEarnings & ","
+            outstr &= playerList(partnerList(currentPeriod)).periodEarnings & ","
+            outstr &= myType & ","
+
+            If myType = 1 Then
+                If nodeList(finalNode, currentPeriod).owner = myType Then
+                    outstr &= "True,"
+                Else
+                    outstr &= "False,"
+                End If
+            Else
+                If playerList(partnerList(currentPeriod)).nodeList(finalNode, currentPeriod).owner = myType Then
+                    outstr &= "True,"
+                Else
+                    outstr &= "False,"
+                End If
+            End If
+
+            outstr &= decisionStartTime & ","
+            outstr &= decisionClickTime & ","
+            outstr &= decisionEndTime & ","
+
+            outstr &= reviewStartTime & ","
+            outstr &= reviewClickTime & ","
+            outstr &= reviewEndTime & ","
+
+            playerDf.WriteLine(outstr)
+
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
+
     End Sub
 
     Public Sub startNextPeriod()

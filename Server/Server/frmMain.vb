@@ -273,14 +273,14 @@ Public Class frmMain
             filename = System.Windows.Forms.Application.StartupPath & "\datafiles\" & filename
 
             summaryDf = File.CreateText(filename)
-            str = "Period,Player,Partner,PlayerType,DecisionType,DecisionLength,DecisionDirection,DecisionInfo,DecisionNode,PeriodTime,DecisionStartTime,DecisionEndTime"
+            str = "Period,Player,Partner,PlayerType,DecisionType,DecisionLength,DecisionDirection,DecisionInfo,DecisionNode,PeriodTime,DecisionStartTime,DecisionClickTime,DecisionEndTime"
             summaryDf.WriteLine(str)
 
             filename = "summary_data_" & tempTime & ".csv"
             filename = System.Windows.Forms.Application.StartupPath & "\datafiles\" & filename
 
             playerDf = File.CreateText(filename)
-            str = "Period,Player,Partner,FinalNode,FinalDirection,MyPayoff,PartnerPayoff,MyType,MadeFinalDecision,PartnerDuration,SortScore,"
+            str = "Period,Player,Partner,FinalNode,FinalDirection,MyPayoff,PartnerPayoff,MyType,MadeFinalDecision,DecisionStartTime,DecisionClickTime,DecisionEndTime,ReviewStartTime,ReviewClickTime,ReviewEndTime"
             playerDf.WriteLine(str)
 
             filename = "replay_data_" & tempTime & ".csv"

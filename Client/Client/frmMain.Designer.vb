@@ -198,6 +198,7 @@ Partial Class frmMain
         Me.GroupBox2.Size = New System.Drawing.Size(183, 131)
         Me.GroupBox2.TabIndex = 43
         Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Visible = False
         '
         'Timer4
         '

@@ -23,25 +23,10 @@ Partial Class frmNames
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNames))
-        Me.txtIDNumber = New System.Windows.Forms.TextBox()
         Me.lblEarnings = New System.Windows.Forms.Label()
-        Me.txtName = New System.Windows.Forms.TextBox()
         Me.lbl1 = New System.Windows.Forms.Label()
         Me.cmdSubmit = New System.Windows.Forms.Button()
         Me.SuspendLayout()
-        '
-        'txtIDNumber
-        '
-        Me.txtIDNumber.BackColor = System.Drawing.Color.White
-        Me.txtIDNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIDNumber.ForeColor = System.Drawing.Color.LightGray
-        Me.txtIDNumber.Location = New System.Drawing.Point(47, 85)
-        Me.txtIDNumber.Name = "txtIDNumber"
-        Me.txtIDNumber.Size = New System.Drawing.Size(306, 29)
-        Me.txtIDNumber.TabIndex = 33
-        Me.txtIDNumber.TabStop = False
-        Me.txtIDNumber.Text = "<Your Student ID Number>"
-        Me.txtIDNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lblEarnings
         '
@@ -53,51 +38,35 @@ Partial Class frmNames
         Me.lblEarnings.Text = "Your Earnings Are: $000.00"
         Me.lblEarnings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'txtName
-        '
-        Me.txtName.BackColor = System.Drawing.Color.White
-        Me.txtName.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtName.ForeColor = System.Drawing.Color.LightGray
-        Me.txtName.Location = New System.Drawing.Point(47, 50)
-        Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(306, 29)
-        Me.txtName.TabIndex = 32
-        Me.txtName.TabStop = False
-        Me.txtName.Text = "<Your Name Here>"
-        Me.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'lbl1
         '
         Me.lbl1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl1.Location = New System.Drawing.Point(8, 59)
+        Me.lbl1.Location = New System.Drawing.Point(12, 59)
         Me.lbl1.Name = "lbl1"
-        Me.lbl1.Size = New System.Drawing.Size(380, 33)
+        Me.lbl1.Size = New System.Drawing.Size(355, 58)
         Me.lbl1.TabIndex = 35
-        Me.lbl1.Text = "Please remain in your seat quietly."
+        Me.lbl1.Text = "Click the button below to continue to a questionnaire."
         Me.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lbl1.Visible = False
         '
         'cmdSubmit
         '
         Me.cmdSubmit.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.cmdSubmit.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSubmit.Location = New System.Drawing.Point(47, 120)
+        Me.cmdSubmit.Location = New System.Drawing.Point(45, 131)
         Me.cmdSubmit.Name = "cmdSubmit"
         Me.cmdSubmit.Size = New System.Drawing.Size(306, 42)
         Me.cmdSubmit.TabIndex = 36
-        Me.cmdSubmit.Text = "Submit Name"
+        Me.cmdSubmit.Text = "Continue"
         Me.cmdSubmit.UseVisualStyleBackColor = False
         '
         'frmNames
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(379, 179)
+        Me.ClientSize = New System.Drawing.Size(379, 185)
         Me.ControlBox = False
         Me.Controls.Add(Me.cmdSubmit)
-        Me.Controls.Add(Me.txtIDNumber)
         Me.Controls.Add(Me.lblEarnings)
-        Me.Controls.Add(Me.txtName)
         Me.Controls.Add(Me.lbl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -106,13 +75,9 @@ Partial Class frmNames
         Me.Text = "Enter Your Name"
         Me.TopMost = True
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents txtIDNumber As TextBox
     Friend WithEvents lblEarnings As Label
-    Friend WithEvents txtName As TextBox
     Friend WithEvents lbl1 As Label
     Friend WithEvents cmdSubmit As Button
 End Class

@@ -9,6 +9,7 @@ Module modMain
     Public sfile As String
 
     Public inumber As Integer                  'client ID number
+    Public launchID As String = ""            'id passed from the luancher at the command line
     Public numberOfPlayers As Integer          'number of total players in experiment
     Public currentPeriod As Integer            'current period of experiment
     Public myIPAddress As String               'IP address of client 
@@ -40,6 +41,7 @@ Module modMain
     Public payoffMode As String
     Public decimalFormat As Boolean
     Public decisionStart As Date
+    Public submitClickTime As Date
     Public testMode As String
 
     Public nodeListInstructions(3, 3) As node
@@ -48,6 +50,8 @@ Module modMain
     Public currentPeriodInstruction As Integer
 
     Public iPage8Text As String
+
+    Public currentPhase As String = "player 1"
 
 
 #Region " Winsock Code "
@@ -487,16 +491,16 @@ Module modMain
                 End If
 
                 If myType = "1" Then
-                    .lblPerson.Text = "Person 1"
+                    .lblPerson.Text = "Player 1"
                     .lblPerson.ForeColor = Color.CornflowerBlue
 
                     .lblPayoff1.Text = "Your Payoff"
-                    .lblPayoff2.Text = "Person 2's Payoff"
+                    .lblPayoff2.Text = "Player 2's Payoff"
                 Else
-                    .lblPerson.Text = "Person 2"
+                    .lblPerson.Text = "Player 2"
                     .lblPerson.ForeColor = Color.Coral
 
-                    .lblPayoff1.Text = "Person 1's Payoff"
+                    .lblPayoff1.Text = "Player 1's Payoff"
                     .lblPayoff2.Text = "Your Payoff"
                 End If
 
@@ -519,15 +523,21 @@ Module modMain
             With frmMain
 
                 If nodeList(currentNode, currentPeriod).owner = myType Then
-                    .txtMessages.Text = "Click on your choice then press Submit."
+
+                    If myType = 1 Then
+                        .txtMessages.Text = "Click on a circle to select your offer, then press Submit."
+                    Else
+                        .txtMessages.Text = "Click on a payoff to select your response, then press Submit."
+                    End If
+
                     .cmdSubmit.Visible = True
                 Else
                     If myType = 1 Then
-                        .txtMessages.Text = "Waiting for Player 2."
+                        .txtMessages.Text = "Waiting for Player 2's response"
                         .txtMessages.Find("Player 2")
                         .txtMessages.SelectionColor = Color.Coral
                     Else
-                        .txtMessages.Text = "Waiting for Player 1."
+                        .txtMessages.Text = "Waiting for Player 1's offer."
                         .txtMessages.Find("Player 1")
                         .txtMessages.SelectionColor = Color.CornflowerBlue
                     End If
@@ -661,11 +671,12 @@ Module modMain
                     nextToken += 1
                 Next
 
+                currentPhase = "player 2"
+
                 If currentNode = 0 Then
-                    .txtMessages.Text = "Waiting for Others."
+                    .txtMessages.Text = "Waiting ..."
                 Else
                     updateTxtMessages()
-
                     decisionStart = Now
                 End If
 
@@ -700,6 +711,9 @@ Module modMain
                 .txtMessages.Text = "Press the ""Ready to Go On"" Button."
                 .cmdSubmit.Text = "Ready to Go On"
                 .cmdSubmit.Visible = True
+                currentPhase = "results"
+
+                decisionStart = Now
             End With
         Catch ex As Exception
             appEventLog_Write("error :", ex)
@@ -755,13 +769,13 @@ Module modMain
 
                         Dim tempN As Integer = rand(20, 5)
 
-                        frmNames.txtName.Text = ""
+                        'frmNames.txtName.Text = ""
 
-                        For i As Integer = 1 To tempN
-                            frmNames.txtName.Text &= Chr(rand(122, 60))
-                        Next
+                        'For i As Integer = 1 To tempN
+                        '    frmNames.txtName.Text &= Chr(rand(122, 60))
+                        'Next
 
-                        frmNames.txtIDNumber.Text = rand(999999, 100000)
+                        'frmNames.txtIDNumber.Text = rand(999999, 100000)
 
                         frmNames.cmdSubmit.PerformClick()
                     End If

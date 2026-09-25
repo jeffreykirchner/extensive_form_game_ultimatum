@@ -5,9 +5,9 @@
     Public pageDone(20) As Boolean
     Public results(20) As String
 
-    Dim page5Text As String = "Person 1 earns #payoff1#." & vbCrLf & "Person 2 earns #payoff2#."
-    Dim page6Text As String = "Person #person# now makes the next decision.  He or she will choose a set of payoffs."
-    Dim page7Text As String = "Person #person# now makes the next decision to choose the payoffs (#payoff11#/#payoff12#) or (#payoff21#/#payoff22#)"
+    Dim page5Text As String = "Player 1 earns #payoff1#." & vbCrLf & "Player 2 earns #payoff2#."
+    Dim page6Text As String = "Player #person# now makes the next decision.  He or she will choose a set of payoffs."
+    Dim page7Text As String = "Player #person# now makes the next decision to choose the payoffs (#payoff11#/#payoff12#) or (#payoff21#/#payoff22#)"
     Dim continueText As String = vbCrLf & vbCrLf & "Continue to the next page of instructions."
 
     Public startTimeOnPage As Date

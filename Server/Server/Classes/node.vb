@@ -416,7 +416,6 @@
                 g.DrawString(branchLabel, f14, Brushes.DimGray, labelPt.X, labelPt.Y - 16, fmt)
             End If
 
-
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try

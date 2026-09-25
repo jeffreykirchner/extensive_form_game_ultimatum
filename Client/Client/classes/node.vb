@@ -34,6 +34,7 @@
     Dim f1 As New Font("Calibri", 40, FontStyle.Bold)
     Dim f2 As New Font("Calibri", 16, FontStyle.Bold)
     Dim f3 As New Font("Calibri", 10, FontStyle.Bold)
+    Dim f14 As New Font("Calibri", 14, FontStyle.Bold)
 
     Dim p1 As New Pen(Brushes.Black, 8)
     Dim p2 As New Pen(Brushes.CornflowerBlue, 8)
@@ -42,6 +43,7 @@
     Dim p5 As New Pen(Brushes.LightGray, 8)
 
     Dim fmt As New StringFormat 'center alignment
+    Dim fmt2 As New StringFormat 'left alignment
     Public myColor As Color
 
     Public Sub New(ByRef myNodeList(,) As node)
@@ -72,96 +74,25 @@
     Public Sub drawNode(g As Graphics)
         Try
 
-            Dim tempOffset As Integer = 30
-
-            'payoffs
             If payoff11 >= 0 And payoff12 >= 0 Then
-
-                If status = "dead" Or
-                   InStr(status, "sub") Or
-                   status = "pay2" Or
-                   status = "pay3" Then
-
-                    drawPayoff(pt3, g, payoff11, payoff12, Brushes.LightGray)
-                Else
-
-                    drawPayoff(pt3, g, payoff11, payoff12, Brushes.Black)
-                End If
+                drawPayoff(pt3, g, payoff11, payoff12, payoffLabel1)
             End If
 
             If payoff21 >= 0 And payoff22 >= 0 Then
-
-                If status = "dead" Or
-                   InStr(status, "sub") Or
-                   status = "pay1" Or
-                   status = "pay3" Then
-
-                    drawPayoff(pt2, g, payoff21, payoff22, Brushes.LightGray)
-                Else
-
-                    drawPayoff(pt2, g, payoff21, payoff22, Brushes.Black)
-                End If
+                drawPayoff(pt2, g, payoff21, payoff22, payoffLabel2)
             End If
 
             If payoff31 >= 0 And payoff32 >= 0 Then
-
-                If status = "dead" Or
-                   InStr(status, "sub") Or
-                   status = "pay1" Or
-                   status = "pay2" Then
-
-                    drawPayoff(pt4, g, payoff31, payoff32, Brushes.LightGray)
-                Else
-
-                    drawPayoff(pt4, g, payoff31, payoff32, Brushes.Black)
-                End If
+                drawPayoff(pt4, g, payoff31, payoff32, payoffLabel3)
             End If
-
-            'If status = "down" Then
-            '    If subNodeCount >= 1 Then
-            '        tempOffset = 0
-            '    End If
-            'ElseIf status = "right" Then
-            '    If subNodeCount = 2 Then
-            '        tempOffset = 0
-            '    End If
-            'End If
-
-            'If subNodeCount = 3 Then
-
-            'ElseIf subNodeCount = 2 Then
-
-            '    'right
-            '    If payoffCount = 1 Then
-            '        drawPayoff(pt3, g, payoff11, payoff12)
-            '    End If
-
-            'ElseIf subNodeCount = 1 Then
-
-            '    'draw pay off right
-            '    drawPayoff(pt3, g, payoff11, payoff12)
-
-            '    'down
-            '    If payoffCount = 2 Then
-            '        drawPayoff(pt2, g, payoff21, payoff22)
-            '    End If
-            'Else
-            '    'payoff right
-            '     drawPayoff(pt3, g, payoff11, payoff12)
-
-            '    If payoffCount >= 2 Then
-            '        'payoff bottom
-            '          drawPayoff(pt2, g, payoff21, payoff22)
-            '    End If
-
-            '    If payoffCount = 3 Then
-            '        drawPayoff(pt4, g, payoff31, payoff32)
-            '    End If
-            'End If
 
             g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
-            g.FillEllipse(New SolidBrush(myColor), New Rectangle(pt1.X - 25, pt1.Y - 25, 50, 50))
+            If owner = 1 Then
+                g.FillEllipse(Brushes.CornflowerBlue, New Rectangle(pt1.X - 25, pt1.Y - 25, 50, 50))
+            Else
+                g.FillEllipse(Brushes.Coral, New Rectangle(pt1.X - 25, pt1.Y - 25, 50, 50))
+            End If
 
             g.DrawEllipse(Pens.Black, New Rectangle(pt1.X - 25, pt1.Y - 25, 50, 50))
 
@@ -188,18 +119,23 @@
         End Try
     End Sub
 
-    Private Sub drawBranchLabel(g As Graphics, branchLabel As String, startPt As Point, endPt As Point, tempB As Brush)
+    Private Sub drawBranchLabel(g As Graphics, branchLabel As String, startPt As Point, endPt As Point)
         Try
             If branchLabel = "" Then Exit Sub
 
-            Dim labelPt As New Point(CInt((startPt.X + endPt.X) / 2), CInt((startPt.Y + endPt.Y) / 2))
-            g.DrawString(branchLabel, f3, tempB, labelPt.X, labelPt.Y - 16, fmt)
+            Dim labelPt As New Point(endPt.X, CInt((startPt.Y + endPt.Y) / 2))
+
+            If endPt.X > startPt.X Then
+                g.DrawString(branchLabel, f14, Brushes.DimGray, labelPt.X, labelPt.Y - 16, fmt)
+            Else
+                g.DrawString(branchLabel, f14, Brushes.DimGray, labelPt.X, labelPt.Y - 16, fmt)
+            End If
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
     End Sub
 
-    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, tempB As Brush)
+    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, payOffLabel As String)
         Try
             If showInstructions Then
                 payOffTop = returnInsructionPayoff(payOffTop)
@@ -209,7 +145,7 @@
                 payOffBottom = Format(CDbl(payOffBottom), "0.00")
             End If
 
-            g.DrawString(getPayoffParenthesis(payOffTop, payOffBottom), f1, tempB, startPt.X, startPt.Y - g.MeasureString("(  )", f1).Height / 2, fmt)
+            g.DrawString(getPayoffParenthesis(payOffTop, payOffBottom), f1, Brushes.Black, startPt.X, startPt.Y - g.MeasureString("(  )", f1).Height / 2, fmt)
 
             If payoffMode = "dollars" Then
                 payOffTop = "$" & payOffTop
@@ -224,6 +160,11 @@
 
             g.DrawString(payOffTop, f2, Brushes.CornflowerBlue, startPt.X, startPt.Y - 22, fmt)
             g.DrawString(payOffBottom, f2, Brushes.Coral, startPt.X, startPt.Y - 2, fmt)
+
+            'draw the label if it exists below the payoffs
+            If payOffLabel <> "" Then
+                g.DrawString(payOffLabel, f14, Brushes.DimGray, startPt.X, startPt.Y + 22, fmt)
+            End If
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
@@ -312,10 +253,14 @@
                         Else
                             drawConnection(pt1, myNodeList(subNode1Id, myPeriod).pt1, g, tempP)
                         End If
-
-                        drawBranchLabel(g, subNodeLabel1, pt1, myNodeList(subNode1Id, myPeriod).pt1, tempP.Brush)
-
                     End If
+                End If
+            End If
+
+            'allways draw the label for subnode 1, even if it is not the current node
+            If subNode1Id > 0 Then
+                If tempNodeCount >= subNode1Id Then
+                    drawBranchLabel(g, subNodeLabel1, pt1, myNodeList(subNode1Id, myPeriod).pt1)
                 End If
             End If
 
@@ -329,11 +274,19 @@
                             drawConnection(pt1, myNodeList(subNode2Id, myPeriod).pt1, g, tempP)
                         End If
 
-                        drawBranchLabel(g, subNodeLabel2, pt1, myNodeList(subNode2Id, myPeriod).pt1, tempP.Brush)
+                        drawBranchLabel(g, subNodeLabel2, pt1, myNodeList(subNode2Id, myPeriod).pt1)
 
                     End If
                 End If
             End If
+
+            'allways draw the label for subnode 2, even if it is not the current node
+            If subNode2Id > 0 Then
+                If tempNodeCount >= subNode2Id Then
+                    drawBranchLabel(g, subNodeLabel2, pt1, myNodeList(subNode2Id, myPeriod).pt1)
+                End If
+            End If
+
 
             If tickTock = 6 Or currentNode <> id Then
                 If subNode3Id > 0 Then
@@ -345,9 +298,16 @@
                             drawConnection(pt1, myNodeList(subNode3Id, myPeriod).pt1, g, tempP)
                         End If
 
-                        drawBranchLabel(g, subNodeLabel3, pt1, myNodeList(subNode3Id, myPeriod).pt1, tempP.Brush)
+                        drawBranchLabel(g, subNodeLabel3, pt1, myNodeList(subNode3Id, myPeriod).pt1)
 
                     End If
+                End If
+            End If
+
+            'allways draw the label for subnode 3, even if it is not the current node
+            If subNode3Id > 0 Then
+                If tempNodeCount >= subNode3Id Then
+                    drawBranchLabel(g, subNodeLabel3, pt1, myNodeList(subNode3Id, myPeriod).pt1)
                 End If
             End If
 
@@ -358,13 +318,13 @@
                     'Dim tempD As Double = g.MeasureString(getPayoffParenthesis(getDisplayedPayoff(payoff11), getDisplayedPayoff(payoff12)), f1).Width
 
                     If status = "pay1" Then
-                        g.DrawLine(p4, pt1.X, pt1.Y, pt3.X, pt3.Y - 25)
+                        g.DrawLine(p4, pt1.X, pt1.Y, pt3.X, pt2.Y - 25)
                     Else
 
-                        g.DrawLine(tempP, pt1.X, pt1.Y, pt3.X, pt3.Y - 25)
+                        g.DrawLine(tempP, pt1.X, pt1.Y, pt3.X, pt2.Y - 25)
                     End If
 
-                    drawBranchLabel(g, payoffLabel1, pt1, New Point(pt3.X, pt3.Y - 25), tempP.Brush)
+                    'drawBranchLabel(g, payoffLabel1, pt1, New Point(pt3.X, pt2.Y - 25))
 
                 End If
             End If
@@ -378,7 +338,7 @@
                         g.DrawLine(tempP, pt1.X, pt1.Y, pt2.X, pt2.Y - 25)
                     End If
 
-                    drawBranchLabel(g, payoffLabel2, pt1, New Point(pt2.X, pt2.Y - 25), tempP.Brush)
+                    ' drawBranchLabel(g, payoffLabel2, pt1, New Point(pt2.X, pt2.Y - 25))
 
                 End If
             End If
@@ -394,7 +354,7 @@
                         g.DrawLine(tempP, pt1.X, pt1.Y, pt4.X, pt4.Y - 25)
                     End If
 
-                    drawBranchLabel(g, payoffLabel3, pt1, New Point(pt4.X, pt4.Y - 25), tempP.Brush)
+                    ' drawBranchLabel(g, payoffLabel3, pt1, New Point(pt4.X, pt4.Y - 25))
 
                 End If
             End If

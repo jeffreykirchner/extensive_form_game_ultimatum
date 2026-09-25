@@ -32,6 +32,13 @@
                     writeINI(sfile, "node" & i & "-" & j, "subNode2Id", nodeList(j, i).subNode2Id)
                     writeINI(sfile, "node" & i & "-" & j, "subNode3Id", nodeList(j, i).subNode3Id)
 
+                    writeINI(sfile, "node" & i & "-" & j, "payoffLabel1", nodeList(j, i).payoffLabel1)
+                    writeINI(sfile, "node" & i & "-" & j, "payoffLabel2", nodeList(j, i).payoffLabel2)
+                    writeINI(sfile, "node" & i & "-" & j, "payoffLabel3", nodeList(j, i).payoffLabel3)
+                    writeINI(sfile, "node" & i & "-" & j, "subNodeLabel1", nodeList(j, i).subNodeLabel1)
+                    writeINI(sfile, "node" & i & "-" & j, "subNodeLabel2", nodeList(j, i).subNodeLabel2)
+                    writeINI(sfile, "node" & i & "-" & j, "subNodeLabel3", nodeList(j, i).subNodeLabel3)
+
                     writeINI(sfile, "node" & i & "-" & j, "sortValue", nodeList(j, i).sortValue)
                     writeINI(sfile, "node" & i & "-" & j, "sortValue1", nodeList(j, i).sortValue1)
                     writeINI(sfile, "node" & i & "-" & j, "sortValue2", nodeList(j, i).sortValue2)
@@ -219,7 +226,7 @@
         End Try
     End Sub
 
-  
+
     Private Sub pnlMain_MouseMove(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles pnlMain.MouseMove
         Try
             If mouseIsDown And currentNode <= nodeCount(currentPeriod) Then
@@ -273,6 +280,14 @@
             frmSetup3_1.txtSubNode1.Text = nodeList(currentNode, currentPeriod).subNode1Id
             frmSetup3_1.txtSubNode2.Text = nodeList(currentNode, currentPeriod).subNode2Id
             frmSetup3_1.txtSubNode3.Text = nodeList(currentNode, currentPeriod).subNode3Id
+
+            frmSetup3_1.txtPayoffLabel1.Text = nodeList(currentNode, currentPeriod).payoffLabel1
+            frmSetup3_1.txtPayoffLabel2.Text = nodeList(currentNode, currentPeriod).payoffLabel2
+            frmSetup3_1.txtPayoffLabel3.Text = nodeList(currentNode, currentPeriod).payoffLabel3
+
+            frmSetup3_1.txtSubNodeLabel1.Text = nodeList(currentNode, currentPeriod).subNodeLabel1
+            frmSetup3_1.txtSubNodeLabel2.Text = nodeList(currentNode, currentPeriod).subNodeLabel2
+            frmSetup3_1.txtSubNodeLabel3.Text = nodeList(currentNode, currentPeriod).subNodeLabel3
 
             frmSetup3_1.txtSortValue.Text = nodeList(currentNode, currentPeriod).sortValue
             frmSetup3_1.txtSortValue1.Text = nodeList(currentNode, currentPeriod).sortValue1

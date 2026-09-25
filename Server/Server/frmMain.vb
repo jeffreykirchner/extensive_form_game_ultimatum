@@ -685,6 +685,20 @@ Public Class frmMain
                         nodeList(j, i).subNode2Id = getINI(tempFile, "node" & i & "-" & j, "subNode2Id")
                         nodeList(j, i).subNode3Id = getINI(tempFile, "node" & i & "-" & j, "subNode3Id")
 
+                        nodeList(j, i).payoffLabel1 = getINI(tempFile, "node" & i & "-" & j, "payoffLabel1")
+                        nodeList(j, i).payoffLabel2 = getINI(tempFile, "node" & i & "-" & j, "payoffLabel2")
+                        nodeList(j, i).payoffLabel3 = getINI(tempFile, "node" & i & "-" & j, "payoffLabel3")
+                        nodeList(j, i).subNodeLabel1 = getINI(tempFile, "node" & i & "-" & j, "subNodeLabel1")
+                        nodeList(j, i).subNodeLabel2 = getINI(tempFile, "node" & i & "-" & j, "subNodeLabel2")
+                        nodeList(j, i).subNodeLabel3 = getINI(tempFile, "node" & i & "-" & j, "subNodeLabel3")
+
+                        If nodeList(j, i).payoffLabel1 = "?" Then nodeList(j, i).payoffLabel1 = ""
+                        If nodeList(j, i).payoffLabel2 = "?" Then nodeList(j, i).payoffLabel2 = ""
+                        If nodeList(j, i).payoffLabel3 = "?" Then nodeList(j, i).payoffLabel3 = ""
+                        If nodeList(j, i).subNodeLabel1 = "?" Then nodeList(j, i).subNodeLabel1 = ""
+                        If nodeList(j, i).subNodeLabel2 = "?" Then nodeList(j, i).subNodeLabel2 = ""
+                        If nodeList(j, i).subNodeLabel3 = "?" Then nodeList(j, i).subNodeLabel3 = ""
+
                         nodeList(j, i).sortValue = getINI(tempFile, "node" & i & "-" & j, "sortValue")
                         nodeList(j, i).sortValue1 = getINI(tempFile, "node" & i & "-" & j, "sortValue1")
                         nodeList(j, i).sortValue2 = getINI(tempFile, "node" & i & "-" & j, "sortValue2")

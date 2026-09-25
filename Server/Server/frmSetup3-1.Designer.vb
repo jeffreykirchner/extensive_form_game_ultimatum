@@ -46,6 +46,14 @@ Partial Class frmSetup3_1
         Me.txtSubNode1 = New System.Windows.Forms.TextBox()
         Me.txtSubNode2 = New System.Windows.Forms.TextBox()
         Me.txtSubNode3 = New System.Windows.Forms.TextBox()
+        Me.txtPayoffLabel1 = New System.Windows.Forms.TextBox()
+        Me.txtPayoffLabel2 = New System.Windows.Forms.TextBox()
+        Me.txtPayoffLabel3 = New System.Windows.Forms.TextBox()
+        Me.txtSubNodeLabel1 = New System.Windows.Forms.TextBox()
+        Me.txtSubNodeLabel2 = New System.Windows.Forms.TextBox()
+        Me.txtSubNodeLabel3 = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtSortValue3 = New System.Windows.Forms.TextBox()
@@ -53,13 +61,14 @@ Partial Class frmSetup3_1
         Me.txtSortValue1 = New System.Windows.Forms.TextBox()
         Me.txtSortValue = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         CType(Me.nudOwner, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cmdDone
         '
         Me.cmdDone.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdDone.Location = New System.Drawing.Point(33, 331)
+        Me.cmdDone.Location = New System.Drawing.Point(102, 337)
         Me.cmdDone.Name = "cmdDone"
         Me.cmdDone.Size = New System.Drawing.Size(468, 32)
         Me.cmdDone.TabIndex = 35
@@ -251,7 +260,7 @@ Partial Class frmSetup3_1
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(278, 60)
+        Me.Label5.Location = New System.Drawing.Point(358, 60)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(103, 18)
         Me.Label5.TabIndex = 62
@@ -260,7 +269,7 @@ Partial Class frmSetup3_1
         'txtSubNode1
         '
         Me.txtSubNode1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSubNode1.Location = New System.Drawing.Point(299, 101)
+        Me.txtSubNode1.Location = New System.Drawing.Point(337, 101)
         Me.txtSubNode1.Name = "txtSubNode1"
         Me.txtSubNode1.Size = New System.Drawing.Size(61, 22)
         Me.txtSubNode1.TabIndex = 63
@@ -270,7 +279,7 @@ Partial Class frmSetup3_1
         'txtSubNode2
         '
         Me.txtSubNode2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSubNode2.Location = New System.Drawing.Point(299, 169)
+        Me.txtSubNode2.Location = New System.Drawing.Point(337, 169)
         Me.txtSubNode2.Name = "txtSubNode2"
         Me.txtSubNode2.Size = New System.Drawing.Size(61, 22)
         Me.txtSubNode2.TabIndex = 64
@@ -280,19 +289,93 @@ Partial Class frmSetup3_1
         'txtSubNode3
         '
         Me.txtSubNode3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSubNode3.Location = New System.Drawing.Point(299, 235)
+        Me.txtSubNode3.Location = New System.Drawing.Point(337, 235)
         Me.txtSubNode3.Name = "txtSubNode3"
         Me.txtSubNode3.Size = New System.Drawing.Size(61, 22)
         Me.txtSubNode3.TabIndex = 65
         Me.txtSubNode3.Text = "0"
         Me.txtSubNode3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'txtPayoffLabel1
+        '
+        Me.txtPayoffLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPayoffLabel1.Location = New System.Drawing.Point(236, 101)
+        Me.txtPayoffLabel1.Name = "txtPayoffLabel1"
+        Me.txtPayoffLabel1.Size = New System.Drawing.Size(57, 22)
+        Me.txtPayoffLabel1.TabIndex = 66
+        Me.txtPayoffLabel1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtPayoffLabel2
+        '
+        Me.txtPayoffLabel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPayoffLabel2.Location = New System.Drawing.Point(236, 169)
+        Me.txtPayoffLabel2.Name = "txtPayoffLabel2"
+        Me.txtPayoffLabel2.Size = New System.Drawing.Size(57, 22)
+        Me.txtPayoffLabel2.TabIndex = 67
+        Me.txtPayoffLabel2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtPayoffLabel3
+        '
+        Me.txtPayoffLabel3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPayoffLabel3.Location = New System.Drawing.Point(236, 235)
+        Me.txtPayoffLabel3.Name = "txtPayoffLabel3"
+        Me.txtPayoffLabel3.Size = New System.Drawing.Size(57, 22)
+        Me.txtPayoffLabel3.TabIndex = 68
+        Me.txtPayoffLabel3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtSubNodeLabel1
+        '
+        Me.txtSubNodeLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSubNodeLabel1.Location = New System.Drawing.Point(404, 101)
+        Me.txtSubNodeLabel1.Name = "txtSubNodeLabel1"
+        Me.txtSubNodeLabel1.Size = New System.Drawing.Size(57, 22)
+        Me.txtSubNodeLabel1.TabIndex = 69
+        Me.txtSubNodeLabel1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtSubNodeLabel2
+        '
+        Me.txtSubNodeLabel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSubNodeLabel2.Location = New System.Drawing.Point(404, 169)
+        Me.txtSubNodeLabel2.Name = "txtSubNodeLabel2"
+        Me.txtSubNodeLabel2.Size = New System.Drawing.Size(57, 22)
+        Me.txtSubNodeLabel2.TabIndex = 70
+        Me.txtSubNodeLabel2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtSubNodeLabel3
+        '
+        Me.txtSubNodeLabel3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSubNodeLabel3.Location = New System.Drawing.Point(404, 235)
+        Me.txtSubNodeLabel3.Name = "txtSubNodeLabel3"
+        Me.txtSubNodeLabel3.Size = New System.Drawing.Size(57, 22)
+        Me.txtSubNodeLabel3.TabIndex = 71
+        Me.txtSubNodeLabel3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(244, 86)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(38, 13)
+        Me.Label7.TabIndex = 72
+        Me.Label7.Text = "Label"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(414, 86)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(38, 13)
+        Me.Label8.TabIndex = 73
+        Me.Label8.Text = "Label"
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.DimGray
-        Me.Label6.Location = New System.Drawing.Point(233, 298)
+        Me.Label6.Location = New System.Drawing.Point(271, 297)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(148, 18)
         Me.Label6.TabIndex = 66
@@ -301,7 +384,7 @@ Partial Class frmSetup3_1
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(410, 59)
+        Me.Label1.Location = New System.Drawing.Point(476, 57)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(94, 38)
         Me.Label1.TabIndex = 67
@@ -311,7 +394,7 @@ Partial Class frmSetup3_1
         'txtSortValue3
         '
         Me.txtSortValue3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSortValue3.Location = New System.Drawing.Point(429, 235)
+        Me.txtSortValue3.Location = New System.Drawing.Point(495, 233)
         Me.txtSortValue3.Name = "txtSortValue3"
         Me.txtSortValue3.Size = New System.Drawing.Size(61, 22)
         Me.txtSortValue3.TabIndex = 70
@@ -321,7 +404,7 @@ Partial Class frmSetup3_1
         'txtSortValue2
         '
         Me.txtSortValue2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSortValue2.Location = New System.Drawing.Point(429, 169)
+        Me.txtSortValue2.Location = New System.Drawing.Point(495, 167)
         Me.txtSortValue2.Name = "txtSortValue2"
         Me.txtSortValue2.Size = New System.Drawing.Size(61, 22)
         Me.txtSortValue2.TabIndex = 69
@@ -331,7 +414,7 @@ Partial Class frmSetup3_1
         'txtSortValue1
         '
         Me.txtSortValue1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSortValue1.Location = New System.Drawing.Point(429, 101)
+        Me.txtSortValue1.Location = New System.Drawing.Point(495, 99)
         Me.txtSortValue1.Name = "txtSortValue1"
         Me.txtSortValue1.Size = New System.Drawing.Size(61, 22)
         Me.txtSortValue1.TabIndex = 68
@@ -341,7 +424,7 @@ Partial Class frmSetup3_1
         'txtSortValue
         '
         Me.txtSortValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSortValue.Location = New System.Drawing.Point(429, 17)
+        Me.txtSortValue.Location = New System.Drawing.Point(495, 17)
         Me.txtSortValue.Name = "txtSortValue"
         Me.txtSortValue.Size = New System.Drawing.Size(61, 22)
         Me.txtSortValue.TabIndex = 72
@@ -352,20 +435,39 @@ Partial Class frmSetup3_1
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(292, 18)
+        Me.Label2.Location = New System.Drawing.Point(358, 18)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(131, 18)
         Me.Label2.TabIndex = 71
         Me.Label2.Text = "Node Sort Value"
         '
+        'Label9
+        '
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(343, 86)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(55, 13)
+        Me.Label9.TabIndex = 74
+        Me.Label9.Text = "ID"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'frmSetup3_1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(521, 381)
+        Me.ClientSize = New System.Drawing.Size(644, 381)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.txtSortValue)
         Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.txtSubNodeLabel3)
+        Me.Controls.Add(Me.txtSubNodeLabel2)
+        Me.Controls.Add(Me.txtSubNodeLabel1)
+        Me.Controls.Add(Me.txtPayoffLabel3)
+        Me.Controls.Add(Me.txtPayoffLabel2)
+        Me.Controls.Add(Me.txtPayoffLabel1)
         Me.Controls.Add(Me.txtSortValue3)
         Me.Controls.Add(Me.txtSortValue2)
         Me.Controls.Add(Me.txtSortValue1)
@@ -434,4 +536,13 @@ Partial Class frmSetup3_1
     Friend WithEvents txtSortValue1 As System.Windows.Forms.TextBox
     Friend WithEvents txtSortValue As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtPayoffLabel1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPayoffLabel2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPayoffLabel3 As System.Windows.Forms.TextBox
+    Friend WithEvents txtSubNodeLabel1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtSubNodeLabel2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtSubNodeLabel3 As System.Windows.Forms.TextBox
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents Label9 As Label
 End Class

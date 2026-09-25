@@ -35,6 +35,14 @@
 
                 nodeList(currentNode, currentPeriod).subNode3Id = txtSubNode3.Text
 
+                nodeList(currentNode, currentPeriod).payoffLabel1 = txtPayoffLabel1.Text
+                nodeList(currentNode, currentPeriod).payoffLabel2 = txtPayoffLabel2.Text
+                nodeList(currentNode, currentPeriod).payoffLabel3 = txtPayoffLabel3.Text
+
+                nodeList(currentNode, currentPeriod).subNodeLabel1 = txtSubNodeLabel1.Text
+                nodeList(currentNode, currentPeriod).subNodeLabel2 = txtSubNodeLabel2.Text
+                nodeList(currentNode, currentPeriod).subNodeLabel3 = txtSubNodeLabel3.Text
+
                 nodeList(currentNode, currentPeriod).sortValue = txtSortValue.Text
                 nodeList(currentNode, currentPeriod).sortValue1 = txtSortValue1.Text
                 nodeList(currentNode, currentPeriod).sortValue2 = txtSortValue2.Text

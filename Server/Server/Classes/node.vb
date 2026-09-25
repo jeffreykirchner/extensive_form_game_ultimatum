@@ -13,6 +13,14 @@
     Public payoff31 As Double
     Public payoff32 As Double
 
+    Public payoffLabel1 As String
+    Public payoffLabel2 As String
+    Public payoffLabel3 As String
+
+    Public subNodeLabel1 As String
+    Public subNodeLabel2 As String
+    Public subNodeLabel3 As String
+
     Public owner As Integer
 
     Public pt1 As Point             'node location
@@ -37,12 +45,15 @@
     Dim f1 As New Font("Calibri", 40, FontStyle.Bold)
     Dim f2 As New Font("Calibri", 16, FontStyle.Bold)
     Dim f3 As New Font("Calibri", 10, FontStyle.Bold)
+    Dim f14 As New Font("Calibri", 14, FontStyle.Bold)
     Dim fmt As New StringFormat 'center alignment
+    Dim fmt2 As New StringFormat 'left alignment
 
     Dim p1 As New Pen(Brushes.Black, 8)
     Public Sub New()
         Try
             fmt.Alignment = StringAlignment.Center
+            fmt2.Alignment = StringAlignment.Near
 
             count = 0
             countRight = 0
@@ -82,6 +93,12 @@
             outstr &= sortValue1 & ";"
             outstr &= sortValue2 & ";"
             outstr &= sortValue3 & ";"
+            outstr &= payoffLabel1 & ";"
+            outstr &= payoffLabel2 & ";"
+            outstr &= payoffLabel3 & ";"
+            outstr &= subNodeLabel1 & ";"
+            outstr &= subNodeLabel2 & ";"
+            outstr &= subNodeLabel3 & ";"
 
             Return outstr
         Catch ex As Exception
@@ -164,6 +181,36 @@
             sortValue3 = msgtokens(nextToken)
             nextToken += 1
 
+            If nextToken < msgtokens.Length Then
+                payoffLabel1 = msgtokens(nextToken)
+                nextToken += 1
+            End If
+
+            If nextToken < msgtokens.Length Then
+                payoffLabel2 = msgtokens(nextToken)
+                nextToken += 1
+            End If
+
+            If nextToken < msgtokens.Length Then
+                payoffLabel3 = msgtokens(nextToken)
+                nextToken += 1
+            End If
+
+            If nextToken < msgtokens.Length Then
+                subNodeLabel1 = msgtokens(nextToken)
+                nextToken += 1
+            End If
+
+            If nextToken < msgtokens.Length Then
+                subNodeLabel2 = msgtokens(nextToken)
+                nextToken += 1
+            End If
+
+            If nextToken < msgtokens.Length Then
+                subNodeLabel3 = msgtokens(nextToken)
+                nextToken += 1
+            End If
+
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
@@ -178,18 +225,21 @@
                 If subNode1Id > 0 Then
                     If nodeCount(myPeriod) >= subNode1Id Then
                         drawConnection(pt1, nodeList(subNode1Id, myPeriod).pt1, g)
+                        drawBranchLabel(g, subNodeLabel1, pt1, nodeList(subNode1Id, myPeriod).pt1)
                     End If
                 End If
 
                 If subNode2Id > 0 Then
                     If nodeCount(myPeriod) >= subNode2Id Then
                         drawConnection(pt1, nodeList(subNode2Id, myPeriod).pt1, g)
+                        drawBranchLabel(g, subNodeLabel2, pt1, nodeList(subNode2Id, myPeriod).pt1)
                     End If
                 End If
 
                 If subNode3Id > 0 Then
                     If nodeCount(myPeriod) >= subNode3Id Then
                         drawConnection(pt1, nodeList(subNode3Id, myPeriod).pt1, g)
+                        drawBranchLabel(g, subNodeLabel3, pt1, nodeList(subNode3Id, myPeriod).pt1)
                     End If
                 End If
 
@@ -200,12 +250,14 @@
 
                     'g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
                     g.DrawLine(p1, pt1.X, pt1.Y, pt3.X, pt2.Y - 25)
-                    drawPayoff(pt3, g, payoff11, payoff12)
+                    'drawBranchLabel(g, payoffLabel1, pt1, New Point(pt3.X, pt2.Y - 25))
+                    drawPayoff(pt3, g, payoff11, payoff12, payoffLabel1)
                 End If
 
                 If payoff21 >= 0 And payoff22 >= 0 Then
                     g.DrawLine(p1, pt1.X, pt1.Y, pt2.X, pt2.Y - 25)
-                    drawPayoff(pt2, g, payoff21, payoff22)
+                    'drawBranchLabel(g, payoffLabel2, pt1, New Point(pt2.X, pt2.Y - 25))
+                    drawPayoff(pt2, g, payoff21, payoff22, payoffLabel2)
                 End If
 
                 If payoff31 >= 0 And payoff32 >= 0 Then
@@ -213,7 +265,8 @@
 
                     'g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)
                     g.DrawLine(p1, pt1.X, pt1.Y, pt4.X, pt4.Y - 25)
-                    drawPayoff(pt4, g, payoff31, payoff32)
+                    'drawBranchLabel(g, payoffLabel3, pt1, New Point(pt4.X, pt4.Y - 25))
+                    drawPayoff(pt4, g, payoff31, payoff32, payoffLabel3)
                 End If
 
                 g.SmoothingMode = Drawing2D.SmoothingMode.None
@@ -351,7 +404,25 @@
         End Try
     End Sub
 
-    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String)
+    Private Sub drawBranchLabel(g As Graphics, branchLabel As String, startPt As Point, endPt As Point)
+        Try
+            If branchLabel = "" Then Exit Sub
+
+            Dim labelPt As New Point(endPt.X, CInt((startPt.Y + endPt.Y) / 2))
+
+            If endPt.X > startPt.X Then
+                g.DrawString(branchLabel, f14, Brushes.DimGray, labelPt.X, labelPt.Y - 16, fmt)
+            Else
+                g.DrawString(branchLabel, f14, Brushes.DimGray, labelPt.X, labelPt.Y - 16, fmt)
+            End If
+
+
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
+    End Sub
+
+    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, payOffLabel As String)
         Try
 
             If decimalFormat Then
@@ -370,6 +441,11 @@
             Else
                 g.DrawString("£" & payOffTop, f2, Brushes.CornflowerBlue, startPt.X, startPt.Y - 22, fmt)
                 g.DrawString("£" & payOffBottom, f2, Brushes.Coral, startPt.X, startPt.Y - 2, fmt)
+            End If
+
+            'draw the label if it exists below the payoffs
+            If payOffLabel <> "" Then
+                g.DrawString(payOffLabel, f14, Brushes.DimGray, startPt.X, startPt.Y + 22, fmt)
             End If
         Catch ex As Exception
             appEventLog_Write("error :", ex)

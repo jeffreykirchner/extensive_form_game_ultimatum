@@ -357,6 +357,31 @@ Module modMain
                         nodeList(j, i).subNode3Id = msgtokens(nextToken)
                         nextToken += 1
 
+                        nodeList(j, i).payoffLabel1 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeList(j, i).payoffLabel2 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeList(j, i).payoffLabel3 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeList(j, i).subNodeLabel1 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeList(j, i).subNodeLabel2 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeList(j, i).subNodeLabel3 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        If nodeList(j, i).payoffLabel1 = "?" Then nodeList(j, i).payoffLabel1 = ""
+                        If nodeList(j, i).payoffLabel2 = "?" Then nodeList(j, i).payoffLabel2 = ""
+                        If nodeList(j, i).payoffLabel3 = "?" Then nodeList(j, i).payoffLabel3 = ""
+                        If nodeList(j, i).subNodeLabel1 = "?" Then nodeList(j, i).subNodeLabel1 = ""
+                        If nodeList(j, i).subNodeLabel2 = "?" Then nodeList(j, i).subNodeLabel2 = ""
+                        If nodeList(j, i).subNodeLabel3 = "?" Then nodeList(j, i).subNodeLabel3 = ""
+
                         nodeList(j, i).myColor = getMyColor(nodeList(j, i).owner)
 
                     Next
@@ -420,6 +445,31 @@ Module modMain
 
                         nodeListInstructions(j, i).subNode3Id = msgtokens(nextToken)
                         nextToken += 1
+
+                        nodeListInstructions(j, i).payoffLabel1 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeListInstructions(j, i).payoffLabel2 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeListInstructions(j, i).payoffLabel3 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeListInstructions(j, i).subNodeLabel1 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeListInstructions(j, i).subNodeLabel2 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        nodeListInstructions(j, i).subNodeLabel3 = msgtokens(nextToken)
+                        nextToken += 1
+
+                        If nodeListInstructions(j, i).payoffLabel1 = "?" Then nodeListInstructions(j, i).payoffLabel1 = ""
+                        If nodeListInstructions(j, i).payoffLabel2 = "?" Then nodeListInstructions(j, i).payoffLabel2 = ""
+                        If nodeListInstructions(j, i).payoffLabel3 = "?" Then nodeListInstructions(j, i).payoffLabel3 = ""
+                        If nodeListInstructions(j, i).subNodeLabel1 = "?" Then nodeListInstructions(j, i).subNodeLabel1 = ""
+                        If nodeListInstructions(j, i).subNodeLabel2 = "?" Then nodeListInstructions(j, i).subNodeLabel2 = ""
+                        If nodeListInstructions(j, i).subNodeLabel3 = "?" Then nodeListInstructions(j, i).subNodeLabel3 = ""
 
                         nodeListInstructions(j, i).myColor = getMyColor(nodeListInstructions(j, i).owner)
                     Next

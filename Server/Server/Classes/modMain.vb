@@ -661,7 +661,13 @@ Module modMain
                         .pt4 = pointFromString(getINI(sfile, "nodeI" & i & "-" & j, "pt4")),
                         .subNode1Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode1Id"),
                         .subNode2Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode2Id"),
-                        .subNode3Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode3Id")
+                        .subNode3Id = getINI(sfile, "nodeI" & i & "-" & j, "subNode3Id"),
+                        .payoffLabel1 = getINI(sfile, "nodeI" & i & "-" & j, "payoffLabel1"),
+                        .payoffLabel2 = getINI(sfile, "nodeI" & i & "-" & j, "payoffLabel2"),
+                        .payoffLabel3 = getINI(sfile, "nodeI" & i & "-" & j, "payoffLabel3"),
+                        .subNodeLabel1 = getINI(sfile, "nodeI" & i & "-" & j, "subNodeLabel1"),
+                        .subNodeLabel2 = getINI(sfile, "nodeI" & i & "-" & j, "subNodeLabel2"),
+                        .subNodeLabel3 = getINI(sfile, "nodeI" & i & "-" & j, "subNodeLabel3")
                     }
                 Next
             Next

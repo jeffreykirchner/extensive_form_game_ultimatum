@@ -15,6 +15,14 @@
     Public payoff31 As Double
     Public payoff32 As Double
 
+    Public payoffLabel1 As String
+    Public payoffLabel2 As String
+    Public payoffLabel3 As String
+
+    Public subNodeLabel1 As String
+    Public subNodeLabel2 As String
+    Public subNodeLabel3 As String
+
     Public owner As Integer
     Public pt1 As Point
     Public pt2 As Point
@@ -180,6 +188,17 @@
         End Try
     End Sub
 
+    Private Sub drawBranchLabel(g As Graphics, branchLabel As String, startPt As Point, endPt As Point, tempB As Brush)
+        Try
+            If branchLabel = "" Then Exit Sub
+
+            Dim labelPt As New Point(CInt((startPt.X + endPt.X) / 2), CInt((startPt.Y + endPt.Y) / 2))
+            g.DrawString(branchLabel, f3, tempB, labelPt.X, labelPt.Y - 16, fmt)
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
+    End Sub
+
     Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, tempB As Brush)
         Try
             If showInstructions Then
@@ -294,6 +313,8 @@
                             drawConnection(pt1, myNodeList(subNode1Id, myPeriod).pt1, g, tempP)
                         End If
 
+                        drawBranchLabel(g, subNodeLabel1, pt1, myNodeList(subNode1Id, myPeriod).pt1, tempP.Brush)
+
                     End If
                 End If
             End If
@@ -308,6 +329,7 @@
                             drawConnection(pt1, myNodeList(subNode2Id, myPeriod).pt1, g, tempP)
                         End If
 
+                        drawBranchLabel(g, subNodeLabel2, pt1, myNodeList(subNode2Id, myPeriod).pt1, tempP.Brush)
 
                     End If
                 End If
@@ -322,6 +344,8 @@
                         Else
                             drawConnection(pt1, myNodeList(subNode3Id, myPeriod).pt1, g, tempP)
                         End If
+
+                        drawBranchLabel(g, subNodeLabel3, pt1, myNodeList(subNode3Id, myPeriod).pt1, tempP.Brush)
 
                     End If
                 End If
@@ -340,6 +364,7 @@
                         g.DrawLine(tempP, pt1.X, pt1.Y, pt3.X, pt3.Y - 25)
                     End If
 
+                    drawBranchLabel(g, payoffLabel1, pt1, New Point(pt3.X, pt3.Y - 25), tempP.Brush)
 
                 End If
             End If
@@ -352,6 +377,8 @@
                     Else
                         g.DrawLine(tempP, pt1.X, pt1.Y, pt2.X, pt2.Y - 25)
                     End If
+
+                    drawBranchLabel(g, payoffLabel2, pt1, New Point(pt2.X, pt2.Y - 25), tempP.Brush)
 
                 End If
             End If
@@ -366,6 +393,8 @@
                     Else
                         g.DrawLine(tempP, pt1.X, pt1.Y, pt4.X, pt4.Y - 25)
                     End If
+
+                    drawBranchLabel(g, payoffLabel3, pt1, New Point(pt4.X, pt4.Y - 25), tempP.Brush)
 
                 End If
             End If

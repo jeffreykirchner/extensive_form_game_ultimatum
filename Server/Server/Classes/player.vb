@@ -115,6 +115,13 @@ Public Class player
                         outstr &= nodeList(j, i).subNode1Id & ";"
                         outstr &= nodeList(j, i).subNode2Id & ";"
                         outstr &= nodeList(j, i).subNode3Id & ";"
+
+                        outstr &= nodeList(j, i).payoffLabel1 & ";"
+                        outstr &= nodeList(j, i).payoffLabel2 & ";"
+                        outstr &= nodeList(j, i).payoffLabel3 & ";"
+                        outstr &= nodeList(j, i).subNodeLabel1 & ";"
+                        outstr &= nodeList(j, i).subNodeLabel2 & ";"
+                        outstr &= nodeList(j, i).subNodeLabel3 & ";"
                     Next
                 Next
 
@@ -144,6 +151,13 @@ Public Class player
                         outstr &= nodeListInstructions(j, i).subNode1Id & ";"
                         outstr &= nodeListInstructions(j, i).subNode2Id & ";"
                         outstr &= nodeListInstructions(j, i).subNode3Id & ";"
+
+                        outstr &= nodeListInstructions(j, i).payoffLabel1 & ";"
+                        outstr &= nodeListInstructions(j, i).payoffLabel2 & ";"
+                        outstr &= nodeListInstructions(j, i).payoffLabel3 & ";"
+                        outstr &= nodeListInstructions(j, i).subNodeLabel1 & ";"
+                        outstr &= nodeListInstructions(j, i).subNodeLabel2 & ";"
+                        outstr &= nodeListInstructions(j, i).subNodeLabel3 & ";"
                     Next
                 Next
 
@@ -204,6 +218,20 @@ Public Class player
                     nodeList(j, i).subNode1Id = getINI(sfile, "node" & i & "-" & j, "subNode1Id")
                     nodeList(j, i).subNode2Id = getINI(sfile, "node" & i & "-" & j, "subNode2Id")
                     nodeList(j, i).subNode3Id = getINI(sfile, "node" & i & "-" & j, "subNode3Id")
+
+                    nodeList(j, i).payoffLabel1 = getINI(sfile, "node" & i & "-" & j, "payoffLabel1")
+                    nodeList(j, i).payoffLabel2 = getINI(sfile, "node" & i & "-" & j, "payoffLabel2")
+                    nodeList(j, i).payoffLabel3 = getINI(sfile, "node" & i & "-" & j, "payoffLabel3")
+                    nodeList(j, i).subNodeLabel1 = getINI(sfile, "node" & i & "-" & j, "subNodeLabel1")
+                    nodeList(j, i).subNodeLabel2 = getINI(sfile, "node" & i & "-" & j, "subNodeLabel2")
+                    nodeList(j, i).subNodeLabel3 = getINI(sfile, "node" & i & "-" & j, "subNodeLabel3")
+
+                    If nodeList(j, i).payoffLabel1 = "?" Then nodeList(j, i).payoffLabel1 = ""
+                    If nodeList(j, i).payoffLabel2 = "?" Then nodeList(j, i).payoffLabel2 = ""
+                    If nodeList(j, i).payoffLabel3 = "?" Then nodeList(j, i).payoffLabel3 = ""
+                    If nodeList(j, i).subNodeLabel1 = "?" Then nodeList(j, i).subNodeLabel1 = ""
+                    If nodeList(j, i).subNodeLabel2 = "?" Then nodeList(j, i).subNodeLabel2 = ""
+                    If nodeList(j, i).subNodeLabel3 = "?" Then nodeList(j, i).subNodeLabel3 = ""
 
                     nodeList(j, i).sortValue = getINI(sfile, "node" & i & "-" & j, "sortValue")
                     nodeList(j, i).sortValue1 = getINI(sfile, "node" & i & "-" & j, "sortValue1")

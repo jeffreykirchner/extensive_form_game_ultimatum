@@ -251,13 +251,30 @@
                     'g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt3.X - Math.Round(tempD / 2) + 10), pt3.Y)
                     g.DrawLine(p1, pt1.X, pt1.Y, pt3.X, pt2.Y - 25)
                     'drawBranchLabel(g, payoffLabel1, pt1, New Point(pt3.X, pt2.Y - 25))
-                    drawPayoff(pt3, g, payoff11, payoff12, payoffLabel1)
+                    Dim tempFmt As New StringFormat
+
+                    If pt1.X > pt3.X Then
+                        tempFmt.Alignment = StringAlignment.Far
+                    Else
+                        tempFmt.Alignment = StringAlignment.Near
+                    End If
+
+                    drawPayoff(pt3, g, payoff11, payoff12, payoffLabel1, tempFmt)
                 End If
 
                 If payoff21 >= 0 And payoff22 >= 0 Then
                     g.DrawLine(p1, pt1.X, pt1.Y, pt2.X, pt2.Y - 25)
                     'drawBranchLabel(g, payoffLabel2, pt1, New Point(pt2.X, pt2.Y - 25))
-                    drawPayoff(pt2, g, payoff21, payoff22, payoffLabel2)
+
+                    Dim tempFmt As New StringFormat
+
+                    If pt1.X > pt2.X Then
+                        tempFmt.Alignment = StringAlignment.Far
+                    Else
+                        tempFmt.Alignment = StringAlignment.Near
+                    End If
+
+                    drawPayoff(pt2, g, payoff21, payoff22, payoffLabel2, tempFmt)
                 End If
 
                 If payoff31 >= 0 And payoff32 >= 0 Then
@@ -266,7 +283,16 @@
                     'g.DrawLine(p1, pt1.X, pt1.Y, CInt(pt4.X + Math.Round(tempD / 2) - 10), pt4.Y)
                     g.DrawLine(p1, pt1.X, pt1.Y, pt4.X, pt4.Y - 25)
                     'drawBranchLabel(g, payoffLabel3, pt1, New Point(pt4.X, pt4.Y - 25))
-                    drawPayoff(pt4, g, payoff31, payoff32, payoffLabel3)
+
+                    Dim tempFmt As New StringFormat
+
+                    If pt1.X > pt4.X Then
+                        tempFmt.Alignment = StringAlignment.Far
+                    Else
+                        tempFmt.Alignment = StringAlignment.Near
+                    End If
+
+                    drawPayoff(pt4, g, payoff31, payoff32, payoffLabel3, tempFmt)
                 End If
 
                 g.SmoothingMode = Drawing2D.SmoothingMode.None
@@ -421,7 +447,7 @@
         End Try
     End Sub
 
-    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, payOffLabel As String)
+    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, payOffLabel As String, payOffFmt As StringFormat)
         Try
 
             If decimalFormat Then
@@ -444,7 +470,7 @@
 
             'draw the label if it exists below the payoffs
             If payOffLabel <> "" Then
-                g.DrawString(payOffLabel, f14, Brushes.DimGray, startPt.X, startPt.Y + 22, fmt)
+                g.DrawString(payOffLabel, f14, Brushes.DimGray, startPt.X, startPt.Y - 60, payOffFmt)
             End If
         Catch ex As Exception
             appEventLog_Write("error :", ex)

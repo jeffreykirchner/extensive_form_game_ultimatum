@@ -388,7 +388,7 @@ Module modMain
                 Next
 
                 'instruction nodes
-                For i As Integer = 1 To 3
+                For i As Integer = 1 To 1
                     nodeCountInstructions(i) = msgtokens(nextToken)
                     nextToken += 1
 
@@ -490,38 +490,40 @@ Module modMain
                     .cmdSubmit.Visible = False
                     currentPeriodInstruction = 1
                     .pnlMain.Enabled = False
+                    .gbPayoff.Visible = False
+                    currentNode = 1
 
                     'setup instruction nodes
                     '1
-                    nodeListInstructions(1, 1).owner = myType
-                    nodeListInstructions(1, 1).myColor = getMyColor(nodeListInstructions(1, 1).owner)
+                    'nodeListInstructions(1, 1).owner = myType
+                    'nodeListInstructions(1, 1).myColor = getMyColor(nodeListInstructions(1, 1).owner)
 
-                    '2
-                    nodeListInstructions(1, 2).owner = myType
-                    nodeListInstructions(1, 2).myColor = getMyColor(nodeListInstructions(1, 2).owner)
+                    ''2
+                    'nodeListInstructions(1, 2).owner = myType
+                    'nodeListInstructions(1, 2).myColor = getMyColor(nodeListInstructions(1, 2).owner)
 
-                    If myType = 1 Then
-                        nodeListInstructions(2, 2).owner = 2
-                    Else
-                        nodeListInstructions(2, 2).owner = 1
-                    End If
+                    'If myType = 1 Then
+                    '    nodeListInstructions(2, 2).owner = 2
+                    'Else
+                    '    nodeListInstructions(2, 2).owner = 1
+                    'End If
 
-                    nodeListInstructions(2, 2).myColor = getMyColor(nodeListInstructions(2, 2).owner)
+                    'nodeListInstructions(2, 2).myColor = getMyColor(nodeListInstructions(2, 2).owner)
 
-                    '3
-                    nodeListInstructions(1, 3).owner = myType
-                    nodeListInstructions(1, 3).myColor = getMyColor(nodeListInstructions(1, 3).owner)
+                    ''3
+                    'nodeListInstructions(1, 3).owner = myType
+                    'nodeListInstructions(1, 3).myColor = getMyColor(nodeListInstructions(1, 3).owner)
 
-                    If myType = 1 Then
-                        nodeListInstructions(3, 3).owner = 2
-                        nodeListInstructions(2, 3).owner = 2
-                    Else
-                        nodeListInstructions(3, 3).owner = 1
-                        nodeListInstructions(2, 3).owner = 1
-                    End If
+                    'If myType = 1 Then
+                    '    nodeListInstructions(3, 3).owner = 2
+                    '    nodeListInstructions(2, 3).owner = 2
+                    'Else
+                    '    nodeListInstructions(3, 3).owner = 1
+                    '    nodeListInstructions(2, 3).owner = 1
+                    'End If
 
-                    nodeListInstructions(3, 3).myColor = getMyColor(nodeListInstructions(3, 3).owner)
-                    nodeListInstructions(2, 3).myColor = getMyColor(nodeListInstructions(2, 3).owner)
+                    'nodeListInstructions(3, 3).myColor = getMyColor(nodeListInstructions(3, 3).owner)
+                    'nodeListInstructions(2, 3).myColor = getMyColor(nodeListInstructions(2, 3).owner)
                 End If
 
                 tickTock = 0

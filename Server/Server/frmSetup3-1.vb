@@ -18,7 +18,6 @@
                 nodeList(currentNode, currentPeriod).owner = nudOwner.Value
                 nodeList(currentNode, currentPeriod).id = currentNode
 
-
                 nodeList(currentNode, currentPeriod).pt3 =
                     New Point(nodeList(currentNode, currentPeriod).pt1.X + 50, nodeList(currentNode, currentPeriod).pt1.Y + 80)
 

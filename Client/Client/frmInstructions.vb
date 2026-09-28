@@ -1,14 +1,30 @@
-﻿Public Class frmInstructions
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+
+Public Class frmInstructions
     Dim tempS As Boolean
     Dim startPressed As Boolean
 
     Public pageDone(20) As Boolean
     Public results(20) As String
 
-    Dim page5Text As String = "Player 1 earns #payoff1#." & vbCrLf & "Player 2 earns #payoff2#."
-    Dim page6Text As String = "Player #person# now makes the next decision.  He or she will choose a set of payoffs."
-    Dim page7Text As String = "Player #person# now makes the next decision to choose the payoffs (#payoff11#/#payoff12#) or (#payoff21#/#payoff22#)"
-    Dim continueText As String = vbCrLf & vbCrLf & "Continue to the next page of instructions."
+    Dim pageCorrectText() As String = {"Correct: True." & vbCrLf & vbCrLf & "Player 1 chooses between Offer A and Offer B.",
+                                       "Correct: $12." & vbCrLf & vbCrLf & "If Player 2 accepts Offer A, both players receive $12.",
+                                       "Correct: $21." & vbCrLf & vbCrLf & "If Player 2 accepts Offer B, Player 1 receives $21 and Player 2 receives $3.",
+                                       "Correct: $0." & vbCrLf & vbCrLf & "If Player 2 rejects an offer, both amounts are set to zero.",
+                                       "Correct: True." & vbCrLf & vbCrLf & "Player 2’s choice to accept or reject determines both players’ earnings.",
+                                       "Correct: True." & vbCrLf & vbCrLf & "You will complete this task only one time."}
+
+    Dim pageCorrectAnswers() As String = {"true",
+                                          "12,$12,12.00,$12.00",
+                                          "21,$21,21.00,$21.00",
+                                          "0,$0,0.00,$0.00,zero",
+                                          "true",
+                                          "true",
+                                          "true"}
+
+    Dim pageType() As String = {"tf", "fitb", "fitb", "fitb", "tf", "fitb", "tf", "noquiz"}   'tf = true/false, fitb = fill in the blank, noquiz = no quiz on this page
+
+    Dim errorText As String = "Incorrect" & vbCrLf & vbCrLf & "That answer is not correct. Please review the instructions and try again."
 
     Public startTimeOnPage As Date
     Public lastInstruction As Integer
@@ -18,7 +34,7 @@
         Try
             'load the next page of instructions
 
-            RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath & _
+            RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath &
                  "\instructions\page" & currentInstruction & ".rtf")
 
             variables()
@@ -28,11 +44,29 @@
 
             If Not startPressed Then wskClient.Send("01", currentInstruction & ";" & lastInstruction & ";" & lastTimeOnPage.TotalMilliseconds)
 
-            If currentInstruction = 5 Or currentInstruction = 6 Or currentInstruction = 7 Then
-                cmdReset.Visible = True
+            If pageType(currentInstruction - 1) = "fitb" Then
+                cmdNext.Visible = False
+                pnlFITB.Visible = True
+                pnlTF.Visible = False
+
+                Panel1.Height = 405
+                pnlFITB.Top = 426
+            ElseIf pageType(currentInstruction - 1) = "tf" Then
+                cmdNext.Visible = False
+                pnlFITB.Visible = False
+                pnlTF.Visible = True
+
+                Panel1.Height = 405
+                pnlTF.Top = 426
             Else
-                cmdReset.Visible = False
+                cmdNext.Visible = True
+                pnlFITB.Visible = False
+                pnlTF.Visible = False
+
+                Panel1.Height = 480
             End If
+
+            Call RepRTBfield("correct", " ")
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
@@ -51,10 +85,14 @@
 
                     pageDone(currentInstruction) = True
                 Case 2
-
+                    nodeListInstructions(1, 1).status = "sub2"
+                    nodeListInstructions(2, 1).status = "closed"
+                    currentNode = 3
                     pageDone(currentInstruction) = True
                 Case 3
-
+                    nodeListInstructions(1, 1).status = "closed"
+                    nodeListInstructions(2, 1).status = "sub1"
+                    currentNode = 2
                     pageDone(currentInstruction) = True
                 Case 4
 
@@ -62,157 +100,132 @@
                 Case 5
 
                     If Not pageDone(currentInstruction) Then
-                        Call RepRTBfield("Result", " ")
-                        Call RepRTBfield("Continue", " ")
-                        Call RepRTBfield("done", " ")
-                        frmMain.cmdSubmit.Visible = True
-                        currentPeriodInstruction = 1
-                        frmMain.pnlMain.Enabled = True
-                        currentNode = 1
-                        selection = ""
+                        'Call RepRTBfield("Result", " ")
+                        'Call RepRTBfield("Continue", " ")
+                        'Call RepRTBfield("done", " ")
+                        'frmMain.cmdSubmit.Visible = True
+                        'currentPeriodInstruction = 1
+                        'frmMain.pnlMain.Enabled = True
+                        'currentNode = 1
+                        'selection = ""
                     Else
-                        Call RepRTBfield("Result", page5Text)
-                        Call RepRTBfield("Continue", continueText)
-                        Call RepRTBfield("done", "(done)")
 
-                        RichTextBox1.Find("Person 1")
-                        RichTextBox1.SelectionColor = Color.CornflowerBlue
-
-                        RichTextBox1.Find("Person 2")
-                        RichTextBox1.SelectionColor = Color.Coral
-
-                        RichTextBox1.Find("#payoff1#")
-                        RichTextBox1.SelectionColor = Color.CornflowerBlue
-
-                        RichTextBox1.Find("#payoff2#")
-                        RichTextBox1.SelectionColor = Color.Coral
-
-                        If results(currentInstruction) = "pay1" Then
-                            Call RepRTBfield("payoff1", returnInsructionPayoff(nodeListInstructions(1, 1).payoff11))
-                            Call RepRTBfield("payoff2", returnInsructionPayoff(nodeListInstructions(1, 1).payoff12))
-                        Else
-                            Call RepRTBfield("payoff1", returnInsructionPayoff(nodeListInstructions(1, 1).payoff21))
-                            Call RepRTBfield("payoff2", returnInsructionPayoff(nodeListInstructions(1, 1).payoff22))
-                        End If
                     End If
                 Case 6
-                    If myType = 1 Then
-                        Call RepRTBfield("circleColor", "Orange")
-                        RichTextBox1.Find("Orange")
-                        RichTextBox1.SelectionColor = Color.Coral
-                    Else
-                        Call RepRTBfield("circleColor", "Blue")
-                        RichTextBox1.Find("Blue")
-                        RichTextBox1.SelectionColor = Color.CornflowerBlue
-                    End If
+                    'If myType = 1 Then
+                    '    Call RepRTBfield("circleColor", "Orange")
+                    '    RichTextBox1.Find("Orange")
+                    '    RichTextBox1.SelectionColor = Color.Coral
+                    'Else
+                    '    Call RepRTBfield("circleColor", "Blue")
+                    '    RichTextBox1.Find("Blue")
+                    '    RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    'End If
 
-                    If Not pageDone(currentInstruction) Then
-                        Call RepRTBfield("Result", " ")
-                        Call RepRTBfield("Continue", " ")
-                        Call RepRTBfield("done", " ")
+                    'If Not pageDone(currentInstruction) Then
+                    '    Call RepRTBfield("Result", " ")
+                    '    Call RepRTBfield("Continue", " ")
+                    '    Call RepRTBfield("done", " ")
 
-                        frmMain.cmdSubmit.Visible = True
-                        currentPeriodInstruction = 2
-                        frmMain.pnlMain.Enabled = True
-                        currentNode = 1
-                        selection = ""
-                    Else
-                        Call RepRTBfield("Result", page6Text)
-                        Call RepRTBfield("Continue", continueText)
-                        Call RepRTBfield("done", "(done)")
+                    '    frmMain.cmdSubmit.Visible = True
+                    '    currentPeriodInstruction = 2
+                    '    frmMain.pnlMain.Enabled = True
+                    '    currentNode = 1
+                    '    selection = ""
+                    'Else
 
-                        If myType = 1 Then
-                            Call RepRTBfield("person", "2")
+                    '    Call RepRTBfield("done", "(done)")
 
-                            RichTextBox1.Find("Person 2")
-                            RichTextBox1.SelectionColor = Color.Coral
-                        Else
-                            Call RepRTBfield("person", "1")
+                    '    If myType = 1 Then
+                    '        Call RepRTBfield("person", "2")
 
-                            RichTextBox1.Find("Person 1")
-                            RichTextBox1.SelectionColor = Color.CornflowerBlue
-                        End If
-                    End If
+                    '        RichTextBox1.Find("Person 2")
+                    '        RichTextBox1.SelectionColor = Color.Coral
+                    '    Else
+                    '        Call RepRTBfield("person", "1")
+
+                    '        RichTextBox1.Find("Person 1")
+                    '        RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    '    End If
+                    'End If
                 Case 7
-                    If Not pageDone(currentInstruction) Then
-                        Call RepRTBfield("Result", " ")
-                        Call RepRTBfield("Continue", " ")
-                        Call RepRTBfield("done", " ")
+                    'If Not pageDone(currentInstruction) Then
+                    '    Call RepRTBfield("Result", " ")
+                    '    Call RepRTBfield("Continue", " ")
+                    '    Call RepRTBfield("done", " ")
 
-                        frmMain.cmdSubmit.Visible = True
-                        currentPeriodInstruction = 3
-                        frmMain.pnlMain.Enabled = True
-                        currentNode = 1
-                        selection = ""
-                    Else
-                        Call RepRTBfield("Result", page7Text)
-                        Call RepRTBfield("Continue", continueText)
-                        Call RepRTBfield("done", "(done)")
+                    '    frmMain.cmdSubmit.Visible = True
+                    '    currentPeriodInstruction = 3
+                    '    frmMain.pnlMain.Enabled = True
+                    '    currentNode = 1
+                    '    selection = ""
+                    'Else
+                    '    Call RepRTBfield("done", "(done)")
 
-                        RichTextBox1.Find("#payoff11#")
-                        RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    '    RichTextBox1.Find("#payoff11#")
+                    '    RichTextBox1.SelectionColor = Color.CornflowerBlue
 
-                        RichTextBox1.Find("#payoff12#")
-                        RichTextBox1.SelectionColor = Color.Coral
+                    '    RichTextBox1.Find("#payoff12#")
+                    '    RichTextBox1.SelectionColor = Color.Coral
 
-                        RichTextBox1.Find("#payoff21#")
-                        RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    '    RichTextBox1.Find("#payoff21#")
+                    '    RichTextBox1.SelectionColor = Color.CornflowerBlue
 
-                        RichTextBox1.Find("#payoff22#")
-                        RichTextBox1.SelectionColor = Color.Coral
+                    '    RichTextBox1.Find("#payoff22#")
+                    '    RichTextBox1.SelectionColor = Color.Coral
 
-                        If results(currentInstruction) = "sub2" Then
-                            Call RepRTBfield("payoff11", returnInsructionPayoff(nodeListInstructions(2, 3).payoff11))
-                            Call RepRTBfield("payoff12", returnInsructionPayoff(nodeListInstructions(2, 3).payoff12))
+                    '    If results(currentInstruction) = "sub2" Then
+                    '        Call RepRTBfield("payoff11", returnInsructionPayoff(nodeListInstructions(2, 3).payoff11))
+                    '        Call RepRTBfield("payoff12", returnInsructionPayoff(nodeListInstructions(2, 3).payoff12))
 
-                            Call RepRTBfield("payoff21", returnInsructionPayoff(nodeListInstructions(2, 3).payoff21))
-                            Call RepRTBfield("payoff22", returnInsructionPayoff(nodeListInstructions(2, 3).payoff22))
+                    '        Call RepRTBfield("payoff21", returnInsructionPayoff(nodeListInstructions(2, 3).payoff21))
+                    '        Call RepRTBfield("payoff22", returnInsructionPayoff(nodeListInstructions(2, 3).payoff22))
 
-                            Call RepRTBfield("person", myType)
-                            RichTextBox1.Find("Person " & myType)
+                    '        Call RepRTBfield("person", myType)
+                    '        RichTextBox1.Find("Person " & myType)
 
-                            If myType = 1 Then
-                                RichTextBox1.SelectionColor = Color.CornflowerBlue
-                            Else
-                                RichTextBox1.SelectionColor = Color.Coral
-                            End If
+                    '        If myType = 1 Then
+                    '            RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    '        Else
+                    '            RichTextBox1.SelectionColor = Color.Coral
+                    '        End If
 
-                        Else
-                            Call RepRTBfield("payoff11", returnInsructionPayoff(nodeListInstructions(3, 3).payoff11))
-                            Call RepRTBfield("payoff12", returnInsructionPayoff(nodeListInstructions(3, 3).payoff12))
+                    '    Else
+                    '        Call RepRTBfield("payoff11", returnInsructionPayoff(nodeListInstructions(3, 3).payoff11))
+                    '        Call RepRTBfield("payoff12", returnInsructionPayoff(nodeListInstructions(3, 3).payoff12))
 
-                            Call RepRTBfield("payoff21", returnInsructionPayoff(nodeListInstructions(3, 3).payoff21))
-                            Call RepRTBfield("payoff22", returnInsructionPayoff(nodeListInstructions(3, 3).payoff22))
+                    '        Call RepRTBfield("payoff21", returnInsructionPayoff(nodeListInstructions(3, 3).payoff21))
+                    '        Call RepRTBfield("payoff22", returnInsructionPayoff(nodeListInstructions(3, 3).payoff22))
 
-                            'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff11))
-                            'RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff11))
+                    '        'RichTextBox1.SelectionColor = Color.CornflowerBlue
 
-                            'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff21))
-                            'RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff21))
+                    '        'RichTextBox1.SelectionColor = Color.CornflowerBlue
 
-                            'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff12))
-                            'RichTextBox1.SelectionColor = Color.Coral
+                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff12))
+                    '        'RichTextBox1.SelectionColor = Color.Coral
 
-                            'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff22))
-                            'RichTextBox1.SelectionColor = Color.Coral
+                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff22))
+                    '        'RichTextBox1.SelectionColor = Color.Coral
 
-                            If myType = 1 Then
-                                Call RepRTBfield("person", "2")
-                                RichTextBox1.Find("Person 2")
-                                RichTextBox1.SelectionColor = Color.Coral
-                            Else
-                                Call RepRTBfield("person", "1")
-                                RichTextBox1.Find("Person 1")
-                                RichTextBox1.SelectionColor = Color.CornflowerBlue
-                            End If
-                        End If
-                    End If
+                    '        If myType = 1 Then
+                    '            Call RepRTBfield("person", "2")
+                    '            RichTextBox1.Find("Person 2")
+                    '            RichTextBox1.SelectionColor = Color.Coral
+                    '        Else
+                    '            Call RepRTBfield("person", "1")
+                    '            RichTextBox1.Find("Person 1")
+                    '            RichTextBox1.SelectionColor = Color.CornflowerBlue
+                    '        End If
+                    '    End If
+                    'End If
                 Case 8
-                    pageDone(currentInstruction) = True
-                    Call RepRTBfield("iPage8Text", iPage8Text)
+                    'pageDone(currentInstruction) = True
+                    'Call RepRTBfield("iPage8Text", iPage8Text)
             End Select
 
-            Me.Text = "Instructions " & currentInstruction & "/8"
+            'Me.Text = "Instructions " & currentInstruction & "/7"
         Catch ex As Exception
             appEventLog_Write("error variables:", ex)
         End Try
@@ -289,7 +302,7 @@
                 Exit Sub
             End If
 
-            If currentInstruction = 8 Then Exit Sub
+            If currentInstruction = 7 Then Exit Sub
 
             lastInstruction = currentInstruction
             lastTimeOnPage = Now - startTimeOnPage
@@ -299,9 +312,9 @@
 
             cmdBack.Visible = True
 
-            If currentInstruction = 8 Then cmdNext.Visible = False
+            If currentInstruction = 7 Then cmdNext.Visible = False
 
-            If currentInstruction = 8 And Not tempS Then
+            If currentInstruction = 7 And Not tempS Then
                 cmdStart.Visible = True
                 tempS = True
             End If
@@ -336,22 +349,58 @@
         End Try
     End Sub
 
-    Private Sub cmdReset_Click(sender As System.Object, e As System.EventArgs) Handles cmdReset.Click
+    Private Sub cmdTrue_Click(sender As Object, e As EventArgs) Handles cmdTrue.Click
         Try
-            pageDone(currentInstruction) = False
-            selection = ""
-            results(currentInstruction) = ""
-
-            nodeListInstructions(1, currentInstruction - 4).status = "open"
-            currentNode = 1
-
-            RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath & _
+            RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath &
                  "\instructions\page" & currentInstruction & ".rtf")
 
-            variables()
+            If pageCorrectAnswers(currentInstruction - 1) = "true" Then
+                pageDone(currentInstruction) = True
+                cmdNext.Visible = True
 
-            RichTextBox1.SelectionStart = 1
-            RichTextBox1.ScrollToCaret()
+                Call RepRTBfield("correct", pageCorrectText(currentInstruction - 1))
+
+                pnlTF.Visible = False
+            Else
+                Call RepRTBfield("correct", errorText)
+            End If
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
+    End Sub
+
+    Private Sub cmdFalse_Click(sender As Object, e As EventArgs) Handles cmdFalse.Click
+        Try
+            RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath &
+                "\instructions\page" & currentInstruction & ".rtf")
+
+            If pageCorrectAnswers(currentInstruction - 1) = "false" Then
+                pageDone(currentInstruction) = True
+                cmdNext.Visible = True
+
+                Call RepRTBfield("correct", pageCorrectText(currentInstruction - 1))
+
+                pnlTF.Visible = False
+            Else
+                Call RepRTBfield("correct", errorText)
+            End If
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
+    End Sub
+
+    Private Sub cmdSubmitQuiz_Click(sender As Object, e As EventArgs) Handles cmdSubmitQuiz.Click
+        Try
+            Dim correctAnswers = pageCorrectAnswers(currentInstruction - 1).Split(","c)
+
+            If correctAnswers.Contains(txtQuizAnswer.Text.ToLower.Trim) Then
+                pageDone(currentInstruction) = True
+                cmdNext.Visible = True
+                Call RepRTBfield("correct", pageCorrectText(currentInstruction - 1))
+                pnlFITB.Visible = False
+            Else
+                Call RepRTBfield("correct", errorText)
+            End If
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try

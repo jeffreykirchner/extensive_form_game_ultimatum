@@ -125,7 +125,7 @@ Public Class player
                     Next
                 Next
 
-                For i As Integer = 1 To 3
+                For i As Integer = 1 To 1
                     outstr &= nodeCountInstructions(i) & ";"
 
                     For j As Integer = 1 To nodeCountInstructions(i)

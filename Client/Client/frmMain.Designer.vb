@@ -34,14 +34,14 @@ Partial Class frmMain
         Me.lblEarnings = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblPerson = New System.Windows.Forms.Label()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.gbPayoff = New System.Windows.Forms.GroupBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblPayoff2 = New System.Windows.Forms.Label()
         Me.lblPayoff1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Timer4 = New System.Windows.Forms.Timer(Me.components)
-        Me.GroupBox1.SuspendLayout()
+        Me.gbPayoff.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -131,19 +131,19 @@ Partial Class frmMain
         Me.lblPerson.Text = "Person 1"
         Me.lblPerson.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'GroupBox1
+        'gbPayoff
         '
-        Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.lblPayoff2)
-        Me.GroupBox1.Controls.Add(Me.lblPayoff1)
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.lblPerson)
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(816, 8)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(188, 430)
-        Me.GroupBox1.TabIndex = 42
-        Me.GroupBox1.TabStop = False
+        Me.gbPayoff.Controls.Add(Me.Label4)
+        Me.gbPayoff.Controls.Add(Me.lblPayoff2)
+        Me.gbPayoff.Controls.Add(Me.lblPayoff1)
+        Me.gbPayoff.Controls.Add(Me.Label2)
+        Me.gbPayoff.Controls.Add(Me.lblPerson)
+        Me.gbPayoff.Controls.Add(Me.Label1)
+        Me.gbPayoff.Location = New System.Drawing.Point(816, 8)
+        Me.gbPayoff.Name = "gbPayoff"
+        Me.gbPayoff.Size = New System.Drawing.Size(188, 430)
+        Me.gbPayoff.TabIndex = 42
+        Me.gbPayoff.TabStop = False
         '
         'Label4
         '
@@ -210,7 +210,7 @@ Partial Class frmMain
         Me.ClientSize = New System.Drawing.Size(1016, 734)
         Me.ControlBox = False
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.gbPayoff)
         Me.Controls.Add(Me.txtMessages)
         Me.Controls.Add(Me.cmdSubmit)
         Me.Controls.Add(Me.pnlMain)
@@ -219,8 +219,8 @@ Partial Class frmMain
         Me.KeyPreview = True
         Me.Name = "frmMain"
         Me.Text = "Client"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.gbPayoff.ResumeLayout(False)
+        Me.gbPayoff.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
@@ -236,7 +236,7 @@ Partial Class frmMain
     Friend WithEvents lblEarnings As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents lblPerson As System.Windows.Forms.Label
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents gbPayoff As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents lblPayoff2 As System.Windows.Forms.Label

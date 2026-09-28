@@ -75,15 +75,39 @@
         Try
 
             If payoff11 >= 0 And payoff12 >= 0 Then
-                drawPayoff(pt3, g, payoff11, payoff12, payoffLabel1)
+                Dim tempFmt As New StringFormat
+
+                If pt1.X > pt3.X Then
+                    tempFmt.Alignment = StringAlignment.Far
+                Else
+                    tempFmt.Alignment = StringAlignment.Near
+                End If
+
+                drawPayoff(pt3, g, payoff11, payoff12, payoffLabel1, tempFmt)
             End If
 
             If payoff21 >= 0 And payoff22 >= 0 Then
-                drawPayoff(pt2, g, payoff21, payoff22, payoffLabel2)
+                Dim tempFmt As New StringFormat
+
+                If pt1.X > pt2.X Then
+                    tempFmt.Alignment = StringAlignment.Far
+                Else
+                    tempFmt.Alignment = StringAlignment.Near
+                End If
+
+                drawPayoff(pt2, g, payoff21, payoff22, payoffLabel2, tempFmt)
             End If
 
             If payoff31 >= 0 And payoff32 >= 0 Then
-                drawPayoff(pt4, g, payoff31, payoff32, payoffLabel3)
+                Dim tempFmt As New StringFormat
+
+                If pt1.X > pt4.X Then
+                    tempFmt.Alignment = StringAlignment.Far
+                Else
+                    tempFmt.Alignment = StringAlignment.Near
+                End If
+
+                drawPayoff(pt4, g, payoff31, payoff32, payoffLabel3, tempFmt)
             End If
 
             g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
@@ -135,11 +159,11 @@
         End Try
     End Sub
 
-    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, payOffLabel As String)
+    Public Sub drawPayoff(startPt As Point, g As Graphics, payOffTop As String, payOffBottom As String, payOffLabel As String, payOffFmt As StringFormat)
         Try
             If showInstructions Then
-                payOffTop = returnInsructionPayoff(payOffTop)
-                payOffBottom = returnInsructionPayoff(payOffBottom)
+                'payOffTop = returnInsructionPayoff(payOffTop)
+                'payOffBottom = returnInsructionPayoff(payOffBottom)
             ElseIf decimalFormat Then
                 payOffTop = Format(CDbl(payOffTop), "0.00")
                 payOffBottom = Format(CDbl(payOffBottom), "0.00")
@@ -163,7 +187,7 @@
 
             'draw the label if it exists below the payoffs
             If payOffLabel <> "" Then
-                g.DrawString(payOffLabel, f14, Brushes.DimGray, startPt.X, startPt.Y + 22, fmt)
+                g.DrawString(payOffLabel, f14, Brushes.DimGray, startPt.X, startPt.Y - 60, payOffFmt)
             End If
         Catch ex As Exception
             appEventLog_Write("error :", ex)

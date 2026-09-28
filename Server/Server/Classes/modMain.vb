@@ -638,11 +638,11 @@ Module modMain
 
     Public Function setupInstructionNodes() As Boolean
         Try
-            nodeCountInstructions(1) = 1
-            nodeCountInstructions(2) = 2
-            nodeCountInstructions(3) = 3
+            nodeCountInstructions(1) = 3
+            'nodeCountInstructions(2) = 2
+            'nodeCountInstructions(3) = 3
 
-            For i As Integer = 1 To 3
+            For i As Integer = 1 To 1
                 For j As Integer = 1 To nodeCountInstructions(i)
                     nodeListInstructions(j, i) = New node With {
                         .id = j,

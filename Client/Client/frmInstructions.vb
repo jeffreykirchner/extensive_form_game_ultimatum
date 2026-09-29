@@ -22,7 +22,7 @@ Public Class frmInstructions
                                           "true",
                                           "true"}
 
-    Dim pageType() As String = {"tf", "fitb", "fitb", "fitb", "tf", "fitb", "tf", "noquiz"}   'tf = true/false, fitb = fill in the blank, noquiz = no quiz on this page
+    Dim pageType() As String = {"tf", "fitb", "fitb", "fitb", "tf", "tf", "noquiz"}   'tf = true/false, fitb = fill in the blank, noquiz = no quiz on this page
 
     Dim errorText As String = "Incorrect" & vbCrLf & vbCrLf & "That answer is not correct. Please review the instructions and try again."
 
@@ -30,14 +30,16 @@ Public Class frmInstructions
     Public lastInstruction As Integer
     Public lastTimeOnPage As TimeSpan
 
+    Public rtbLastFindLocation As Integer = 0
+
+    Public quizResponses() As String = {"", "", "", "", "", "", ""}
+
     Public Sub nextInstruction()
         Try
             'load the next page of instructions
 
             RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath &
                  "\instructions\page" & currentInstruction & ".rtf")
-
-            variables()
 
             RichTextBox1.SelectionStart = 1
             RichTextBox1.ScrollToCaret()
@@ -48,6 +50,7 @@ Public Class frmInstructions
                 cmdNext.Visible = False
                 pnlFITB.Visible = True
                 pnlTF.Visible = False
+                txtQuizAnswer.Text = ""
 
                 Panel1.Height = 405
                 pnlFITB.Top = 426
@@ -66,7 +69,8 @@ Public Class frmInstructions
                 Panel1.Height = 480
             End If
 
-            Call RepRTBfield("correct", " ")
+            Call RepRTBfield2("#correct#", " ")
+            variables()
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
@@ -90,8 +94,9 @@ Public Class frmInstructions
                     currentNode = 3
                     pageDone(currentInstruction) = True
                 Case 3
-                    nodeListInstructions(1, 1).status = "closed"
-                    nodeListInstructions(2, 1).status = "sub1"
+                    nodeListInstructions(1, 1).status = "sub1"
+                    nodeListInstructions(2, 1).status = "open"
+                    nodeListInstructions(3, 1).status = "closed"
                     currentNode = 2
                     pageDone(currentInstruction) = True
                 Case 4
@@ -99,131 +104,20 @@ Public Class frmInstructions
                     pageDone(currentInstruction) = True
                 Case 5
 
-                    If Not pageDone(currentInstruction) Then
-                        'Call RepRTBfield("Result", " ")
-                        'Call RepRTBfield("Continue", " ")
-                        'Call RepRTBfield("done", " ")
-                        'frmMain.cmdSubmit.Visible = True
-                        'currentPeriodInstruction = 1
-                        'frmMain.pnlMain.Enabled = True
-                        'currentNode = 1
-                        'selection = ""
-                    Else
 
-                    End If
                 Case 6
-                    'If myType = 1 Then
-                    '    Call RepRTBfield("circleColor", "Orange")
-                    '    RichTextBox1.Find("Orange")
-                    '    RichTextBox1.SelectionColor = Color.Coral
-                    'Else
-                    '    Call RepRTBfield("circleColor", "Blue")
-                    '    RichTextBox1.Find("Blue")
-                    '    RichTextBox1.SelectionColor = Color.CornflowerBlue
-                    'End If
 
-                    'If Not pageDone(currentInstruction) Then
-                    '    Call RepRTBfield("Result", " ")
-                    '    Call RepRTBfield("Continue", " ")
-                    '    Call RepRTBfield("done", " ")
-
-                    '    frmMain.cmdSubmit.Visible = True
-                    '    currentPeriodInstruction = 2
-                    '    frmMain.pnlMain.Enabled = True
-                    '    currentNode = 1
-                    '    selection = ""
-                    'Else
-
-                    '    Call RepRTBfield("done", "(done)")
-
-                    '    If myType = 1 Then
-                    '        Call RepRTBfield("person", "2")
-
-                    '        RichTextBox1.Find("Person 2")
-                    '        RichTextBox1.SelectionColor = Color.Coral
-                    '    Else
-                    '        Call RepRTBfield("person", "1")
-
-                    '        RichTextBox1.Find("Person 1")
-                    '        RichTextBox1.SelectionColor = Color.CornflowerBlue
-                    '    End If
-                    'End If
                 Case 7
-                    'If Not pageDone(currentInstruction) Then
-                    '    Call RepRTBfield("Result", " ")
-                    '    Call RepRTBfield("Continue", " ")
-                    '    Call RepRTBfield("done", " ")
 
-                    '    frmMain.cmdSubmit.Visible = True
-                    '    currentPeriodInstruction = 3
-                    '    frmMain.pnlMain.Enabled = True
-                    '    currentNode = 1
-                    '    selection = ""
-                    'Else
-                    '    Call RepRTBfield("done", "(done)")
-
-                    '    RichTextBox1.Find("#payoff11#")
-                    '    RichTextBox1.SelectionColor = Color.CornflowerBlue
-
-                    '    RichTextBox1.Find("#payoff12#")
-                    '    RichTextBox1.SelectionColor = Color.Coral
-
-                    '    RichTextBox1.Find("#payoff21#")
-                    '    RichTextBox1.SelectionColor = Color.CornflowerBlue
-
-                    '    RichTextBox1.Find("#payoff22#")
-                    '    RichTextBox1.SelectionColor = Color.Coral
-
-                    '    If results(currentInstruction) = "sub2" Then
-                    '        Call RepRTBfield("payoff11", returnInsructionPayoff(nodeListInstructions(2, 3).payoff11))
-                    '        Call RepRTBfield("payoff12", returnInsructionPayoff(nodeListInstructions(2, 3).payoff12))
-
-                    '        Call RepRTBfield("payoff21", returnInsructionPayoff(nodeListInstructions(2, 3).payoff21))
-                    '        Call RepRTBfield("payoff22", returnInsructionPayoff(nodeListInstructions(2, 3).payoff22))
-
-                    '        Call RepRTBfield("person", myType)
-                    '        RichTextBox1.Find("Person " & myType)
-
-                    '        If myType = 1 Then
-                    '            RichTextBox1.SelectionColor = Color.CornflowerBlue
-                    '        Else
-                    '            RichTextBox1.SelectionColor = Color.Coral
-                    '        End If
-
-                    '    Else
-                    '        Call RepRTBfield("payoff11", returnInsructionPayoff(nodeListInstructions(3, 3).payoff11))
-                    '        Call RepRTBfield("payoff12", returnInsructionPayoff(nodeListInstructions(3, 3).payoff12))
-
-                    '        Call RepRTBfield("payoff21", returnInsructionPayoff(nodeListInstructions(3, 3).payoff21))
-                    '        Call RepRTBfield("payoff22", returnInsructionPayoff(nodeListInstructions(3, 3).payoff22))
-
-                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff11))
-                    '        'RichTextBox1.SelectionColor = Color.CornflowerBlue
-
-                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff21))
-                    '        'RichTextBox1.SelectionColor = Color.CornflowerBlue
-
-                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff12))
-                    '        'RichTextBox1.SelectionColor = Color.Coral
-
-                    '        'RichTextBox1.Find(returnInsructionPayoff(nodeListInstructions(3, 3).payoff22))
-                    '        'RichTextBox1.SelectionColor = Color.Coral
-
-                    '        If myType = 1 Then
-                    '            Call RepRTBfield("person", "2")
-                    '            RichTextBox1.Find("Person 2")
-                    '            RichTextBox1.SelectionColor = Color.Coral
-                    '        Else
-                    '            Call RepRTBfield("person", "1")
-                    '            RichTextBox1.Find("Person 1")
-                    '            RichTextBox1.SelectionColor = Color.CornflowerBlue
-                    '        End If
-                    '    End If
-                    'End If
                 Case 8
-                    'pageDone(currentInstruction) = True
-                    'Call RepRTBfield("iPage8Text", iPage8Text)
+
             End Select
+
+            RepRTBfield2("Player 1", "Player 1", Color.CornflowerBlue)
+            RepRTBfield2("player 1", "player 1", Color.CornflowerBlue)
+
+            RepRTBfield2("Player 2", "Player 1", Color.Coral)
+            RepRTBfield2("player 2", "player 1", Color.Coral)
 
             'Me.Text = "Instructions " & currentInstruction & "/7"
         Catch ex As Exception
@@ -231,13 +125,43 @@ Public Class frmInstructions
         End Try
     End Sub
 
-    Public Sub RepRTBfield(ByVal sField As String, ByVal sValue As String)
+    Public Function RepRTBfield(ByVal sField As String, ByVal sValue As String, Optional ByRef newColor As System.Drawing.Color = Nothing) As Boolean
         Try
             'when the instructions are loaded into the rich text box control this function will
             'replace the variable place holders with variables.
 
-            RichTextBox1.Find("#" & sField & "#")
+            Dim rtbOptions As RichTextBoxFinds = RichTextBoxFinds.MatchCase
+
+            rtbLastFindLocation = RichTextBox1.Find(sField, rtbLastFindLocation, rtbOptions)
+
+            If rtbLastFindLocation = -1 Then
+                RichTextBox1.DeselectAll()
+                rtbLastFindLocation = 0
+                Return False
+            End If
+
             RichTextBox1.SelectedText = sValue
+
+            If newColor <> Nothing Then
+                RichTextBox1.Find(sValue, rtbLastFindLocation - 1, rtbOptions)
+                RichTextBox1.SelectionColor = newColor
+            End If
+
+            rtbLastFindLocation += 1
+
+            Return True
+        Catch ex As Exception
+            appEventLog_Write("error RepRTBfield:", ex)
+            Return False
+        End Try
+    End Function
+
+    Public Sub RepRTBfield2(ByVal sField As String, ByVal sValue As String, Optional ByRef newColor As System.Drawing.Color = Nothing)
+        Try
+            rtbLastFindLocation = 0
+            Do While (RepRTBfield(sField, sValue, newColor))
+
+            Loop
         Catch ex As Exception
             appEventLog_Write("error RepRTBfield:", ex)
         End Try
@@ -274,7 +198,11 @@ Public Class frmInstructions
 
             Dim ts As TimeSpan = Now - startTimeOnPage
 
-            outstr = ts.TotalMilliseconds
+            outstr = ts.TotalMilliseconds & ";"
+
+            For i As Integer = 1 To 6
+                outstr &= quizResponses(i - 1) & ";"
+            Next
 
             wskClient.Send("02", outstr)
             cmdStart.Visible = False
@@ -354,16 +282,20 @@ Public Class frmInstructions
             RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath &
                  "\instructions\page" & currentInstruction & ".rtf")
 
+            quizResponses(currentInstruction - 1) &= "true,"
+
             If pageCorrectAnswers(currentInstruction - 1) = "true" Then
                 pageDone(currentInstruction) = True
                 cmdNext.Visible = True
 
-                Call RepRTBfield("correct", pageCorrectText(currentInstruction - 1))
+                Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
 
                 pnlTF.Visible = False
             Else
-                Call RepRTBfield("correct", errorText)
+                Call RepRTBfield2("#correct#", errorText)
             End If
+
+            Call variables()
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
@@ -374,16 +306,20 @@ Public Class frmInstructions
             RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath &
                 "\instructions\page" & currentInstruction & ".rtf")
 
+            quizResponses(currentInstruction - 1) &= "false,"
+
             If pageCorrectAnswers(currentInstruction - 1) = "false" Then
                 pageDone(currentInstruction) = True
                 cmdNext.Visible = True
 
-                Call RepRTBfield("correct", pageCorrectText(currentInstruction - 1))
+                Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
 
                 pnlTF.Visible = False
             Else
-                Call RepRTBfield("correct", errorText)
+                Call RepRTBfield2("#correct#", errorText)
             End If
+
+            Call variables()
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try
@@ -393,14 +329,21 @@ Public Class frmInstructions
         Try
             Dim correctAnswers = pageCorrectAnswers(currentInstruction - 1).Split(","c)
 
+            RichTextBox1.LoadFile(System.Windows.Forms.Application.StartupPath &
+                "\instructions\page" & currentInstruction & ".rtf")
+
+            quizResponses(currentInstruction - 1) &= txtQuizAnswer.Text & ","
+
             If correctAnswers.Contains(txtQuizAnswer.Text.ToLower.Trim) Then
                 pageDone(currentInstruction) = True
                 cmdNext.Visible = True
-                Call RepRTBfield("correct", pageCorrectText(currentInstruction - 1))
+                Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
                 pnlFITB.Visible = False
             Else
-                Call RepRTBfield("correct", errorText)
+                Call RepRTBfield2("#correct#", errorText)
             End If
+
+            Call variables()
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try

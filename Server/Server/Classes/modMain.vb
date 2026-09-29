@@ -205,10 +205,18 @@ Module modMain
         Try
             With frmServer
                 Dim msgtokens() As String = sinstr.Split(";")
+                Dim nextToken As Integer = 0
+
                 checkin += 1
                 .DataGridView1.Rows(index - 1).Cells(2).Value = "Waiting"
 
-                playerList(index).instructionLength(instructionCount) += msgtokens(0)
+                playerList(index).instructionLength(instructionCount) += msgtokens(nextToken)
+                nextToken += 1
+
+                For i As Integer = 1 To 6
+                    playerList(index).quizResponses(i - 1) = msgtokens(nextToken)
+                    nextToken += 1
+                Next
 
                 If checkin = numberOfPlayers Then
                     showInstructions = False
@@ -253,36 +261,40 @@ Module modMain
                 If checkin = numberOfPlayers Then
 
                     playerDf.WriteLine("")
-
-                    playerDf.WriteLine("Earnings")
-                    outstr = "Name,Earnings,Student ID,"
+                    playerDf.WriteLine("Quiz Responses")
+                    outstr = "Name,Earnings,Student ID,Quiz 1 Response,Quiz 2 Response,Quiz 3 Response,Quiz 4 Response,Quiz 5 Response,Quiz 6 Response"
                     playerDf.WriteLine(outstr)
                     For i As Integer = 1 To numberOfPlayers
 
                         outstr = .DataGridView1.Rows(i - 1).Cells(1).Value & ","
                         outstr &= .DataGridView1.Rows(i - 1).Cells(3).Value & ","
-                        outstr &= playerList(index).studentID & ","
-                        playerDf.WriteLine(outstr)
-                    Next
+                        outstr &= playerList(i).studentID & ","
 
-                    playerDf.WriteLine("")
-                    playerDf.WriteLine("Instruction Length")
-                    outstr = "Player,"
-                    For i As Integer = 1 To instructionCount
-                        outstr &= "Page " & i & ","
-                    Next
-
-                    playerDf.WriteLine(outstr)
-
-                    For i As Integer = 1 To numberOfPlayers
-                        outstr = i & ",N\A,"
-
-                        For j As Integer = 2 To instructionCount
-                            outstr &= Math.Round(playerList(i).instructionLength(j), 1) & ","
+                        For j As Integer = 1 To 6
+                            outstr &= """" & playerList(i).quizResponses(j - 1) & ""","
                         Next
 
                         playerDf.WriteLine(outstr)
                     Next
+
+                    'playerDf.WriteLine("")
+                    'playerDf.WriteLine("Instruction Length")
+                    'outstr = "Player,"
+                    'For i As Integer = 1 To instructionCount
+                    '    outstr &= "Page " & i & ","
+                    'Next
+
+                    'playerDf.WriteLine(outstr)
+
+                    'For i As Integer = 1 To numberOfPlayers
+                    '    outstr = i & ",N\A,"
+
+                    '    For j As Integer = 2 To instructionCount
+                    '        outstr &= Math.Round(playerList(i).instructionLength(j), 1) & ","
+                    '    Next
+
+                    '    playerDf.WriteLine(outstr)
+                    'Next
 
                     playerDf.Close()
                     summaryDf.Close()

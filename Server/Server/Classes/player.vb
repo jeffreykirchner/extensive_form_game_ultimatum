@@ -38,6 +38,8 @@ Public Class player
     Public lastIDSent As String
     Public lastMessageSent As String
 
+    Public quizResponses() As String = {"", "", "", "", "", "", ""}
+
 
     Public Sub player()
 

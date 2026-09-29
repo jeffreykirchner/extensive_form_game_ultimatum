@@ -845,36 +845,27 @@ Module modMain
 
                 Select Case currentInstruction
                     Case 1
+                        frmInstructions.cmdTrue.PerformClick()
                         frmInstructions.cmdNextAction()
                     Case 2
+                        frmInstructions.txtQuizAnswer.Text = "12"
+                        frmInstructions.cmdSubmitQuiz.PerformClick()
                         frmInstructions.cmdNextAction()
                     Case 3
+                        frmInstructions.txtQuizAnswer.Text = "21"
+                        frmInstructions.cmdSubmitQuiz.PerformClick()
                         frmInstructions.cmdNextAction()
                     Case 4
+                        frmInstructions.txtQuizAnswer.Text = "0"
+                        frmInstructions.cmdSubmitQuiz.PerformClick()
                         frmInstructions.cmdNextAction()
                     Case 5
-                        If rand(2, 1) = 1 Then
-                            .pnlMainClickAction(nodeListInstructions(1, 1).pt2.X, nodeListInstructions(1, 1).pt2.Y)
-                        Else
-                            .pnlMainClickAction(nodeListInstructions(1, 1).pt3.X, nodeListInstructions(1, 1).pt3.Y)
-                        End If
-
-                        .cmdSubmitActionInstruction()
+                        frmInstructions.cmdTrue.PerformClick()
                         frmInstructions.cmdNextAction()
                     Case 6
-                        .pnlMainClickAction(nodeListInstructions(2, 2).pt1.X, nodeListInstructions(2, 2).pt1.Y)
-                        .cmdSubmitActionInstruction()
+                        frmInstructions.cmdTrue.PerformClick()
                         frmInstructions.cmdNextAction()
                     Case 7
-                        If rand(2, 1) = 1 Then
-                            .pnlMainClickAction(nodeListInstructions(2, 3).pt1.X, nodeListInstructions(2, 3).pt1.Y)
-                        Else
-                            .pnlMainClickAction(nodeListInstructions(3, 3).pt1.X, nodeListInstructions(3, 3).pt1.Y)
-                        End If
-
-                        .cmdSubmitActionInstruction()
-                        frmInstructions.cmdNextAction()
-                    Case 8
                         .Timer3.Enabled = False
                         frmInstructions.startAction()
                 End Select

@@ -687,6 +687,7 @@ Module modMain
                 decisionStart = Now
 
                 .pnlMain.Enabled = True
+                .gbPayoff.Visible = True
 
                 updateTxtMessages()
 

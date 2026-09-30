@@ -238,7 +238,7 @@ Public Class frmInstructions
 
             currentInstruction += 1
 
-            cmdBack.Visible = True
+            'cmdBack.Visible = True
 
             If currentInstruction = 7 Then cmdNext.Visible = False
 

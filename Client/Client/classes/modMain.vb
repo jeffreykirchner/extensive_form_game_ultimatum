@@ -486,6 +486,8 @@ Module modMain
                     frmInstructions.startTimeOnPage = Now
                     frmInstructions.lastInstruction = 1
 
+                    frmMain.Hide()
+
                     .Location = New System.Drawing.Point(windowX, windowY)
                     .cmdSubmit.Visible = False
                     currentPeriodInstruction = 1
@@ -679,6 +681,7 @@ Module modMain
                 'close the instructions and start experiment           
 
                 frmInstructions.Close()
+                .Show()
                 showInstructions = False
 
                 currentPeriod = 1

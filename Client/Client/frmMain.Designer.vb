@@ -144,6 +144,7 @@ Partial Class frmMain
         Me.gbPayoff.Size = New System.Drawing.Size(188, 430)
         Me.gbPayoff.TabIndex = 42
         Me.gbPayoff.TabStop = False
+        Me.gbPayoff.Visible = False
         '
         'Label4
         '

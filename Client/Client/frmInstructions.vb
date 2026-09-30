@@ -7,12 +7,13 @@ Public Class frmInstructions
     Public pageDone(20) As Boolean
     Public results(20) As String
 
-    Dim pageCorrectText() As String = {"Correct: True." & vbCrLf & vbCrLf & "Player 1 chooses between Offer A and Offer B.",
-                                       "Correct: $12." & vbCrLf & vbCrLf & "If Player 2 accepts Offer A, both players receive $12.",
-                                       "Correct: $21." & vbCrLf & vbCrLf & "If Player 2 accepts Offer B, Player 1 receives $21 and Player 2 receives $3.",
-                                       "Correct: $0." & vbCrLf & vbCrLf & "If Player 2 rejects an offer, both amounts are set to zero.",
-                                       "Correct: True." & vbCrLf & vbCrLf & "Player 2’s choice to accept or reject determines both players’ earnings.",
-                                       "Correct: True." & vbCrLf & vbCrLf & "You will complete this task only one time."}
+    Dim pageCorrectText() As String = {
+        "{\rtf1\ansi\deff0{\colortbl ;\red17\green102\blue31;}\cf1\b Correct: True.\b0\cf0\par Player 1 chooses between Offer A and Offer B.}",
+        "{\rtf1\ansi\deff0{\colortbl ;\red17\green102\blue31;}\cf1\b Correct: $12\b0\cf0\par If Player 2 accepts Offer A, both players receive $12.}",
+        "{\rtf1\ansi\deff0{\colortbl ;\red17\green102\blue31;}\cf1\b Correct: $21\b0\cf0\par If Player 2 accepts Offer B, Player 1 receives $21 and Player 2 receives $3.}",
+        "{\rtf1\ansi\deff0{\colortbl ;\red17\green102\blue31;}\cf1\b Correct: $0\b0\cf0\par If Player 2 rejects an offer, both amounts are set to zero.",
+        "{\rtf1\ansi\deff0{\colortbl ;\red17\green102\blue31;}\cf1\b Correct: True.\b0\cf0\par Player 2’s choice to accept or reject determines both players’ earnings.",
+        "{\rtf1\ansi\deff0{\colortbl ;\red17\green102\blue31;}\cf1\b Correct: True.\b0\cf0\par You will complete this task only one time."}
 
     Dim pageCorrectAnswers() As String = {"true",
                                           "12,$12,12.00,$12.00",
@@ -24,7 +25,7 @@ Public Class frmInstructions
 
     Dim pageType() As String = {"tf", "fitb", "fitb", "fitb", "tf", "tf", "noquiz"}   'tf = true/false, fitb = fill in the blank, noquiz = no quiz on this page
 
-    Dim errorText As String = "Incorrect" & vbCrLf & vbCrLf & "That answer is not correct. Please review the instructions and try again."
+    Dim errorText As String = "That answer is not correct. Please review the instructions and try again."
 
     Public startTimeOnPage As Date
     Public lastInstruction As Integer
@@ -47,29 +48,33 @@ Public Class frmInstructions
             If Not startPressed Then wskClient.Send("01", currentInstruction & ";" & lastInstruction & ";" & lastTimeOnPage.TotalMilliseconds)
 
             If pageType(currentInstruction - 1) = "fitb" Then
-                cmdNext.Visible = False
+                pnlControl.Visible = False
                 pnlFITB.Visible = True
                 pnlTF.Visible = False
                 txtQuizAnswer.Text = ""
 
-                Panel1.Height = 405
-                pnlFITB.Top = 426
+                'Panel1.Height = 405
+                'pnlFITB.Top = 426
             ElseIf pageType(currentInstruction - 1) = "tf" Then
-                cmdNext.Visible = False
+                pnlControl.Visible = False
                 pnlFITB.Visible = False
                 pnlTF.Visible = True
 
-                Panel1.Height = 405
-                pnlTF.Top = 426
+                'Panel1.Height = 405
+                'pnlTF.Top = 426
             Else
-                cmdNext.Visible = True
+                pnlControl.Visible = True
+                If currentInstruction < 7 Then
+                    cmdNext.Visible = True
+                End If
+
                 pnlFITB.Visible = False
-                pnlTF.Visible = False
+                    pnlTF.Visible = False
 
-                Panel1.Height = 480
-            End If
+                    'Panel1.Height = 480
+                End If
 
-            Call RepRTBfield2("#correct#", " ")
+                Call RepRTBfield2("#correct#", " ")
             variables()
         Catch ex As Exception
             appEventLog_Write("error :", ex)
@@ -113,11 +118,11 @@ Public Class frmInstructions
 
             End Select
 
-            RepRTBfield2("Player 1", "Player 1", Color.CornflowerBlue)
-            RepRTBfield2("player 1", "player 1", Color.CornflowerBlue)
+            'RepRTBfield2("Player 1", "Player 1", Color.CornflowerBlue)
+            'RepRTBfield2("player 1", "player 1", Color.CornflowerBlue)
 
-            RepRTBfield2("Player 2", "Player 1", Color.Coral)
-            RepRTBfield2("player 2", "player 1", Color.Coral)
+            'RepRTBfield2("Player 2", "Player 1", Color.Coral)
+            'RepRTBfield2("player 2", "player 1", Color.Coral)
 
             'Me.Text = "Instructions " & currentInstruction & "/7"
         Catch ex As Exception
@@ -178,6 +183,15 @@ Public Class frmInstructions
             nextInstruction()
             tempS = False
 
+            pnlControl.Top = pnlAnswer.Bottom + 10
+            pnlControl.Left = pnlAnswer.Left
+
+            pnlFITB.Top = pnlAnswer.Bottom + 10
+            pnlFITB.Left = pnlAnswer.Left
+
+            pnlTF.Top = pnlAnswer.Bottom + 10
+            pnlTF.Left = pnlAnswer.Left
+
         Catch ex As Exception
             appEventLog_Write("error frmInstructions_Load:", ex)
         End Try
@@ -203,6 +217,9 @@ Public Class frmInstructions
             For i As Integer = 1 To 6
                 outstr &= quizResponses(i - 1) & ";"
             Next
+
+            pnlAnswer.Visible = True
+            rtbAnswer.Text = "Waiting for others."
 
             wskClient.Send("02", outstr)
             cmdStart.Visible = False
@@ -239,6 +256,7 @@ Public Class frmInstructions
             currentInstruction += 1
 
             'cmdBack.Visible = True
+            pnlAnswer.Visible = False
 
             If currentInstruction = 7 Then cmdNext.Visible = False
 
@@ -287,8 +305,15 @@ Public Class frmInstructions
             If pageCorrectAnswers(currentInstruction - 1) = "true" Then
                 pageDone(currentInstruction) = True
                 cmdNext.Visible = True
+                pnlControl.Visible = True
 
-                Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
+                'Call RepRTBfield2("#correct#", )
+
+                rtbAnswer.Rtf = pageCorrectText(currentInstruction - 1)
+                rtbAnswer.BackColor = Color.FromArgb(231, 244, 234)
+
+                pnlAnswer.BackColor = Color.FromArgb(231, 244, 234)
+                pnlAnswer.Visible = True
 
                 pnlTF.Visible = False
             Else
@@ -311,12 +336,24 @@ Public Class frmInstructions
             If pageCorrectAnswers(currentInstruction - 1) = "false" Then
                 pageDone(currentInstruction) = True
                 cmdNext.Visible = True
+                pnlControl.Visible = True
 
-                Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
+                'Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
+
+                rtbAnswer.Text = pageCorrectText(currentInstruction - 1)
+                rtbAnswer.BackColor = Color.FromArgb(231, 244, 234)
+
+                pnlAnswer.BackColor = Color.FromArgb(231, 244, 234)
+                pnlAnswer.Visible = True
 
                 pnlTF.Visible = False
             Else
-                Call RepRTBfield2("#correct#", errorText)
+                rtbAnswer.Text = errorText
+                rtbAnswer.BackColor = Color.FromArgb(255, 192, 192)
+
+                pnlAnswer.BackColor = Color.FromArgb(255, 192, 192)
+                pnlAnswer.Visible = True
+
             End If
 
             Call variables()
@@ -337,13 +374,33 @@ Public Class frmInstructions
             If correctAnswers.Contains(txtQuizAnswer.Text.ToLower.Trim) Then
                 pageDone(currentInstruction) = True
                 cmdNext.Visible = True
-                Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
+                pnlControl.Visible = True
+
+                'Call RepRTBfield2("#correct#", pageCorrectText(currentInstruction - 1))
+                rtbAnswer.Rtf = pageCorrectText(currentInstruction - 1)
+                rtbAnswer.BackColor = Color.FromArgb(231, 244, 234)
+
+                pnlAnswer.BackColor = Color.FromArgb(231, 244, 234)
+                pnlAnswer.Visible = True
+
                 pnlFITB.Visible = False
             Else
-                Call RepRTBfield2("#correct#", errorText)
+                rtbAnswer.Text = errorText
+                rtbAnswer.BackColor = Color.FromArgb(255, 192, 192)
+
+                pnlAnswer.BackColor = Color.FromArgb(255, 192, 192)
+                pnlAnswer.Visible = True
             End If
 
             Call variables()
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
+    End Sub
+
+    Private Sub txtQuizAnswer_TextChanged(sender As Object, e As EventArgs) Handles txtQuizAnswer.TextChanged
+        Try
+            pnlAnswer.Visible = False
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try

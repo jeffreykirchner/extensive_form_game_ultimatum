@@ -35,7 +35,6 @@ Partial Class frmInstructions
         Me.txtQuizAnswer = New System.Windows.Forms.TextBox()
         Me.pnlTF = New System.Windows.Forms.Panel()
         Me.cmdFalse = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.cmdTrue = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.pnlFITB.SuspendLayout()
@@ -130,41 +129,37 @@ Partial Class frmInstructions
         '
         'pnlTF
         '
+        Me.pnlTF.BackColor = System.Drawing.Color.White
         Me.pnlTF.Controls.Add(Me.cmdFalse)
-        Me.pnlTF.Controls.Add(Me.Label2)
         Me.pnlTF.Controls.Add(Me.cmdTrue)
         Me.pnlTF.Location = New System.Drawing.Point(13, 318)
         Me.pnlTF.Name = "pnlTF"
-        Me.pnlTF.Size = New System.Drawing.Size(401, 67)
+        Me.pnlTF.Size = New System.Drawing.Size(401, 92)
         Me.pnlTF.TabIndex = 18
         '
         'cmdFalse
         '
-        Me.cmdFalse.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdFalse.Location = New System.Drawing.Point(223, 23)
+        Me.cmdFalse.FlatAppearance.BorderSize = 2
+        Me.cmdFalse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFalse.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdFalse.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(197, Byte), Integer))
+        Me.cmdFalse.Location = New System.Drawing.Point(204, 30)
         Me.cmdFalse.Name = "cmdFalse"
-        Me.cmdFalse.Size = New System.Drawing.Size(90, 32)
+        Me.cmdFalse.Size = New System.Drawing.Size(103, 35)
         Me.cmdFalse.TabIndex = 19
         Me.cmdFalse.TabStop = False
         Me.cmdFalse.Text = "False"
         Me.cmdFalse.UseVisualStyleBackColor = True
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(3, 7)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(98, 20)
-        Me.Label2.TabIndex = 18
-        Me.Label2.Text = "Quiz Answer"
-        '
         'cmdTrue
         '
-        Me.cmdTrue.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdTrue.Location = New System.Drawing.Point(118, 23)
+        Me.cmdTrue.FlatAppearance.BorderSize = 2
+        Me.cmdTrue.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdTrue.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdTrue.ForeColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(197, Byte), Integer))
+        Me.cmdTrue.Location = New System.Drawing.Point(79, 30)
         Me.cmdTrue.Name = "cmdTrue"
-        Me.cmdTrue.Size = New System.Drawing.Size(90, 32)
+        Me.cmdTrue.Size = New System.Drawing.Size(103, 35)
         Me.cmdTrue.TabIndex = 17
         Me.cmdTrue.TabStop = False
         Me.cmdTrue.Text = "True"
@@ -200,7 +195,6 @@ Partial Class frmInstructions
         Me.pnlFITB.ResumeLayout(False)
         Me.pnlFITB.PerformLayout()
         Me.pnlTF.ResumeLayout(False)
-        Me.pnlTF.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -215,7 +209,6 @@ Partial Class frmInstructions
     Friend WithEvents cmdSubmitQuiz As Button
     Friend WithEvents txtQuizAnswer As TextBox
     Friend WithEvents pnlTF As Panel
-    Friend WithEvents Label2 As Label
     Friend WithEvents cmdTrue As Button
     Friend WithEvents cmdFalse As Button
     Friend WithEvents Panel1 As Panel

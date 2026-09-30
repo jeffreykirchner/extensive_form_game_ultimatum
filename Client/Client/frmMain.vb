@@ -125,7 +125,7 @@
                 Dim waitingMessageText As String
 
                 If currentPhase = "waiting" Then
-                    waitingMessageText = "Waiting for others."
+                    waitingMessageText = "Please wait."
                 Else
                     If myType = 1 Then
                         waitingMessageText = "Your offer has been sent to Player 2." & vbCrLf & "Please wait for Player 2’s response."

@@ -83,6 +83,7 @@ Public Class player
                 outstr &= windowY & ";"
 
                 outstr &= surveyLink & ";"
+                outstr &= sessionID & ";"
 
                 outstr &= myType & ";"
                 outstr &= payoffMode & ";"

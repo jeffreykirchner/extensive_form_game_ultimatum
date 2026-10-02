@@ -54,6 +54,9 @@
             mainScreen = New screen(pnlMain, New Rectangle(0, 0, pnlMain.Width, pnlMain.Height))
             fmt.Alignment = StringAlignment.Center
 
+            Text = "Client " & launchID
+            frmInstructions.Text = "Client " & launchID
+
         Catch ex As Exception
             appEventLog_Write("errorfrmChat_Load :", ex)
         End Try

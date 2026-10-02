@@ -54,6 +54,8 @@ Partial Class frmSetup
         Me.txtSurveyLink = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.chkDecimalFormat = New System.Windows.Forms.CheckBox()
+        Me.txtSessionID = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtPort
@@ -98,7 +100,7 @@ Partial Class frmSetup
         '
         Me.chkShowInstructions.AutoSize = True
         Me.chkShowInstructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkShowInstructions.Location = New System.Drawing.Point(300, 449)
+        Me.chkShowInstructions.Location = New System.Drawing.Point(300, 467)
         Me.chkShowInstructions.Name = "chkShowInstructions"
         Me.chkShowInstructions.Size = New System.Drawing.Size(172, 24)
         Me.chkShowInstructions.TabIndex = 46
@@ -127,7 +129,7 @@ Partial Class frmSetup
         'cmdSave
         '
         Me.cmdSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSave.Location = New System.Drawing.Point(14, 496)
+        Me.cmdSave.Location = New System.Drawing.Point(14, 514)
         Me.cmdSave.Name = "cmdSave"
         Me.cmdSave.Size = New System.Drawing.Size(457, 27)
         Me.cmdSave.TabIndex = 43
@@ -245,7 +247,7 @@ Partial Class frmSetup
         '
         Me.rbCents.AutoSize = True
         Me.rbCents.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rbCents.Location = New System.Drawing.Point(396, 285)
+        Me.rbCents.Location = New System.Drawing.Point(396, 303)
         Me.rbCents.Name = "rbCents"
         Me.rbCents.Size = New System.Drawing.Size(74, 24)
         Me.rbCents.TabIndex = 103
@@ -257,7 +259,7 @@ Partial Class frmSetup
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(8, 285)
+        Me.Label3.Location = New System.Drawing.Point(8, 303)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(167, 20)
         Me.Label3.TabIndex = 104
@@ -267,7 +269,7 @@ Partial Class frmSetup
         '
         Me.rbDollars.AutoSize = True
         Me.rbDollars.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rbDollars.Location = New System.Drawing.Point(308, 285)
+        Me.rbDollars.Location = New System.Drawing.Point(308, 303)
         Me.rbDollars.Name = "rbDollars"
         Me.rbDollars.Size = New System.Drawing.Size(83, 24)
         Me.rbDollars.TabIndex = 105
@@ -279,7 +281,7 @@ Partial Class frmSetup
         '
         Me.chkTestMode.AutoSize = True
         Me.chkTestMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTestMode.Location = New System.Drawing.Point(78, 449)
+        Me.chkTestMode.Location = New System.Drawing.Point(78, 467)
         Me.chkTestMode.Name = "chkTestMode"
         Me.chkTestMode.Size = New System.Drawing.Size(112, 24)
         Me.chkTestMode.TabIndex = 106
@@ -289,7 +291,7 @@ Partial Class frmSetup
         'Label4
         '
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(14, 367)
+        Me.Label4.Location = New System.Drawing.Point(14, 385)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(457, 23)
         Me.Label4.TabIndex = 107
@@ -299,7 +301,7 @@ Partial Class frmSetup
         'txtIpage8
         '
         Me.txtIpage8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIpage8.Location = New System.Drawing.Point(14, 393)
+        Me.txtIpage8.Location = New System.Drawing.Point(14, 411)
         Me.txtIpage8.Multiline = True
         Me.txtIpage8.Name = "txtIpage8"
         Me.txtIpage8.Size = New System.Drawing.Size(457, 47)
@@ -329,7 +331,7 @@ Partial Class frmSetup
         '
         Me.rbPounds.AutoSize = True
         Me.rbPounds.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rbPounds.Location = New System.Drawing.Point(219, 285)
+        Me.rbPounds.Location = New System.Drawing.Point(219, 303)
         Me.rbPounds.Name = "rbPounds"
         Me.rbPounds.Size = New System.Drawing.Size(87, 24)
         Me.rbPounds.TabIndex = 111
@@ -359,19 +361,40 @@ Partial Class frmSetup
         '
         Me.chkDecimalFormat.AutoSize = True
         Me.chkDecimalFormat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkDecimalFormat.Location = New System.Drawing.Point(300, 324)
+        Me.chkDecimalFormat.Location = New System.Drawing.Point(300, 342)
         Me.chkDecimalFormat.Name = "chkDecimalFormat"
         Me.chkDecimalFormat.Size = New System.Drawing.Size(154, 24)
         Me.chkDecimalFormat.TabIndex = 114
         Me.chkDecimalFormat.Text = "Decimal Format"
         Me.chkDecimalFormat.UseVisualStyleBackColor = True
         '
+        'txtSessionID
+        '
+        Me.txtSessionID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSessionID.Location = New System.Drawing.Point(309, 255)
+        Me.txtSessionID.Name = "txtSessionID"
+        Me.txtSessionID.Size = New System.Drawing.Size(162, 26)
+        Me.txtSessionID.TabIndex = 116
+        Me.txtSessionID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(9, 261)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(97, 20)
+        Me.Label6.TabIndex = 115
+        Me.Label6.Text = "Session ID"
+        '
         'frmSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(483, 539)
+        Me.ClientSize = New System.Drawing.Size(483, 571)
         Me.ControlBox = False
+        Me.Controls.Add(Me.txtSessionID)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.chkDecimalFormat)
         Me.Controls.Add(Me.txtSurveyLink)
         Me.Controls.Add(Me.Label28)
@@ -442,4 +465,6 @@ Partial Class frmSetup
     Friend WithEvents txtSurveyLink As TextBox
     Friend WithEvents Label28 As Label
     Friend WithEvents chkDecimalFormat As CheckBox
+    Friend WithEvents txtSessionID As TextBox
+    Friend WithEvents Label6 As Label
 End Class

@@ -48,7 +48,7 @@ Partial Class frmInstructions
         '
         Me.RichTextBox1.BackColor = System.Drawing.Color.White
         Me.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.RichTextBox1.Location = New System.Drawing.Point(75, 563)
+        Me.RichTextBox1.Location = New System.Drawing.Point(70, 519)
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.ReadOnly = True
         Me.RichTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
@@ -185,7 +185,7 @@ Partial Class frmInstructions
         Me.rtbAnswer.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(234, Byte), Integer))
         Me.rtbAnswer.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.rtbAnswer.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rtbAnswer.Location = New System.Drawing.Point(14, 14)
+        Me.rtbAnswer.Location = New System.Drawing.Point(14, 10)
         Me.rtbAnswer.Name = "rtbAnswer"
         Me.rtbAnswer.ReadOnly = True
         Me.rtbAnswer.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
@@ -199,7 +199,7 @@ Partial Class frmInstructions
         Me.pnlAnswer.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(234, Byte), Integer))
         Me.pnlAnswer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlAnswer.Controls.Add(Me.rtbAnswer)
-        Me.pnlAnswer.Location = New System.Drawing.Point(75, 821)
+        Me.pnlAnswer.Location = New System.Drawing.Point(70, 781)
         Me.pnlAnswer.Name = "pnlAnswer"
         Me.pnlAnswer.Size = New System.Drawing.Size(667, 123)
         Me.pnlAnswer.TabIndex = 20
@@ -220,6 +220,7 @@ Partial Class frmInstructions
         Me.Controls.Add(Me.pnlTF)
         Me.Controls.Add(Me.pnlFITB)
         Me.DoubleBuffered = True
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmInstructions"
         Me.Text = "Quiz"

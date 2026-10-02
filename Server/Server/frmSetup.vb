@@ -14,6 +14,7 @@
             txtWindowY.Text = getINI(sfile, "gameSettings", "windowY")
 
             txtSurveyLink.Text = getINI(sfile, "gameSettings", "surveyLink")
+            txtSessionID.Text = getINI(sfile, "gameSettings", "sessionID")
 
             txtIpage8.Text = getINI(sfile, "gameSettings", "iPage8Text")
             txtSortWindow.Text = getINI(sfile, "gameSettings", "sortWindow")
@@ -52,6 +53,7 @@
             writeINI(sfile, "gameSettings", "windowY", txtWindowY.Text)
 
             writeINI(sfile, "gameSettings", "surveyLink", txtSurveyLink.Text)
+            writeINI(sfile, "gameSettings", "sessionID", txtSessionID.Text)
 
             writeINI(sfile, "gameSettings", "iPage8Text", txtIpage8.Text)
             writeINI(sfile, "gameSettings", "sortWindow", txtSortWindow.Text)

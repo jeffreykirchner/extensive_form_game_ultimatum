@@ -33,6 +33,7 @@ Module modMain
     Public windowY As Integer
 
     Public surveyLink As String                                 'link to post experiment survey
+    Public sessionID As String                                  'session ID for survey
 
     Public payoffMode As String
     Public decimalFormat As Boolean
@@ -321,6 +322,7 @@ Module modMain
             windowY = getINI(sfile, "gameSettings", "windowY")
 
             surveyLink = getINI(sfile, "gameSettings", "surveyLink")
+            sessionID = getINI(sfile, "gameSettings", "sessionID")
 
             payoffMode = getINI(sfile, "gameSettings", "payoffMode")
             decimalFormat = getINI(sfile, "gameSettings", "decimalFormat")

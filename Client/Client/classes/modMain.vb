@@ -28,6 +28,7 @@ Module modMain
     Public windowY As Integer
 
     Public surveyLink As String                                 'link to post experiment survey
+    Public sessionID As String                                  'session ID for survey
 
     Public nodeList(100, 100) As node  'ID/Period
     Public nodeCount(100) As Integer
@@ -281,6 +282,9 @@ Module modMain
                 nextToken += 1
 
                 surveyLink = msgtokens(nextToken)
+                nextToken += 1
+
+                sessionID = msgtokens(nextToken)
                 nextToken += 1
 
                 myType = msgtokens(nextToken)
@@ -798,7 +802,7 @@ Module modMain
                                             .pnlMainClickAction(nodeList(currentNode, currentPeriod).pt2.X, nodeList(currentNode, currentPeriod).pt2.Y)
                                         End If
                                     Case 3
-                                        If nodeList(currentNode, currentPeriod).payoff21 >= 0 Then
+                                        If nodeList(currentNode, currentPeriod).payoff31 >= 0 Then
                                             .pnlMainClickAction(nodeList(currentNode, currentPeriod).pt4.X, nodeList(currentNode, currentPeriod).pt4.Y)
                                         End If
                                     Case 4

@@ -15,7 +15,8 @@
 
             If surveyLink <> "" Then
                 'Process.Start("C:\Program Files\Google\Chrome\Application\chrome.exe", surveyLink & "&student_id=" & txtIDNumber.Text & " --incognito --kiosk")
-                Process.Start("C:\Program Files\Google\Chrome\Application\chrome.exe", surveyLink & " --incognito --kiosk")
+                Dim surveyLinkWithID As String = surveyLink & "?subject_id=" & launchID & "&session_id=" & sessionID
+                Process.Start("C:\Program Files\Google\Chrome\Application\chrome.exe", surveyLinkWithID & " --incognito --kiosk")
             End If
 
             Me.Close()

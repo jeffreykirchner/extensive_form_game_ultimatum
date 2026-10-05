@@ -45,6 +45,9 @@ Module modMain
     Public submitClickTime As Date
     Public testMode As String
 
+    Public periodEarningsPartner As Double
+    Public periodEarnings As Double
+
     Public nodeListInstructions(3, 3) As node
     Public nodeCountInstructions(3) As Integer
 
@@ -483,6 +486,7 @@ Module modMain
 
                 currentPeriod = 1
                 currentNode = 1
+                currentPhase = "player 1"
 
                 If showInstructions Then
                     frmInstructions.Show()
@@ -530,6 +534,8 @@ Module modMain
 
                     'nodeListInstructions(3, 3).myColor = getMyColor(nodeListInstructions(3, 3).owner)
                     'nodeListInstructions(2, 3).myColor = getMyColor(nodeListInstructions(2, 3).owner)
+                Else
+                    .gbPayoff.Visible = True
                 End If
 
                 tickTock = 0
@@ -580,25 +586,27 @@ Module modMain
         Try
             With frmMain
 
+
+
                 If nodeList(currentNode, currentPeriod).owner = myType Then
 
-                    If myType = 1 Then
-                        .txtMessages.Text = "Click on a circle to select your offer, then press Submit."
-                    Else
-                        .txtMessages.Text = "Click on a payoff to select your response, then press Submit."
-                    End If
+                    'If myType = 1 Then
+                    '    .txtMessages.Text = "Please choose your offer now, then press Submit."
+                    'Else
+                    '    .txtMessages.Text = "Click on a payoff to select your response, then press Submit."
+                    'End If
 
                     .cmdSubmit.Visible = True
                 Else
-                    If myType = 1 Then
-                        .txtMessages.Text = "Waiting for Player 2's response"
-                        .txtMessages.Find("Player 2")
-                        .txtMessages.SelectionColor = Color.Coral
-                    Else
-                        .txtMessages.Text = "Waiting for Player 1's offer."
-                        .txtMessages.Find("Player 1")
-                        .txtMessages.SelectionColor = Color.CornflowerBlue
-                    End If
+                    'If myType = 1 Then
+                    '    .txtMessages.Text = "Waiting for Player 2's response"
+                    '    .txtMessages.Find("Player 2")
+                    '    .txtMessages.SelectionColor = Color.Coral
+                    'Else
+                    '    .txtMessages.Text = "Waiting for Player 1's offer."
+                    '    .txtMessages.Find("Player 1")
+                    '    .txtMessages.SelectionColor = Color.CornflowerBlue
+                    'End If
 
                     .cmdSubmit.Visible = False
                 End If
@@ -695,6 +703,7 @@ Module modMain
 
                 .pnlMain.Enabled = True
                 .gbPayoff.Visible = True
+                currentPhase = "player 1"
 
                 updateTxtMessages()
 
@@ -760,6 +769,9 @@ Module modMain
                 .txtProfit.Text = Format(tempEarnings, "0.00")
                 nextToken += 1
 
+                Dim tempPeriodEarningsPartner As Double = msgtokens(nextToken)
+                nextToken += 1
+
                 currentNode = 0
                 nextToken += 1
 
@@ -767,6 +779,9 @@ Module modMain
                     nodeList(i, currentPeriod).status = msgtokens(nextToken)
                     nextToken += 1
                 Next
+
+                periodEarnings = tempPeriodEarnings
+                periodEarningsPartner = tempPeriodEarningsPartner
 
                 .txtMessages.Text = "Press the ""Ready to Go On"" Button."
                 .cmdSubmit.Text = "Ready to Go On"

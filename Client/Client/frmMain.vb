@@ -124,21 +124,36 @@
             Dim g As Graphics = mainScreen.GetGraphics
 
             'if waiting show waiting message and don't draw the nodes centered left to right and top to bottom
-            If cmdSubmit.Visible = False And currentPhase IsNot "results" Then
-                Dim waitingMessageText As String
+            'If cmdSubmit.Visible = False And currentPhase IsNot "results" And currentPhase IsNot "final" Then
+            '    Dim waitingMessageText As String
 
-                If currentPhase = "waiting" Then
-                    waitingMessageText = "Please wait."
-                Else
-                    If myType = 1 Then
-                        waitingMessageText = "Your offer has been sent to Player 2." & vbCrLf & "Please wait for Player 2’s response."
-                    Else
-                        waitingMessageText = "Please wait." & vbCrLf & "Player 1’s offer will appear on this screen."
-                    End If
-                End If
+            '    If myType = 1 Then
+            '        waitingMessageText = "Your offer has been sent to Player 2." & vbCrLf & "Please wait for Player 2’s response."
+            '    Else
+            '        waitingMessageText = "Please wait." & vbCrLf & "Player 1’s offer will appear on this screen."
+            '    End If
 
+            '    g.DrawString(waitingMessageText, New Font("Arial", 18, FontStyle.Bold), Brushes.Black, pnlMain.Width / 2, 300, fmt)
+
+            '    mainScreen.flip()
+            '    Exit Sub
+            'End If
+
+
+            Dim waitingMessageText As String = ""
+
+            'player 2 waiting for player 1
+            If myType = 2 And currentPhase = "player 1" Then
+                waitingMessageText = "Please wait." & vbCrLf & "Player 1’s offer will appear on this screen."
+            End If
+
+            'player 1 waiting for player 2
+            If myType = 1 And currentPhase = "player 2" Then
+                waitingMessageText = "Your offer has been sent to Player 2." & vbCrLf & "Please wait for Player 2’s response."
+            End If
+
+            If waitingMessageText <> "" Then
                 g.DrawString(waitingMessageText, New Font("Arial", 18, FontStyle.Bold), Brushes.Black, pnlMain.Width / 2, 300, fmt)
-
                 mainScreen.flip()
                 Exit Sub
             End If
@@ -164,7 +179,24 @@
             Next
 
             'action message
-            Dim actionMessageText = "Please choose your offer now then press Submit."
+            Dim actionMessageText = ""
+
+            If currentPhase = "player 1" Or currentPhase = "player 2" Then
+                If myType = 1 Then
+                    actionMessageText = "Please choose your offer now, then press Submit."
+                Else
+                    actionMessageText = "Please choose your response now, then press Submit."
+                End If
+            Else
+                If myType = 1 Then
+                    actionMessageText = "Result: You earned $" & periodEarnings & " and Player 2 earned $" & periodEarningsPartner
+                Else
+                    actionMessageText = "Result: You earned $" & periodEarnings & " and Player 1 earned $" & periodEarningsPartner
+                End If
+            End If
+
+
+            g.DrawString(actionMessageText, New Font("Arial", 18, FontStyle.Bold), Brushes.Black, pnlMain.Width / 2, 450, fmt)
 
             mainScreen.flip()
         Catch ex As Exception
@@ -399,10 +431,15 @@
             End If
 
             cmdSubmit.Visible = False
-            txtMessages.Text = "Waiting ..."
+            'txtMessages.Text = "Waiting ..."
 
             If myType = 2 And cmdSubmit.Text = "Submit" Then
-                currentPhase = "waiting"
+                'currentPhase = "waiting"
+            ElseIf cmdSubmit.Text = "Ready to Go On" Then
+                currentPhase = "final"
+                txtMessages.Text = "Waiting for others."
+            ElseIf cmdSubmit.Text = "Submit" And myType = 1 Then
+                currentPhase = "player 2"
             End If
 
             submitClickTime = Now

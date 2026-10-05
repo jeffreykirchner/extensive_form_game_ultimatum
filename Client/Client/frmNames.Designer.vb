@@ -72,7 +72,7 @@ Partial Class frmNames
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "frmNames"
-        Me.Text = "Enter Your Name"
+        Me.Text = "The task is complete."
         Me.TopMost = True
         Me.ResumeLayout(False)
 

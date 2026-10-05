@@ -438,6 +438,8 @@ Module modMain
                         nodeList(tempNode.id, currentPeriod).countRight += 1
 
                         playerList(index).downCount(currentPeriod) += nodeList(tempNode.id, currentPeriod).sortValue1
+
+                        playerList(index).choiceLabel = tempNode.payoffLabel1
                     ElseIf tempChoice = "pay2" Then
                         tempPayoff1 = tempNode.payoff21
                         tempPayoff2 = tempNode.payoff22
@@ -445,6 +447,8 @@ Module modMain
                         nodeList(tempNode.id, currentPeriod).countDown += 1
 
                         playerList(index).downCount(currentPeriod) += nodeList(tempNode.id, currentPeriod).sortValue2
+
+                        playerList(index).choiceLabel = tempNode.payoffLabel2
                     ElseIf tempChoice = "pay3" Then
                         tempPayoff1 = tempNode.payoff31
                         tempPayoff2 = tempNode.payoff32
@@ -452,6 +456,8 @@ Module modMain
                         nodeList(tempNode.id, currentPeriod).countLeft += 1
 
                         playerList(index).downCount(currentPeriod) += nodeList(tempNode.id, currentPeriod).sortValue3
+
+                        playerList(index).choiceLabel = tempNode.payoffLabel3
                     End If
 
                     playerList(tempP1).periodEarnings = tempPayoff1
@@ -496,6 +502,8 @@ Module modMain
                         If tempNode.subNode3Id > 0 Then
                             playerList(tempP1).killPath(playerList(tempP1).nodeList(tempNode.subNode3Id, currentPeriod))
                         End If
+
+                        playerList(index).choiceLabel = tempNode.subNodeLabel1
                     ElseIf tempChoice = "sub2" Then
                         playerList(tempP1).currentNode = tempNode.subNode2Id
 
@@ -513,6 +521,8 @@ Module modMain
                         If tempNode.subNode3Id > 0 Then
                             playerList(tempP1).killPath(playerList(tempP1).nodeList(tempNode.subNode3Id, currentPeriod))
                         End If
+
+                        playerList(index).choiceLabel = tempNode.subNodeLabel2
                     ElseIf tempChoice = "sub3" Then
                         playerList(tempP1).currentNode = tempNode.subNode3Id
 
@@ -530,6 +540,8 @@ Module modMain
                         If tempNode.subNode2Id > 0 Then
                             playerList(tempP1).killPath(playerList(tempP1).nodeList(tempNode.subNode2Id, currentPeriod))
                         End If
+
+                        playerList(index).choiceLabel = tempNode.subNodeLabel3
                     End If
 
 
@@ -542,6 +554,7 @@ Module modMain
                 outstr &= playerList(index).partnerList(currentPeriod) & ","
                 outstr &= playerList(index).myType & ","
                 outstr &= tempDecisionType & ","
+                outstr &= playerList(index).choiceLabel & ","
                 outstr &= tempDecisionLength & ","
                 outstr &= tempChoice & ","
                 outstr &= tempDecisionInfo & ","
@@ -558,22 +571,26 @@ Module modMain
                 summaryDf.WriteLine(outstr)
 
                 'send results
-                If checkin = numberOfPlayers / 2 Then
-                    checkin = 0
+                'If checkin = numberOfPlayers / 2 Then
+                '    checkin = 0
 
-                    For i As Integer = 1 To numberOfPlayers
-                        playerList(i).sendPeriodResults()
+                '    For i As Integer = 1 To numberOfPlayers
+                '        playerList(i).sendPeriodResults()
 
-                        .DataGridView1.Rows(i - 1).Cells(2).Value = "Reviewing Results"
-                    Next
+                '        .DataGridView1.Rows(i - 1).Cells(2).Value = "Reviewing Results"
+                '    Next
+                'Else
+                If InStr(tempChoice, "sub") Then
+                    playerList(tempP1).sendChoice()
+                    playerList(tempP2).sendChoice()
                 Else
-                    If InStr(tempChoice, "sub") Then
-                        playerList(tempP1).sendChoice()
-                        playerList(tempP2).sendChoice()
-                    Else
-                        playerList(index).sendChoice()
-                    End If
+                    'playerList(index).sendChoice()
+                    playerList(tempP1).sendPeriodResults()
+                    playerList(tempP2).sendPeriodResults()
+                    .DataGridView1.Rows(tempP1 - 1).Cells(2).Value = "Reviewing Results"
+                    .DataGridView1.Rows(tempP2 - 1).Cells(2).Value = "Reviewing Results"
                 End If
+                'End If
 
             End With
         Catch ex As Exception
@@ -604,7 +621,17 @@ Module modMain
                 playerList(index).reviewEndTime = tempReviewEndTime
                 playerList(index).reviewClickTime = tempReviewClickTime
 
-                If checkin = numberOfPlayers Then
+                playerList(index).readyToGoOnPressed = True
+
+                Dim readyToGoOnCount As Integer = 0
+
+                For i As Integer = 1 To numberOfPlayers
+                    If playerList(i).readyToGoOnPressed Then
+                        readyToGoOnCount += 1
+                    End If
+                Next
+
+                If readyToGoOnCount = numberOfPlayers Then
 
                     'store summary data
                     For i As Integer = 1 To numberOfPlayers

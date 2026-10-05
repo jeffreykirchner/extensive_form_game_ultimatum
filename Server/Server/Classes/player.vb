@@ -35,8 +35,12 @@ Public Class player
     Public reviewEndTime As String
     Public reviewClickTime As String
 
+    Public choiceLabel As String
+
     Public lastIDSent As String
     Public lastMessageSent As String
+
+    Public readyToGoOnPressed As Boolean
 
     Public quizResponses() As String = {"", "", "", "", "", "", ""}
 
@@ -68,6 +72,7 @@ Public Class player
                 .DataGridView1.Rows(inumber - 1).Cells(4).Value = partnerList(1)
 
                 currentNode = 1
+                readyToGoOnPressed = False
 
                 'winsock can send character strings to the clients
                 Dim outstr As String = ""
@@ -397,6 +402,7 @@ Public Class player
 
                 outstr = periodEarnings & ";"
                 outstr &= earnings & ";"
+                outstr &= playerList(partnerList(currentPeriod)).periodEarnings & ";"
 
 
                 If myType = 1 Then
@@ -406,8 +412,6 @@ Public Class player
                     outstr &= playerList(partnerList(currentPeriod)).currentNode & ";"
                     outstr &= playerList(partnerList(currentPeriod)).returnTreeStatus()
                 End If
-
-                '.wsk_Col.Send("08", socketNumber, outstr)
 
                 sendMessageToClient("08", outstr)
             End With
@@ -420,9 +424,13 @@ Public Class player
         Try
             Dim outstr As String = ""
 
-            outstr = currentPeriod & ","
+            outstr = sessionID & ","
+            outstr &= currentPeriod & ","
             outstr &= inumber & ","
             outstr &= partnerList(currentPeriod) & ","
+
+            outstr &= choiceLabel & ","
+            outstr &= playerList(partnerList(currentPeriod)).choiceLabel & ","
 
             If myType = 1 Then
                 outstr &= finalNode & ","
@@ -436,19 +444,19 @@ Public Class player
             outstr &= playerList(partnerList(currentPeriod)).periodEarnings & ","
             outstr &= myType & ","
 
-            If myType = 1 Then
-                If nodeList(finalNode, currentPeriod).owner = myType Then
-                    outstr &= "True,"
-                Else
-                    outstr &= "False,"
-                End If
-            Else
-                If playerList(partnerList(currentPeriod)).nodeList(finalNode, currentPeriod).owner = myType Then
-                    outstr &= "True,"
-                Else
-                    outstr &= "False,"
-                End If
-            End If
+            'If myType = 1 Then
+            '    If nodeList(finalNode, currentPeriod).owner = myType Then
+            '        outstr &= "True,"
+            '    Else
+            '        outstr &= "False,"
+            '    End If
+            'Else
+            '    If playerList(partnerList(currentPeriod)).nodeList(finalNode, currentPeriod).owner = myType Then
+            '        outstr &= "True,"
+            '    Else
+            '        outstr &= "False,"
+            '    End If
+            'End If
 
             outstr &= decisionStartTime & ","
             outstr &= decisionClickTime & ","

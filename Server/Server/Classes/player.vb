@@ -460,7 +460,6 @@ Public Class player
 
             outstr &= decisionStartTime & ","
             outstr &= decisionClickTime & ","
-            outstr &= decisionEndTime & ","
 
             outstr &= reviewStartTime & ","
             outstr &= reviewClickTime & ","

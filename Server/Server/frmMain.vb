@@ -269,21 +269,21 @@ Public Class frmMain
                      "_" & DateTime.Now.Minute & "_" & DateTime.Now.Second
 
             'create unique file name for storing data, CSVs are excel readable, Comma Separted Value files.
-            filename = "event_data_" & tempTime & ".csv"
+            filename = "ug_session_" & sessionID & "_event_data_" & tempTime & ".csv"
             filename = System.Windows.Forms.Application.StartupPath & "\datafiles\" & filename
 
             summaryDf = File.CreateText(filename)
             str = "Period,Player,Partner,PlayerType,DecisionType,DecisionLabel,DecisionLength,DecisionDirection,DecisionInfo,DecisionNode,PeriodTime,DecisionStartTime,DecisionSubmitTime,DecisionEndTime"
             summaryDf.WriteLine(str)
 
-            filename = "summary_data_" & tempTime & ".csv"
+            filename = "ug_session_" & sessionID & "_summary_data_" & tempTime & ".csv"
             filename = System.Windows.Forms.Application.StartupPath & "\datafiles\" & filename
 
             playerDf = File.CreateText(filename)
-            str = "Session,Period,Player,Partner,MyChoice,PartnerChoice,FinalNode,FinalDirection,MyPayoff,PartnerPayoff,MyType,DecisionStartTime,DecisionSubmitTime,DecisionEndTime,ReviewStartTime,ReviewCompleteClickTime,ReviewEndTime"
+            str = "Session,Period,Player,Partner,MyChoice,PartnerChoice,FinalNode,FinalDirection,MyPayoff,PartnerPayoff,MyType,DecisionStartTime,DecisionSubmitTime,ReviewStartTime,ReviewCompleteClickTime,ReviewEndTime"
             playerDf.WriteLine(str)
 
-            filename = "replay_data_" & tempTime & ".csv"
+            filename = "ug_session_" & sessionID & "_replay_data_" & tempTime & ".csv"
             filename = System.Windows.Forms.Application.StartupPath & "\datafiles\" & filename
 
             replayDf = File.CreateText(filename)

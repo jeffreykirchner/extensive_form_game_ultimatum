@@ -263,13 +263,12 @@ Module modMain
 
                     playerDf.WriteLine("")
                     playerDf.WriteLine("Quiz Responses")
-                    outstr = "Name,Earnings,Student ID,Quiz 1 Response,Quiz 2 Response,Quiz 3 Response,Quiz 4 Response,Quiz 5 Response,Quiz 6 Response"
+                    outstr = "Name,Earnings,Quiz 1 Response,Quiz 2 Response,Quiz 3 Response,Quiz 4 Response,Quiz 5 Response,Quiz 6 Response"
                     playerDf.WriteLine(outstr)
                     For i As Integer = 1 To numberOfPlayers
 
                         outstr = .DataGridView1.Rows(i - 1).Cells(1).Value & ","
                         outstr &= .DataGridView1.Rows(i - 1).Cells(3).Value & ","
-                        outstr &= playerList(i).studentID & ","
 
                         For j As Integer = 1 To 6
                             outstr &= """" & playerList(i).quizResponses(j - 1) & ""","

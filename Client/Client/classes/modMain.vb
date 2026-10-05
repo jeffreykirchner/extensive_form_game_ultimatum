@@ -575,6 +575,8 @@ Module modMain
                     .Timer3.Enabled = True
                 End If
 
+                wskClient.Send("COMPUTER_NAME", My.Computer.Name)
+
             Catch ex As Exception
                 appEventLog_Write("error begin:", ex)
             End Try

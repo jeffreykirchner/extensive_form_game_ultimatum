@@ -165,6 +165,8 @@ Module modMain
                 Select Case msgtokens(1) 'case statement to handle each of the different types of messages
                     Case "SUBJECT_NAME"
                         takeNames(msgtokens(2), index)
+                    Case "COMPUTER_NAME"
+                        takeRemoteComputerName(index, msgtokens(2))
                     Case "01"
                         updateInstructionDisplay(msgtokens(2), index)
                     Case "02"
@@ -200,6 +202,20 @@ Module modMain
             appEventLog_Write("error takeMessage: " & sinstr & " : ", ex)
         End Try
 
+    End Sub
+
+    Public Sub takeRemoteComputerName(index As Integer, str As String)
+        Try
+            Dim msgtokens() As String = str.Split(";")
+            Dim nextToken As Integer = 0
+
+            playerList(index).remoteComputerName = msgtokens(nextToken)
+            nextToken += 1
+
+            frmServer.DataGridView1.Rows(index - 1).Cells(1).Value = playerList(index).remoteComputerName
+        Catch ex As Exception
+            appEventLog_Write("error :", ex)
+        End Try
     End Sub
 
     Public Sub finishedInstructions(ByVal sinstr As String, ByVal index As Integer)

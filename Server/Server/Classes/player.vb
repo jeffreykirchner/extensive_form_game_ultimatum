@@ -9,6 +9,7 @@ Public Class player
     Public earnings As Double            'experimental earnings
     Public ipAddress As String           'IP address of player's machine 
     Public myIPAddress As String         'IP address of player's machine 
+    Public remoteComputerName As String  'computer name of player's machine
     Public roundEarnings As Integer      'earnings for a induvidual round/period
     Public exchangeRate As Integer       'conversion rate from experimental dollars to $
     Public colorName As String           'colorName of player

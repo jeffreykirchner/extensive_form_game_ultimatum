@@ -308,7 +308,7 @@ Public Class frmMain
                 playerList(i).exchangeRate = getINI(sfile, "exchangeRate", CStr(i))
 
                 DataGridView1.Rows(i - 1).Cells(0).Value = i
-                DataGridView1.Rows(i - 1).Cells(1).Value = playerList(i).myIPAddress
+                DataGridView1.Rows(i - 1).Cells(1).Value = playerList(i).remoteComputerName
 
                 If showInstructions Then
                     DataGridView1.Rows(i - 1).Cells(2).Value = "Page 1"

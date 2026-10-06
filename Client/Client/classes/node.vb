@@ -397,4 +397,23 @@
             Return False
         End If
     End Function
+
+    Public Function isOverPayoffLabel(x As Integer, y As Integer, pt As Point) As Boolean
+        'check if the mouse is over the label above the payoff, which is 150 pixels wide and 100 pixels high
+        If x >= pt.X - 75 And x <= pt.X + 75 And y >= pt.Y - 50 And y <= pt.Y + 50 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Function isOverBranchLabel(x As Integer, y As Integer, endPt As Point) As Boolean
+        'check if the mouse is a branch label, which is 150 pixels wide and 100 pixels high
+        Dim midY As Integer = (pt1.Y + endPt.Y) / 2
+        If x >= endPt.X - 80 And x <= endPt.X + 80 And y >= midY - 75 And y <= midY + 75 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Class

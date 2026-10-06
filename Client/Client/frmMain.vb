@@ -338,6 +338,28 @@
                 End If
             End If
 
+            'check if over payoff labels
+            If tempNode.payoff11 >= 0 Then
+                If tempNode.isOverPayoffLabel(x, y, tempNode.pt3) Then
+                    selectionPt = tempNode.pt3
+                    selection = "pay1"
+                End If
+            End If
+
+            If tempNode.payoff21 >= 0 Then
+                If tempNode.isOverPayoffLabel(x, y, tempNode.pt2) Then
+                    selectionPt = tempNode.pt2
+                    selection = "pay2"
+                End If
+            End If
+
+            If tempNode.payoff31 >= 0 Then
+                If tempNode.isOverPayoffLabel(x, y, tempNode.pt4) Then
+                    selectionPt = tempNode.pt4
+                    selection = "pay3"
+                End If
+            End If
+
             'check over sub nodes
             If tempNode.subNode1Id > 0 Then
                 If tempNode.isOverPT(x, y, tempNodeList(tempNode.subNode1Id, tempPeriod).pt1) Then
@@ -355,6 +377,28 @@
 
             If tempNode.subNode3Id > 0 Then
                 If tempNode.isOverPT(x, y, tempNodeList(tempNode.subNode3Id, tempPeriod).pt1) Then
+                    selectionPt = tempNodeList(tempNode.subNode3Id, tempPeriod).pt1
+                    selection = "sub3"
+                End If
+            End If
+
+            'check if over sub node labels
+            If tempNode.subNode1Id > 0 Then
+                If tempNode.isOverBranchLabel(x, y, tempNodeList(tempNode.subNode1Id, tempPeriod).pt1) Then
+                    selectionPt = tempNodeList(tempNode.subNode1Id, tempPeriod).pt1
+                    selection = "sub1"
+                End If
+            End If
+
+            If tempNode.subNode2Id > 0 Then
+                If tempNode.isOverBranchLabel(x, y, tempNodeList(tempNode.subNode2Id, tempPeriod).pt1) Then
+                    selectionPt = tempNodeList(tempNode.subNode2Id, tempPeriod).pt1
+                    selection = "sub2"
+                End If
+            End If
+
+            If tempNode.subNode3Id > 0 Then
+                If tempNode.isOverBranchLabel(x, y, tempNodeList(tempNode.subNode3Id, tempPeriod).pt1) Then
                     selectionPt = tempNodeList(tempNode.subNode3Id, tempPeriod).pt1
                     selection = "sub3"
                 End If

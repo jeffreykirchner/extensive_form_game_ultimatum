@@ -440,6 +440,11 @@ Module modMain
                 Dim tempDecisionClickTime As String = msgtokens(nextToken)
                 nextToken += 1
 
+                If playerList(index).myType = 2 Then
+                    playerList(index).waitStartTime = msgtokens(nextToken)
+                    nextToken += 1
+                End If
+
                 Dim tempNode As node = playerList(tempP1).nodeList(playerList(tempP1).currentNode, currentPeriod)
 
                 tempNode.status = tempChoice

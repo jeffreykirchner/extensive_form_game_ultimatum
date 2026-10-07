@@ -280,7 +280,7 @@ Public Class frmMain
             filename = System.Windows.Forms.Application.StartupPath & "\datafiles\" & filename
 
             playerDf = File.CreateText(filename)
-            str = "Session,Period,Player,Partner,MyChoice,PartnerChoice,FinalNode,FinalDirection,MyPayoff,PartnerPayoff,MyType,DecisionStartTime,DecisionSubmitTime,ReviewStartTime,ReviewCompleteClickTime,ReviewEndTime"
+            str = "Session,Period,Player,Partner,MyChoice,PartnerChoice,FinalNode,FinalDirection,MyPayoff,PartnerPayoff,MyType,Player2WaitStartTime,DecisionStartTime,DecisionSubmitTime,ReviewStartTime,ReviewCompleteClickTime,ReviewEndTime"
             playerDf.WriteLine(str)
 
             filename = "ug_session_" & sessionID & "_replay_data_" & tempTime & ".csv"

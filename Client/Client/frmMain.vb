@@ -534,6 +534,7 @@
                 outstr &= decisionStart.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
                 outstr &= temp_now.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
                 outstr &= submitClickTime.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
+                outstr &= waitStart.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
 
                 selection = ""
 

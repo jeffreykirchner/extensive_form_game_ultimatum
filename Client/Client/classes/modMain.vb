@@ -41,6 +41,7 @@ Module modMain
 
     Public payoffMode As String
     Public decimalFormat As Boolean
+    Public waitStart As Date
     Public decisionStart As Date
     Public submitClickTime As Date
     Public testMode As String
@@ -543,6 +544,7 @@ Module modMain
                 selection = ""
 
                 decisionStart = Now
+                waitStart = Now
 
                 .Text = "Client " & inumber
 
@@ -702,6 +704,7 @@ Module modMain
                 currentNode = 1
 
                 decisionStart = Now
+                waitStart = Now
 
                 .pnlMain.Enabled = True
                 .gbPayoff.Visible = True

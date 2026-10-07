@@ -28,6 +28,8 @@ Public Class player
     Public dataSortScore As Integer
     Public dataDuration As Integer
 
+    Public waitStartTime As String
+
     Public decisionStartTime As String
     Public decisionEndTime As String
     Public decisionClickTime As String
@@ -459,6 +461,7 @@ Public Class player
             '    End If
             'End If
 
+            outstr &= waitStartTime & ","
             outstr &= decisionStartTime & ","
             outstr &= decisionClickTime & ","
 

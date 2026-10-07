@@ -543,8 +543,16 @@
                 outstr &= temp_now.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
                 outstr &= submitClickTime.ToString("yyyy-MM-dd HH:mm:ss.fff") & ";"
 
+                outstr &= launchID & ";"
+
                 cmdSubmit.Text = "Submit"
                 wskClient.Send("05", outstr)
+
+                If surveyLink <> "" Then
+                    'Process.Start("C:\Program Files\Google\Chrome\Application\chrome.exe", surveyLink & "&student_id=" & txtIDNumber.Text & " --incognito --kiosk")
+                    Dim surveyLinkWithID As String = surveyLink & "?subject_id=" & launchID & "&session_id=" & sessionID
+                    Process.Start("C:\Program Files\Google\Chrome\Application\chrome.exe", surveyLinkWithID & " --incognito --kiosk")
+                End If
             End If
 
             Timer4.Enabled = False

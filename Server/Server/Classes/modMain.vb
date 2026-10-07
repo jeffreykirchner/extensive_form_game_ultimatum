@@ -273,9 +273,17 @@ Module modMain
                 '.dgMain(1, index - 1).Value = playerList(index).name
                 .DataGridView1.Rows(index - 1).Cells(1).Value = playerList(index).sname
 
-                checkin += 1
+                .DataGridView1.Rows(index - 1).Cells(2).Value = "Survey"
 
-                If checkin = numberOfPlayers Then
+                Dim tempCount As Integer = 0
+
+                For i As Integer = 1 To numberOfPlayers
+                    If playerList(i).sname <> "" Then
+                        tempCount += 1
+                    End If
+                Next
+
+                If tempCount = numberOfPlayers Then
 
                     playerDf.WriteLine("")
                     playerDf.WriteLine("Quiz Responses")
@@ -636,6 +644,13 @@ Module modMain
                 playerList(index).reviewEndTime = tempReviewEndTime
                 playerList(index).reviewClickTime = tempReviewClickTime
 
+                playerList(index).sname = msgtokens(nextToken)
+                nextToken += 1
+
+                .DataGridView1.Rows(index - 1).Cells(1).Value = playerList(index).sname
+
+                .DataGridView1.Rows(index - 1).Cells(2).Value = "Survey"
+
                 playerList(index).readyToGoOnPressed = True
 
                 Dim readyToGoOnCount As Integer = 0
@@ -656,9 +671,30 @@ Module modMain
                     checkin = 0
 
                     If currentPeriod = numberOfPeriods Then
+
+                        Dim outstr As String = ""
+
+                        playerDf.WriteLine("")
+                        playerDf.WriteLine("Quiz Responses")
+                        outstr = "Name,Earnings,Quiz 1 Response,Quiz 2 Response,Quiz 3 Response,Quiz 4 Response,Quiz 5 Response,Quiz 6 Response"
+                        playerDf.WriteLine(outstr)
                         For i As Integer = 1 To numberOfPlayers
-                            playerList(i).endGame()
+
+                            outstr = .DataGridView1.Rows(i - 1).Cells(1).Value & ","
+                            outstr &= .DataGridView1.Rows(i - 1).Cells(3).Value & ","
+
+                            For j As Integer = 1 To 6
+                                outstr &= """" & playerList(i).quizResponses(j - 1) & ""","
+                            Next
+
+                            playerDf.WriteLine(outstr)
                         Next
+
+
+                        playerDf.Close()
+                        summaryDf.Close()
+                        replayDf.Close()
+
                     Else
 
                         If regimeList(currentPeriod) = "Sorted" Then

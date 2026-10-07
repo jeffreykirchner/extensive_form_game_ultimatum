@@ -24,7 +24,7 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Main = New System.Windows.Forms.TabPage()
         Me.llESI = New System.Windows.Forms.LinkLabel()
@@ -124,19 +124,20 @@ Partial Class frmMain
         Me.llESI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.llESI.Location = New System.Drawing.Point(5, 649)
         Me.llESI.Name = "llESI"
-        Me.llESI.Size = New System.Drawing.Size(408, 16)
+        Me.llESI.Size = New System.Drawing.Size(411, 16)
         Me.llESI.TabIndex = 32
         Me.llESI.TabStop = True
-        Me.llESI.Text = "Economic Science Institute, Chapman University 2008-12 ©"
+        Me.llESI.Text = "Economic Science Institute, Chapman University 2008-2026"
         '
         'Label7
         '
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(652, 649)
+        Me.Label7.Location = New System.Drawing.Point(643, 649)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(347, 32)
+        Me.Label7.Size = New System.Drawing.Size(356, 32)
         Me.Label7.TabIndex = 31
-        Me.Label7.Text = "Designed By: Jeffrey Kirchner, Vernon Smith, and Bart Wilson"
+        Me.Label7.Text = "Designed By: Jeffrey Kirchner, Stephen Rassenti, Eric Schniter, Vernon Smith, and" &
+    " Bart Wilson"
         '
         'Label8
         '
@@ -383,8 +384,8 @@ Partial Class frmMain
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7})
         Me.DataGridView1.Location = New System.Drawing.Point(2, 132)

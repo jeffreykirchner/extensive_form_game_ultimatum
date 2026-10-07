@@ -626,7 +626,7 @@ Public Class frmMain
 
     Private Sub llESI_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llESI.LinkClicked
         Try
-            System.Diagnostics.Process.Start("http://www.chapman.edu/esi/")
+            System.Diagnostics.Process.Start("https://github.com/jeffreykirchner/extensive_form_game_ultimatum")
         Catch ex As Exception
             appEventLog_Write("error :", ex)
         End Try

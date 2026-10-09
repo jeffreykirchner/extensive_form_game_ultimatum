@@ -336,6 +336,21 @@ Public Class player
         End Try
     End Sub
 
+    Public Sub hideShowClients()
+        Try
+            With frmServer
+                Dim outstr As String
+
+                outstr = currentShowState & ";"
+                '.wsk_Col.Send("12", socketNumber, outstr)
+
+                sendMessageToClient("10", outstr)
+            End With
+        Catch ex As Exception
+            appEventLog_Write("error hideShowClients:", ex)
+        End Try
+    End Sub
+
     Public Sub finishedInstructions()
         Try
             With frmServer

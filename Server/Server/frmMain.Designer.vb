@@ -188,7 +188,7 @@ Partial Class frmMain
         Me.cmdRecoverClient.Enabled = False
         Me.cmdRecoverClient.Image = CType(resources.GetObject("cmdRecoverClient.Image"), System.Drawing.Image)
         Me.cmdRecoverClient.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdRecoverClient.Location = New System.Drawing.Point(507, 65)
+        Me.cmdRecoverClient.Location = New System.Drawing.Point(507, 69)
         Me.cmdRecoverClient.Name = "cmdRecoverClient"
         Me.cmdRecoverClient.Size = New System.Drawing.Size(126, 44)
         Me.cmdRecoverClient.TabIndex = 36
@@ -221,11 +221,11 @@ Partial Class frmMain
         Me.cmdEnd.Enabled = False
         Me.cmdEnd.Image = CType(resources.GetObject("cmdEnd.Image"), System.Drawing.Image)
         Me.cmdEnd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdEnd.Location = New System.Drawing.Point(507, 15)
+        Me.cmdEnd.Location = New System.Drawing.Point(507, 21)
         Me.cmdEnd.Name = "cmdEnd"
         Me.cmdEnd.Size = New System.Drawing.Size(126, 44)
         Me.cmdEnd.TabIndex = 33
-        Me.cmdEnd.Text = "       End Early"
+        Me.cmdEnd.Text = "      Hide " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Clients"
         '
         'cmdExchange
         '

@@ -53,6 +53,8 @@ Module modMain
     Public nodeList(100, 100) As node  'ID/Period
     Public nodeCount(100) As Integer
 
+    Public currentShowState As String = "show"
+
 #Region " General Functions "
     Public Sub main(ByVal args() As String)
         connectionCount = 0

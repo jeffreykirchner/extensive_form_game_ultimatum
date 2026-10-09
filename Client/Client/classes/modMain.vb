@@ -59,6 +59,7 @@ Module modMain
     Public currentPhase As String = "player 1"
 
 
+
 #Region " Winsock Code "
     Private Sub wskClient_DataArrival(ByVal sender As Object, ByVal e As WinsockDataArrivalEventArgs) Handles wskClient.DataArrival
         Try
@@ -235,7 +236,7 @@ Module modMain
                 Case "09"
                     startNextPeriod(msgtokens(1))
                 Case "10"
-
+                    hideShowClient(msgtokens(1))
                 Case "11"
 
                 Case "12"
@@ -674,6 +675,30 @@ Module modMain
             numberOfPeriods = msgtokens(0)
         Catch ex As Exception
             appEventLog_Write("error endEarly:", ex)
+        End Try
+    End Sub
+
+    Public Sub hideShowClient(ByVal sinstr As String)
+        Try
+            'hide or show the client window
+            With frmMain
+                Dim msgtokens() As String = Split(sinstr, ";")
+                Dim nextToken As Integer = 0
+
+                If msgtokens(nextToken) = "hide" Then
+                    .Hide()
+                    frmInstructions.Hide()
+                ElseIf msgtokens(nextToken) = "show" Then
+                    If showInstructions Then
+                        frmInstructions.Show()
+                    Else
+                        .Show()
+                    End If
+                End If
+
+            End With
+        Catch ex As Exception
+            appEventLog_Write("error hideShowClient:", ex)
         End Try
     End Sub
 

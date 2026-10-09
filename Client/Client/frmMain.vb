@@ -499,11 +499,13 @@
 
     Private Sub Timer3_Tick(sender As System.Object, e As System.EventArgs) Handles Timer3.Tick
         Try
-            Timer3.Interval = rand(20000, 1000)
+
 
             If frmInstructions.Visible Then
+                Timer3.Interval = rand(1500, 500)
                 doTestModeInstructions()
             Else
+                Timer3.Interval = rand(10000, 500)
                 doTestMode()
             End If
 

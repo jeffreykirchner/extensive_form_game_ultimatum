@@ -587,13 +587,21 @@ Public Class frmMain
         Try
             'end experiment early
 
+            If currentShowState = "show" Then
+                currentShowState = "hide"
+                cmdEnd.Text = cmdEnd.Text.Replace("Hide", "Show")
+            Else
+                currentShowState = "show"
+                cmdEnd.Text = cmdEnd.Text.Replace("Show", "Hide")
+            End If
+
             Dim i As Integer
-            cmdEnd.Enabled = False
+            'cmdEnd.Enabled = False
 
             numberOfPeriods = currentPeriod
 
             For i = 1 To numberOfPlayers
-                playerList(i).endEarly()
+                playerList(i).hideShowClients()
             Next
         Catch ex As Exception
             appEventLog_Write("error cmdEnd_Click:", ex)
